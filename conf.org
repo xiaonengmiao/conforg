@@ -3,7 +3,7 @@
   Config files for emacs, neovim, bash and more,
   organized in a single org-mode file.
 
-  Inspired by [larstvei/dot-emacs](https://github.com/larstvei/dot-emacs).
+  Inspired by [[https://github.com/larstvei/dot-emacs][larstvei/dot-emacs]].
 
 ** Emacs
 
