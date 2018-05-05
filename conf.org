@@ -1,10 +1,30 @@
-* Configurations
+#+TITLE: A monolithic configuration file in org-mode
+#+AUTHOR: Xiaoyu Wei
+#+BABEL: :cache yes
+#+LATEX_HEADER: \usepackage{parskip}
+#+LATEX_HEADER: \usepackage{inconsolata}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+PROPERTY: header-args :tangle yes
 
+* Getting started
   Config files for emacs, neovim, bash and more,
-  organized in a single org-mode file.
-
+  organized in a single [[http://orgmode.org][Org mode]] file.
   Inspired by [[https://github.com/larstvei/dot-emacs][larstvei/dot-emacs]].
 
+  To get started, first download the file
+  #+BEGIN_SRC sh :tangle no
+    wget https://raw.githubusercontent.com/xywei/conforg/master/conf.org
+  #+END_SRC
+
+  Make your backups.
+
+  Then run the scrip to tangle.
+
+  The process generates and installs the dot files for the included programs.
+  To finish the setup for an individual program, see the corresponding
+  section for more information.
+
+* Configurations
 ** Emacs
 
 ** Neovim
