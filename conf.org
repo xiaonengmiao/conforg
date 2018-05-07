@@ -16,14 +16,20 @@
     wget https://raw.githubusercontent.com/xywei/conforg/master/conf.org
   #+END_SRC
 
-  Make your backups.
+  *Make your backups.*
 
-  Then run the scrip to tangle.
+  Then run the scrip to tangle. You need Emacs and Org-mode, of course.
+  #+BEGIN_SRC sh :tangle no
+    emacs -Q --batch --eval '(require (quote org))' \
+                     --eval '(org-babel-tangle-file "conf.org")'
+  #+END_SRC
 
   The process generates and installs the dot files for the included programs.
+  Note that it will overwrite all the concerned files, so make sure to backup
+  your own stuff first.
+
   To finish the setup for an individual program, see the corresponding
   section for more information.
-
 
 * Configurations
 ** Emacs
