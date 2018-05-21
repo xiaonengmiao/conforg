@@ -368,7 +368,6 @@
 **** Snippets
      Here are some snippets that I would like to have on all my machines
      
-     
 ** Firefox
 
    The configs for Firefox allows easily resetting it my `rm -rf ~/.mozilla` and
@@ -457,7 +456,6 @@
        *.ipynb
      #+END_SRC
 
-
 ** Neovim
 
 ** Xmodmap
@@ -506,7 +504,7 @@
     Just to add some fun..
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       if [ -f $CONFORG_DIR/contrib/bash-insulter/src/bash.command-not-found ]; then
-	source $CONFORG_DIR/bash-insulter/src/bash.command-not-found
+	source $CONFORG_DIR/contrib/bash-insulter/src/bash.command-not-found
       fi
     #+END_SRC
 
@@ -534,7 +532,6 @@
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export PIP_REQUIRE_VIRTUALENV=false
     #+END_SRC
-<<<<<<< HEAD
 
 *** Command history
     Save 1000 commands and enable history sharing among all terminals
@@ -609,9 +606,8 @@
     - dircolors.ansi-universal
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export DIRCOLORTHEME='dircolors.256dark'
-      eval `dircolors \
-              $CONFORG_DIR/contrib/dircolors-solarized/\
-              ${DIRCOLORTHEME:-dircolors.256dark}`
+      export DIRCOLOR_DIR=$CONFORG_DIR/contrib/dircolors-solarized
+      eval `dircolors $DIRCOLOR_DIR/${DIRCOLORTHEME:-dircolors.256dark}`
       zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
     #+END_SRC
 
