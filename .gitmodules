@@ -1,3 +1,6 @@
 [submodule "contrib/dircolors-solarized"]
 	path = contrib/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
+[submodule "contrib/bash-insulter"]
+	path = contrib/bash-insulter
+	url = https://github.com/hkbakke/bash-insulter.git

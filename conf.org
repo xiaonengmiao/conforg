@@ -509,6 +509,7 @@
 	source $CONFORG_DIR/bash-insulter/src/bash.command-not-found
       fi
     #+END_SRC
+
 *** Environment variables
     Set PATH to include:
     - cli-utils: my scripts
@@ -533,6 +534,7 @@
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export PIP_REQUIRE_VIRTUALENV=false
     #+END_SRC
+<<<<<<< HEAD
 
 *** Command history
     Save 1000 commands and enable history sharing among all terminals
