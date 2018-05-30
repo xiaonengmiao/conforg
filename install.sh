@@ -5,3 +5,5 @@ mkdir -p $HOME/.mozilla
 
 emacs -Q --batch --eval '(require (quote org))' \
   --eval '(org-babel-tangle-file "conf.org")'
+
+xrdb ~/.Xresources

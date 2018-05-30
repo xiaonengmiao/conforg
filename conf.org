@@ -458,6 +458,27 @@
 
 ** Neovim
 
+** URXVT
+   Scrolling control
+   #+BEGIN_SRC conf :tangle "~/.Xresources"
+     ! do not scroll with output
+     URxvt*scrollTtyOutput: false
+
+     ! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+     URxvt*scrollWithBuffer: true
+
+     ! scroll back to the bottom on keypress
+     URxvt*scrollTtyKeypress: true
+
+     ! hide scroll bar
+     URxvt.scrollBar: false
+   #+END_SRC
+   
+   Font (install hack font from `extra/ttf-hack`
+   #+BEGIN_SRC conf :tangle "~/.Xresources"
+     URxvt.font: xft:hack:size=10
+   #+END_SRC
+   
 ** Xmodmap
    Map Capslock to be Esc
    #+BEGIN_SRC conf :tangle "~/.Xmodmap"
