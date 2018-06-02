@@ -598,6 +598,14 @@
       alias egrep='egrep --color=auto'
     #+END_SRC
 
+*** Convenient aliases
+    Some aliases for ls
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      alias ll='ls -alhF'
+      alias la='ls -A'
+      alias l='ls -CF'
+    #+END_SRC
+
 *** Dircolors
     Solarized dircolors. Choices are:
     - dircolors.256dark
