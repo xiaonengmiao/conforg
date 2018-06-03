@@ -4,3 +4,6 @@
 [submodule "contrib/bash-insulter"]
 	path = contrib/bash-insulter
 	url = https://github.com/hkbakke/bash-insulter.git
+[submodule "contrib/i3-renameworkspaces"]
+	path = contrib/i3-renameworkspaces
+	url = https://github.com/mh21/i3-renameworkspaces.git
