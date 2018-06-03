@@ -456,6 +456,33 @@
        *.ipynb
      #+END_SRC
 
+** i3
+   Some added customization based on generated i3 config file.
+   At the moment it has to be added MANUALLY to =~/.config/i3/config=
+   Note that =i3-renameworkspaces= needs some perl modules
+   - =AnyEvent::I3= available as =any/perl-anyevent-i3=
+   - =Linux::Itodify2= available from AUR as =aur/perl-linux-inotify2=
+   #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/generated_by_conforg
+     # Dynamic workspace naming
+     exec_always --no-startup-id exec <<conforg-dir>>/contrib/i3-renameworkspaces/i3-renameworkspaces.pl
+
+     # Lock screen
+     bindsym $mod+Shift+d exec slock
+   #+END_SRC
+   
+   Multimedia key support
+   #+BEGIN_SRC conf :tangle ~/.config/i3/generated_by_conforg
+     # Volume control from my daskeyboard
+     bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+     bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+     bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+
+     # Brightness control via xbacklight
+     # using two seldomly used keys
+     bindsym Pause exec --no-startup-id xbacklight -inc 10
+     bindsym Print exec --no-startup-id xbacklight -dec 10
+   #+END_SRC
+   
 ** Neovim
 
 ** X Resources
