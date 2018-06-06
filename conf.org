@@ -616,19 +616,6 @@
       setopt inc_append_history
     #+END_SRC
     
-*** Conda
-    Starting from conda 4.4 it uses `conda activate`, which is nice
-    #+BEGIN_SRC sh :tangle "~/.zshrc"
-      . $CONDA_DIR/etc/profile.d/conda.sh
-    #+END_SRC
-*** Prompt line
-    When there is a custom promptline script, load it
-    #+BEGIN_SRC sh :tangle "~/.zshrc"
-      if [ -f $CLI_UTILS_DIR/promptline ]; then
-	source $CLI_UTILS_DIR/promptline
-      fi
-    #+END_SRC
-
 *** Auto completion
     Enable completion
     #+BEGIN_SRC sh :tangle "~/.zshrc"
@@ -641,6 +628,27 @@
       GIT_COMPLETION_BASH=/usr/share/git/completion/git-completion.zsh
       if [ -f $GIT_COMPLETION_ZSH ]; then
 	zstyle ':completion:*:*:git:*' script $GIT_COMPLETION_ZSH
+      fi
+    #+END_SRC
+
+*** Conda
+    Starting from conda 4.4 it uses `conda activate`, which is nice
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      . $CONDA_DIR/etc/profile.d/conda.sh
+    #+END_SRC
+    
+    Conda commands autocompletion, making startup much slower
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      fpath+=$CONFORG_DIR/contrib/conda-zsh-completion
+      compinit conda
+      zstyle ':completion::complete:*' use-cache 1
+    #+END_SRC
+
+*** Prompt line
+    When there is a custom promptline script, load it
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      if [ -f $CLI_UTILS_DIR/promptline ]; then
+	source $CLI_UTILS_DIR/promptline
       fi
     #+END_SRC
 
