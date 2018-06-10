@@ -586,10 +586,8 @@
 *** Environment variables
     Set PATH to include:
     - cli-utils: my scripts
-    - conda
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export PATH=$CLI_UTILS_DIR:$PATH
-      export PATH=$HOME/miniconda3/bin:$PATH
     #+END_SRC
     
     Set default editor to be neovim
