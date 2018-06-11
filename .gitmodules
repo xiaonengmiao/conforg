@@ -9,4 +9,4 @@
 	url = https://github.com/mh21/i3-renameworkspaces.git
 [submodule "contrib/conda-zsh-completion"]
 	path = contrib/conda-zsh-completion
-	url = https://github.com/esc/conda-zsh-completion.git
+	url = https://github.com/xywei/conda-zsh-completion.git
