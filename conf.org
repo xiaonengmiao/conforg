@@ -31,7 +31,11 @@
   To finish the setup for an individual program, see the corresponding
   section for more information.
   (Tip: search for MANUALLY in all caps to find those places).
-
+  
+  For the best experience, having a comprehensive set of fonts installed is
+  recommended. The following packages are helpful to simplify the process:
+  - =aur/all-repository-fonts=
+  - =aur/nerd-fonts-complete=
 
 * Meta-configurations
   First of all, set some global options to help setting things up.
@@ -497,6 +501,9 @@
      set colorscheme snow
      set preview_images true
    #+END_SRC
+   
+   Then there is a plugin that sets glyph for each file included in =contrib/=
+   and is set up by running =install.sh=.
 
 ** X Resources
 *** Header
@@ -723,6 +730,7 @@
       eval `dircolors $DIRCOLOR_DIR/${DIRCOLORTHEME:-dircolors.256dark}`
       zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
     #+END_SRC
+
 
 * Boneyard
 
