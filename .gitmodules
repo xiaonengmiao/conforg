@@ -10,3 +10,6 @@
 [submodule "contrib/conda-zsh-completion"]
 	path = contrib/conda-zsh-completion
 	url = https://github.com/xywei/conda-zsh-completion.git
+[submodule "contrib/ranger_devicons"]
+	path = contrib/ranger_devicons
+	url = https://github.com/alexanderjeurissen/ranger_devicons.git
