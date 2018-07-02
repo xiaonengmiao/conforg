@@ -178,7 +178,7 @@
           linum-relative
           magit
           org-plus-contrib
-	  org-ref
+          org-ref
           yasnippet
          ) "a list of packages to ensure are installed at launch.")
     #+END_SRC
@@ -289,10 +289,17 @@
     #+END_SRC
 
 **** References
-     For org-ref
+     For org-ref. Load the module and set keybindings or inserting citations and
+     cross-references.
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
        (with-eval-after-load 'org
          (require 'org-ref))
+       (add-hook 'org-mode-hook
+         (lambda ()
+	   (setq org-latex-prefer-user-labels t)
+           (local-set-key (kbd "C-c c") 'org-ref-helm-insert-cite-link)
+           (local-set-key (kbd "C-c r") 'org-ref-helm-insert-ref-link)
+           ))
      #+END_SRC
 
 **** Writing layout
