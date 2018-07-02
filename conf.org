@@ -288,6 +288,12 @@
       (add-hook 'org-mode-hook 'turn-on-auto-fill)
     #+END_SRC
 
+    Toggle latex preview with fewer key strokes
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (add-hook 'org-mode-hook
+         (lambda () (local-set-key (kbd "C-c p") 'org-toggle-latex-fragment)))
+    #+END_SRC
+
 **** References
      For org-ref. Load the module and set keybindings or inserting citations and
      cross-references.
@@ -296,7 +302,7 @@
          (require 'org-ref))
        (add-hook 'org-mode-hook
          (lambda ()
-	   (setq org-latex-prefer-user-labels t)
+           (setq org-latex-prefer-user-labels t)
            (local-set-key (kbd "C-c c") 'org-ref-helm-insert-cite-link)
            (local-set-key (kbd "C-c r") 'org-ref-helm-insert-ref-link)
            ))
