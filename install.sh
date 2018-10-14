@@ -23,6 +23,9 @@ box_out "Setting up directory structure.."
 
   mkdir -p $HOME/.config/nvim;
   mkdir -p $HOME/.config/i3;
+
+  mkdir -p $HOME/.tmux;
+  mkdir -p $HOME/.tmux/plugins;
 )
 
 box_out "Parsing conf.org.."
@@ -46,3 +49,10 @@ fi
 cd contrib/ranger_devicons && make install \
   >> /tmp/conforg.log 2>&1
 
+# TPM
+TPMPATH=$HOME/.tmux/plugins/tpm
+if ! [ -d $TPMPATH/.git ]; then
+  git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+else
+  cd $TPMPATH && git pull
+fi;
