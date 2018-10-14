@@ -590,7 +590,7 @@
     #+END_SRC
    
 ** Neovim
-
+** Tmux
 ** Ranger
    #+BEGIN_SRC conf yes :tangle ~/.config/ranger/rc.conf
      # DO NOT EDIT
@@ -663,6 +663,7 @@
    #+END_SRC
 
 ** Zsh
+*** General Information
    This section contains configurations for zshell. To change the default shell
    for the current user, run
    #+BEGIN_SRC sh :tangle no
@@ -819,6 +820,17 @@
       [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
     #+END_SRC
 
+*** Theme: PowerLevel9k
+    Theme settings
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      POWERLEVEL9K_COLOR_SCHEME='light'
+      POWERLEVEL9K_MODE='nerdfont-complete'
+      POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir)
+      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+      source  $CONFORG_DIR/contrib/powerlevel9k/powerlevel9k.zsh-theme
+    #+END_SRC
+
 *** Colorful aliases
     Enable color support of ls and also add handy aliases
     #+BEGIN_SRC sh :tangle "~/.zshrc"
@@ -849,6 +861,16 @@
     plugins.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias emacs='SHELL=/bin/bash emacs'
+    #+END_SRC
+    
+    A simple calculator.
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      autoload -U zcalc
+      function __calc_plugin {
+	  zcalc -e "$*"
+      }
+      aliases[calc]='noglob __calc_plugin'
+      aliases[=]='noglob __calc_plugin'
     #+END_SRC
 
 *** Dircolors

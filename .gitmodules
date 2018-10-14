@@ -16,3 +16,6 @@
 [submodule "contrib/vim-plug"]
 	path = contrib/vim-plug
 	url = https://github.com/junegunn/vim-plug.git
+[submodule "contrib/powerlevel9k"]
+	path = contrib/powerlevel9k
+	url = https://github.com/bhilburn/powerlevel9k.git
