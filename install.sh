@@ -1,6 +1,7 @@
 #!/bin/bash
 
 LOGFILE=/tmp/conforg.log
+DEFAULT_CONFORG_DIR=$HOME/.conforg
 
 function box_out() {
   local s="$*"
@@ -12,6 +13,8 @@ function box_out() {
  -${s//?/-}-"
   tput sgr 0
 }
+
+box_out "Greetings. Please make sure you cloned the repo under $DEFAULT_CONFORG_DIR."
 
 box_out "Setting up directory structure.."
 # in a subshell
@@ -56,3 +59,9 @@ if ! [ -d $TPMPATH/.git ]; then
 else
   cd $TPMPATH && git pull
 fi;
+
+set +o xtrace
+
+box_out "Almost done: manual setup required."
+echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
+echo "- To finish setting up Neovim plugins, open up neovim and run ':PlugInstall'."
