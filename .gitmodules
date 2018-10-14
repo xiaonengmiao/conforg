@@ -13,3 +13,6 @@
 [submodule "contrib/ranger_devicons"]
 	path = contrib/ranger_devicons
 	url = https://github.com/alexanderjeurissen/ranger_devicons.git
+[submodule "contrib/vim-plug"]
+	path = contrib/vim-plug
+	url = https://github.com/junegunn/vim-plug.git
