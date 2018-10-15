@@ -998,6 +998,11 @@
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       bindkey -e
     #+END_SRC
+    
+    Fix GPG complaints
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      export GPG_TTY=$(tty)
+    #+END_SRC
 
 *** Bash insulter
     Just to add some fun..
