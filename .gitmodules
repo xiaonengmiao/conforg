@@ -19,3 +19,6 @@
 [submodule "contrib/powerlevel9k"]
 	path = contrib/powerlevel9k
 	url = https://github.com/bhilburn/powerlevel9k.git
+[submodule "contrib/gitignore"]
+	path = contrib/gitignore
+	url = git@github.com:github/gitignore

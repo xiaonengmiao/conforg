@@ -3,6 +3,9 @@
 LOGFILE=/tmp/conforg.log
 DEFAULT_CONFORG_DIR=$HOME/.conforg
 
+GITIGNORE_IN=./contrib/gitignore
+GITIGNORE_OUT=$HOME/.gitignore_global
+
 function box_out() {
   local s="$*"
   tput setaf 3
@@ -57,15 +60,24 @@ cd ../..
 # Vim-plug
 cp contrib/vim-plug/plug.vim /home/xywei/.config/nvim/autoload/plug.vim
 
-# TPM
+# TPM (auto update if exists)
 TPMPATH=$HOME/.tmux/plugins/tpm
 if ! [ -d $TPMPATH/.git ]; then
   git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 else
-  cd $TPMPATH && git pull
+  cd $TPMPATH && git pull && cd -
 fi;
 
 set +o xtrace
+echo "+ Adding contents to .gitignore_global"
+
+# .gitignore_global
+cat $GITIGNORE_IN/Global/*.gitignore >> $GITIGNORE_OUT
+cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
+
+# Python files are not to be ignored (e.g. __init__.py)
+echo "!*.py" >> $GITIGNORE_OUT
+
 
 box_out "Almost done: manual setup required."
 echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
