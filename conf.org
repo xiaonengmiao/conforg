@@ -36,6 +36,14 @@
   recommended. The following packages are helpful to simplify the process:
   - =aur/all-repository-fonts=
   - =aur/nerd-fonts-complete=
+    
+  For the complete setup with some addons (e.g. TPM, vim-plug), use the included
+  script `install.sh`. Before running the install script, make sure that the
+  repository is cloned as `$HOME/.conforg` and all submodules are downloaded
+  #+BEGIN_SRC sh :tangle no
+      git submodule update --init --recursive
+  #+END_SRC
+
 
 * Meta-configurations
   First of all, set some global options to help setting things up.
