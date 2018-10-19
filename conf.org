@@ -591,6 +591,161 @@
     #+END_SRC
    
 ** Neovim
+*** Vim-Plug General Plugin List
+    Install plugins under `.vim/plugged`.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      call plug#begin('~/.vim/plugged')
+    #+END_SRC
+    
+    Vim-airline.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'vim-airline/vim-airline'
+      Plug 'vim-airline/vim-airline-themes'
+    #+END_SRC
+    
+    VOom: an outliner based on folding marks.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'vim-voom/VOoM'
+    #+END_SRC
+    
+    Syntax highlighting for prm files.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'xywei/vim-dealii-prm'
+    #+END_SRC
+    
+    Neomake (note: do not use it with other async
+    frameworks like ale).
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'neomake/neomake'
+    #+END_SRC
+
+    Help visually display indent levels
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'nathanaelkane/vim-indent-guides'
+    #+END_SRC
+    
+    Display ansi escape sequences in a readable way
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'IngoHeimbach/vim-plugin-AnsiEsc'
+    #+END_SRC
+    
+    Tag bar.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'majutsushi/tagbar'
+    #+END_SRC
+    
+    CtrlP.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'ctrlpvim/ctrlp.vim'
+    #+END_SRC
+    
+    NerdTree with lazy loading.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    #+END_SRC
+    
+    Easy align.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'junegunn/vim-easy-align'
+    #+END_SRC
+
+    Enable stuff like ds, cs and yss
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'tpope/vim-surround'
+    #+END_SRC
+
+    Auto comment manipulation.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'tpope/vim-commentary'
+    #+END_SRC
+    
+    Match pairs of quotes etc.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'Raimondi/delimitMate'
+    #+END_SRC
+
+*** Plugin Parameters
+**** TagBar
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:tagbar_width = 50
+      let g:tagbar_type_tex = {
+	    \ 'ctagstype' : 'latex',
+	    \ 'kinds'     : [
+	    \ 's:sections',
+	    \ 'g:graphics:1',
+	    \ 'l:labels:1',
+	    \ 'r:refs:1',
+	    \ 'p:pagerefs:1'
+	    \ ],
+	    \ 'sort'    : 0
+	    \ }
+    #+END_SRC
+
+**** CtrlP
+     Ignore certain file types.
+     (Install `ag` from `community/the_silver_searcher`.)
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:ctrlp_cmd = 'CtrlP'
+      let g:ctrlp_working_path_mode = 'ra'
+      set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.gz
+      let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+    #+END_SRC
+
+**** Vim-Commentary
+     Set commentstring for files not supported by default
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      autocmd FileType apache setlocal commentstring=#\ %s
+    #+END_SRC
+
+**** delimitMate
+    Do not automatically close stuff.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let delimitMate_autoclose = 0
+    #+END_SRC
+
+*** Language-Specific Plugins
+
+*** Key Maps
+    Toggle outline using VOom.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      nnoremap <Leader>v :VoomToogle<cr>
+      nnoremap <Leader>o :VoomToogle<cr>
+    #+END_SRC
+
+    Set how airline looks and tmux integration.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:airline_powerline_fonts = 1
+      let g:airline_theme='sol'
+      let g:airline#extensions#tabline#enabled = 1
+      let g:airline#extensions#tmuxline#enabled = 1
+      let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-statusline-colors.conf"
+    #+END_SRC
+    
+    Toggle tag bar.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      nmap <Leader>t :TagbarToggle<cr>
+      nmap tb :TagbarToggle<cr>
+    #+END_SRC
+    
+    Start fuzzy search
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:ctrlp_map = '<c-p>'
+    #+END_SRC
+
+    Start interactive EasyAlign.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      xmap ga <Plug>(EasyAlign)
+      nmap ga <Plug>(EasyAlign)
+      xmap <Leader>a <Plug>(EasyAlign)
+      nmap <Leader>a <Plug>(EasyAlign)
+    #+END_SRC
+    
+    Toggle nerd-tree.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      map <C-n> :NERDTreeToggle<CR>
+      nmap <Leader>f :NERDTreeToggle<cr>
+    #+END_SRC
+
 ** Tmux
 *** Basic Settings.
    Note: this config does not unset all default keybindings, for example,
@@ -1057,58 +1212,16 @@
       fi
     #+END_SRC
 
-*** Conda
-    Starting from conda 4.4 it uses `conda activate`, which is nice
+    Taskwarrior. For Arch Linux, install `community/task`.
+    This also sets the alias `t`.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
-      . $CONDA_DIR/etc/profile.d/conda.sh
-    #+END_SRC
-    
-    Conda commands autocompletion, making startup much slower
-    #+BEGIN_SRC sh :tangle "~/.zshrc"
-      fpath+=$CONFORG_DIR/contrib/conda-zsh-completion
-      compinit conda
-      zstyle ':completion::complete:*' use-cache 1
-    #+END_SRC
+      zstyle ':completion:*:*:task:*' verbose yes
+      zstyle ':completion:*:*:task:*:descriptions' format '%U%B%d%b%u'
 
-*** Prompt line
-    When there is a custom promptline script, load it
-    #+BEGIN_SRC sh :tangle "~/.zshrc"
-      if [ -f $CLI_UTILS_DIR/promptline ]; then
-	source $CLI_UTILS_DIR/promptline
-      fi
-    #+END_SRC
+      zstyle ':completion:*:*:task:*' group-name ''
 
-*** Keyboard (Delete, Meta, PageUp etc.)
-    Setup zkbd to use some keys in zsh. It prompts for an interactive setup when
-    used for the first time. Note that the file generated sometimes does not
-    have the correct filename.
-    #+BEGIN_SRC sh :tangle "~/.zshrc"
-      autoload zkbd
-      [[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE ]] && zkbd
-      source ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE
-
-      [[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
-      [[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
-      [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
-      [[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-history
-      [[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
-      [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
-      [[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-history
-      [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
-      [[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
-      [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
-      [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
-    #+END_SRC
-
-*** Theme: PowerLevel9k
-    Theme settings
-    #+BEGIN_SRC sh :tangle "~/.zshrc"
-      POWERLEVEL9K_COLOR_SCHEME='light'
-      POWERLEVEL9K_MODE='nerdfont-complete'
-      POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir)
-      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
-      source  $CONFORG_DIR/contrib/powerlevel9k/powerlevel9k.zsh-theme
+      alias t=task
+      compdef _task t=task
     #+END_SRC
 
 *** Colorful aliases
@@ -1197,3 +1310,58 @@
 
 This place is for configs that are gathered over time and are not ready
 to land yet.
+*** Conda
+    Starting from conda 4.4 it uses `conda activate`, which is nice
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      . $CONDA_DIR/etc/profile.d/conda.sh
+    #+END_SRC
+    
+    Conda commands autocompletion, making startup much slower
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      fpath+=$CONFORG_DIR/contrib/conda-zsh-completion
+      compinit conda
+      zstyle ':completion::complete:*' use-cache 1
+    #+END_SRC
+
+*** Prompt line
+    When there is a custom promptline script, load it
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      if [ -f $CLI_UTILS_DIR/promptline ]; then
+	source $CLI_UTILS_DIR/promptline
+      fi
+    #+END_SRC
+
+*** Keyboard (Delete, Meta, PageUp etc.)
+    Setup zkbd to use some keys in zsh. It prompts for an interactive setup when
+    used for the first time. Note that the file generated sometimes does not
+    have the correct filename.
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      autoload zkbd
+      [[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE ]] && zkbd
+      source ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE
+
+      [[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
+      [[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
+      [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
+      [[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-history
+      [[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
+      [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
+      [[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-history
+      [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
+      [[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
+      [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
+      [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
+    #+END_SRC
+
+*** Theme: PowerLevel9k
+    Theme settings
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      POWERLEVEL9K_COLOR_SCHEME='light'
+      POWERLEVEL9K_MODE='nerdfont-complete'
+      POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir)
+      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+      source  $CONFORG_DIR/contrib/powerlevel9k/powerlevel9k.zsh-theme
+    #+END_SRC
+
+*** Taskwarrior

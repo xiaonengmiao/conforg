@@ -25,6 +25,7 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config;
 
   mkdir -p $HOME/.config/nvim;
+  mkdir -p /home/xywei/.config/nvim/autoload/;
   mkdir -p $HOME/.config/i3;
 
   mkdir -p $HOME/.tmux;
@@ -52,6 +53,9 @@ fi
 cd contrib/ranger_devicons && make install \
   >> /tmp/conforg.log 2>&1
 
+# Vim-plug
+cp contrib/vim-plug/plug.vim /home/xywei/.config/nvim/autoload/plug.vim
+
 # TPM
 TPMPATH=$HOME/.tmux/plugins/tpm
 if ! [ -d $TPMPATH/.git ]; then
@@ -65,3 +69,4 @@ set +o xtrace
 box_out "Almost done: manual setup required."
 echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
 echo "- To finish setting up Neovim plugins, open up neovim and run ':PlugInstall'."
+echo "- To finish setting up, open up zsh and do the zkbd setup (preferably in a true terminal)."
