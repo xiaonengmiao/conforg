@@ -704,7 +704,6 @@
     #+END_SRC
 
 *** Language-Specific Plugins
-
 *** Key Maps
     Toggle outline using VOom.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -745,12 +744,174 @@
       map <C-n> :NERDTreeToggle<CR>
       nmap <Leader>f :NERDTreeToggle<cr>
     #+END_SRC
-
+    
 *** Add Plugins to Runtimepath
+    Note that some configurations have to
+    go after this.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       call plug#end()
     #+END_SRC
+
+*** Auto-completion
+    Ways to do auto-completion:
+    1. vim's defaualt keybindings, among which the
+       awesome ones are:
+       - Ctrl+x Ctrl+n  Just this file
+       - Ctrl+x Ctrl+f  For filenames (under var path)
+       - Ctrl+x Ctrl+]  For tags
+
+       - Ctrl+n         Everything specified by the 'complete' option
+
+    2. vim's omnifunc Ctrl+x Ctrl+o
+       (often too verbose)
+
+    3. Deoplete plugin Ctrl+l (clang based)
+
+*** Find Cursor
+    Lost track of cursor?
+    Press `<Leader> + K`!
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white
+      hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white
+      function FindCursor()
+	if !exists("s:highlightcursor")
+	  let s:highlightcursor=1
+	  set cursorline
+	  set cursorcolumn
+	else
+	  unlet s:highlightcursor
+	  set nocursorline
+	  set nocursorcolumn
+	endif
+      endfunction
+      nnoremap <Leader>K :call FindCursor()<CR>
+      nnoremap <Leader>k :call FindCursor()<CR>
+    #+END_SRC
+
+*** Kill Trailing Spaces
+    Defines two commands to work with
+    trailing spaces:
+
+    1. `ShowSpaces`
+    2. `TrimSpaces`
+
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      function ShowSpaces(...)
+	let @/='\v(\s+$)|( +\ze\t)'
+	let oldhlsearch=&hlsearch
+	if !a:0
+	  let &hlsearch=!&hlsearch
+	else
+	  let &hlsearch=a:1
+	end
+	return oldhlsearch
+      endfunction
+
+      function TrimSpaces() range
+	let oldhlsearch=ShowSpaces(1)
+	execute a:firstline.",".a:lastline."substitute ///gec"
+	let &hlsearch=oldhlsearch
+      endfunction
+
+      command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+      command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+    #+END_SRC
+
+*** Line Numbers
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set relativenumber
+      set number
+    #+END_SRC
+
+*** Swap Files
+    Turn off swap files (often troubsome,
+    for example, when in shared folders)
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set noswapfile
+    #+END_SRC
+
+    Auto-reload files changed outside vim
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set autoread
+    #+END_SRC
+
+*** Tag Files
+    A command to make tags for the project
+    After generating the tags, use
+    - Ctrl+] to jump to tag
+    - g Ctrl+] to list all matches
+    - Ctrl+t to jump back
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      command! MakeTags !ctags -R .
+    #+END_SRC
+
 *** Additional Settings
+    Enable mouse.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set mouse=a
+    #+END_SRC
+    
+    File type system.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      filetype plugin indent on
+    #+END_SRC
+
+    Use system clipboard
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      if (executable('pbcopy') || executable('xclip') || executable('xsel')) && has('clipboard')
+	set clipboard=unnamed
+      endif
+    #+END_SRC
+
+    Set python interpreter on MacOS (ignore virtualenv and conda)
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      if s:uname == "Darwin\n"
+	let g:python_host_prog='/usr/local/bin/python2'
+	let g:python3_host_prog='/usr/local/bin/python3'
+      endif
+    #+END_SRC
+
+    Set python interpreter on Linux (ignore virtualenv and conda)
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      if s:uname == "Linux\n"
+	let g:python_host_prog='/usr/bin/python2'
+	let g:python3_host_prog='/usr/bin/python3'
+      endif
+    #+END_SRC
+
+    Display all matchings when we do tab complete
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+    set wildmenu
+    #+END_SRC
+
+    Use markers to fold
+    also enable space to trigger the fold in normal mode
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set foldmethod=marker
+      nnoremap <space> za
+    #+END_SRC
+
+    Make highlighted text more readable.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      hi Search cterm=None ctermbg=blue ctermfg=white
+    #+END_SRC
+    
+    Smooth scrolling
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set scrolloff=4
+      set nolazyredraw
+    #+END_SRC
+
+    Change the cursor shape in the terminal
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      :let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    #+END_SRC
+
+    Turn off blink in normal mode
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set gcr=n:blinkon0
+    #+END_SRC
+
 
 ** Tmux
 *** Basic Settings.
