@@ -68,6 +68,9 @@ else
   cd $TPMPATH && git pull && cd -
 fi;
 
+# cli-utils
+ln -sf $DEFAULT_CONFORG_DIR/contrib/cli-utils $HOME/cli-utils
+
 set +o xtrace
 echo "+ Adding contents to .gitignore_global"
 
@@ -77,7 +80,6 @@ cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 
 # Python files are not to be ignored (e.g. __init__.py)
 echo "!*.py" >> $GITIGNORE_OUT
-
 
 box_out "Almost done: manual setup required."
 echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."

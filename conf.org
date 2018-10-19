@@ -44,7 +44,6 @@
       git submodule update --init --recursive
   #+END_SRC
 
-
 * Meta-configurations
   First of all, set some global options to help setting things up.
   The meta-configurations are set via noweb references.
