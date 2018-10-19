@@ -591,6 +591,28 @@
     #+END_SRC
    
 ** Neovim
+*** Detect Platform
+    Assign the results to `s:uname`.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      if has('unix')
+	let s:uname = system("uname")
+	" Assume that llvm is installed via homebrew on MacOS
+	" brew install llvm --with-clang
+	if s:uname == "Darwin\n"
+	  let g:chromatica#libclang_path='/usr/local/opt/llvm/lib/libclang.dylib'
+	endif
+	" Assme that this a an Arch linux, using clang from pacman
+	if s:uname == "Linux\n"
+	  " libclang in miniconda takes priority
+	  if filereadable("~/miniconda3/lib/libclang.so")
+	    let g:chromatica#libclang_path='~/miniconda3/lib/libclang.so'
+	  elseif filereadable("/usr/lib/libclang.so")
+	    let g:chromatica#libclang_path='/usr/lib/libclang.so'
+	  endif
+	endif
+      endif
+    #+END_SRC
+
 *** Vim-Plug General Plugin List
     Install plugins under `.vim/plugged`.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
