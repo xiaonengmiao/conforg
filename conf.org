@@ -1263,10 +1263,11 @@
      set -g status-right '#[fg=colour233,bg=colour241,bold] %d/%m #[fg=colour233,bg=colour245,bold] %H:%M:%S '
    #+END_SRC
 
-   From tmuxline.vim
+   From tmuxline.vim. If the snapshot file is not present,
+   load a defualt one.
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
-     if-shell "test -f ~/.tmux-status.conf" "source ~/.tmux-status.conf"
      if-shell "test -f ~/cli-utils/tmuxline" "source ~/cli-utils/tmuxline"
+     if-shell "test -f ~/.tmux-status.conf" "source ~/.tmux-status.conf"
    #+END_SRC
    
    Bold messages
