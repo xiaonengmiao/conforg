@@ -1513,7 +1513,19 @@
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export DIRCOLORTHEME='dircolors.256dark'
       export DIRCOLOR_DIR=$CONFORG_DIR/contrib/dircolors-solarized
-      eval `dircolors $DIRCOLOR_DIR/${DIRCOLORTHEME:-dircolors.256dark}`
+      case `uname` in
+	  Darwin)
+	  # commands for OS X go here
+	      eval `gdircolors $DIRCOLOR_DIR/${DIRCOLORTHEME:-dircolors.256dark}`
+	  ;;
+	  Linux)
+	  # commands for Linux go here
+	      eval `dircolors $DIRCOLOR_DIR/${DIRCOLORTHEME:-dircolors.256dark}`
+	  ;;
+	  FreeBSD)
+	  # commands for FreeBSD go here
+	  ;;
+      esac
       zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
     #+END_SRC
 
