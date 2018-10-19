@@ -764,6 +764,16 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'Raimondi/delimitMate'
     #+END_SRC
+    
+    Enhance undo functionality.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'mbbill/undotree'
+    #+END_SRC
+
+    Tmux statusline generator
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'edkolev/tmuxline.vim'
+    #+END_SRC
 
     Always load vim-devicons at last.
     (vim-plug loads the plugins in the same order as they are registered)
@@ -1005,6 +1015,20 @@
       command! MakeTags !ctags -R .
     #+END_SRC
 
+*** Undotree
+    Replace the built-in undo.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      nnoremap <leader>u :UndotreeToggle<cr>
+    #+END_SRC
+
+    Enable persistent undo as recommended
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      if has("persistent_undo")
+	set undodir=~/.undodir/
+	set undofile
+      endif
+    #+END_SRC
+
 *** Additional Settings
     Enable mouse.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -1071,7 +1095,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       set gcr=n:blinkon0
     #+END_SRC
-
+    
 ** Taskwarrior
    The common header.
    #+BEGIN_SRC conf :tangle ~/.taskrc
