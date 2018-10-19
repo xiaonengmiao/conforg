@@ -52,6 +52,7 @@ fi
 # Ranger file glyphs
 cd contrib/ranger_devicons && make install \
   >> /tmp/conforg.log 2>&1
+cd ../..
 
 # Vim-plug
 cp contrib/vim-plug/plug.vim /home/xywei/.config/nvim/autoload/plug.vim
