@@ -1446,7 +1446,9 @@
 *** Colorful aliases
     Enable color support of ls and also add handy aliases
     #+BEGIN_SRC sh :tangle "~/.zshrc"
-      alias ls='ls --color=auto'
+      if [ "$(uname 2> /dev/null)" != "Linux" ]; then
+	  alias ls='ls --color=auto'
+      fi
       alias dir='dir --color=auto'
       alias vdir='vdir --color=auto'
 
@@ -1533,7 +1535,9 @@ to land yet.
 *** Conda
     Starting from conda 4.4 it uses `conda activate`, which is nice
     #+BEGIN_SRC sh :tangle "~/.zshrc"
-      . $CONDA_DIR/etc/profile.d/conda.sh
+      if [ -f $CONDA_DIR/etc/profile.d/conda.sh ]; then
+	  . $CONDA_DIR/etc/profile.d/conda.sh
+      fi
     #+END_SRC
     
     Conda commands autocompletion, making startup much slower
