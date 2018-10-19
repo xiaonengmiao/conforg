@@ -746,6 +746,12 @@
       nmap <Leader>f :NERDTreeToggle<cr>
     #+END_SRC
 
+*** Add Plugins to Runtimepath
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      call plug#end()
+    #+END_SRC
+*** Additional Settings
+
 ** Tmux
 *** Basic Settings.
    Note: this config does not unset all default keybindings, for example,
