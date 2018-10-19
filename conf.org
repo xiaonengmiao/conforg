@@ -708,8 +708,8 @@
 *** Key Maps
     Toggle outline using VOom.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
-      nnoremap <Leader>v :VoomToogle<cr>
-      nnoremap <Leader>o :VoomToogle<cr>
+      nnoremap <Leader>v :VoomToggle<cr>
+      nnoremap <Leader>o :VoomToggle<cr>
     #+END_SRC
 
     Set how airline looks and tmux integration.
