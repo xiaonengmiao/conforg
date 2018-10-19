@@ -1,0 +1,20 @@
+#!/bin/sh
+# Clear pyopencl cache files
+
+while true; do
+	read -p "Do you wish delete all OpenCl related cache date? (y/n): " yn
+	case $yn in
+		[Yy]* ) echo "Clearing PyOpenCL cache ...";
+			set -o xtrace;
+			rm -Rf ~/.pocl;
+			rm -Rf ~/.cache/pocl;
+			rm -Rf ~/.cache/pytools;
+			rm -Rf ~/.cache/pyopencl/;
+			rm -Rf ~/.nv/ComputeCache/;
+			rm -Rf ~/._occa;
+			echo "Done.";
+			break;;
+		[Nn]* ) echo "Exiting.."; break;;
+		* ) echo "Please answer [y]es or [n]o.";;
+	esac
+done
