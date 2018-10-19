@@ -1444,9 +1444,10 @@
     #+END_SRC
 
 *** Colorful aliases
-    Enable color support of ls and also add handy aliases
+    Enable color support of ls and also add handy aliases.
+    MacOS's `ls` does not accept `--color`.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
-      if [ "$(uname 2> /dev/null)" != "Linux" ]; then
+      if [ "$(uname 2> /dev/null)" == "Linux" ]; then
 	  alias ls='ls --color=auto'
       fi
       alias dir='dir --color=auto'
