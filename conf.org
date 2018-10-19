@@ -1447,15 +1447,31 @@
     Enable color support of ls and also add handy aliases.
     MacOS's `ls` does not accept `--color`.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
-      if [ "$(uname 2> /dev/null)" == "Linux" ]; then
-	  alias ls='ls --color=auto'
-      fi
-      alias dir='dir --color=auto'
-      alias vdir='vdir --color=auto'
+      case `uname` in
+	Darwin)
+	    # commands for OS X go here
+	    alias ls='gls --color=auto'
+	    alias dir='gdir --color=auto'
+	    alias vdir='gvdir --color=auto'
 
-      alias grep='grep --color=auto'
-      alias fgrep='fgrep --color=auto'
-      alias egrep='egrep --color=auto'
+	    alias grep='grep --color=auto'
+	    alias fgrep='fgrep --color=auto'
+	    alias egrep='egrep --color=auto'
+	;;
+	Linux)
+	  # commands for Linux go here
+	    alias ls='ls --color=auto'
+	    alias dir='dir --color=auto'
+	    alias vdir='vdir --color=auto'
+
+	    alias grep='grep --color=auto'
+	    alias fgrep='fgrep --color=auto'
+	    alias egrep='egrep --color=auto'
+	;;
+	FreeBSD)
+	  # commands for FreeBSD go here
+	;;
+      esac
     #+END_SRC
 
 *** Convenient aliases
