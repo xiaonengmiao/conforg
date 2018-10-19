@@ -1775,7 +1775,7 @@ to land yet.
       POWERLEVEL9K_COLOR_SCHEME='light'
       POWERLEVEL9K_MODE='nerdfont-complete'
       POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir)
+      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir anaconda)
       POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
       source  $CONFORG_DIR/contrib/powerlevel9k/powerlevel9k.zsh-theme
     #+END_SRC
