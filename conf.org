@@ -934,7 +934,6 @@
       set gcr=n:blinkon0
     #+END_SRC
 
-
 ** Tmux
 *** Basic Settings.
    Note: this config does not unset all default keybindings, for example,
@@ -1410,7 +1409,6 @@
       zstyle ':completion:*:*:task:*' group-name ''
 
       alias t=task
-      compdef _task t=task
     #+END_SRC
 
 *** Colorful aliases
@@ -1489,6 +1487,7 @@
       done
 
       compinit -C
+      compdef _task t=task
     #+END_SRC
     
     Stop profiling
