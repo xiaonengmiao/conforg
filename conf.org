@@ -1039,6 +1039,11 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       filetype plugin indent on
     #+END_SRC
+    
+    Use spaces instead of tabs.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set tabstop=2 shiftwidth=2 expandtab
+    #+END_SRC
 
     Use system clipboard
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
