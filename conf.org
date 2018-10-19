@@ -714,6 +714,11 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'neomake/neomake'
     #+END_SRC
+    
+    Neoformat
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'sbdchd/neoformat'
+    #+END_SRC
 
     Help visually display indent levels
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -760,6 +765,13 @@
       Plug 'Raimondi/delimitMate'
     #+END_SRC
 
+    Always load vim-devicons at last.
+    (vim-plug loads the plugins in the same order as they are registered)
+    The terminal's font must be set as one of the nerd-fonts
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'ryanoasis/vim-devicons'
+    #+END_SRC
+
 *** Plugin Parameters
 **** TagBar
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -787,10 +799,62 @@
       let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
     #+END_SRC
 
+**** Neoformat
+     If using other formatting plugin, define noNeoformat for
+     that file type.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      if !exists('b:noNeoformat')
+	nnoremap <buffer><Leader>= :<C-u>Neoformat<CR>
+	vnoremap <buffer><Leader>= :Neoformat<CR>
+      endif
+    #+END_SRC
+
+    - Enable basic formatting when a filetype is not found. Disabled by default.
+    - Enable alignment
+    - Enable tab to spaces conversion
+    - Enable trimmming of trailing whitespace
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:neoformat_basic_format_align = 1
+      let g:neoformat_basic_format_retab = 1
+      let g:neoformat_basic_format_trim = 1
+    #+END_SRC
+
 **** Vim-Commentary
      Set commentstring for files not supported by default
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       autocmd FileType apache setlocal commentstring=#\ %s
+    #+END_SRC
+
+**** Vim-Devicons
+     Enable the plugin
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:webdevicons_enable = 1
+      set encoding=utf8
+    #+END_SRC
+
+    Add integration with
+    - NERDTree
+    - vim-airline
+    - CtrlP
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:webdevicons_enable_nerdtree = 1
+      let g:webdevicons_conceal_nerdtree_brackets = 1
+
+      let g:webdevicons_enable_airline_tabline = 1
+      let g:webdevicons_enable_airline_statusline = 1
+
+      let g:webdevicons_enable_ctrlp = 1
+    #+END_SRC
+    
+    And some tweaks. Including:
+    - use double-width(1) or single-width(0) glyphs
+      only manipulates padding, has no effect on terminal or set(guifont) font
+    - the amount of space to use after the glyph character (default ' ')
+    - force extra padding in NERDTree so that the filetype icons line up vertically
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+      let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+      let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
     #+END_SRC
 
 **** delimitMate
