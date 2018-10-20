@@ -1126,7 +1126,6 @@
       set gcr=n:blinkon0
     #+END_SRC
     
-
 ** Taskwarrior
    The common header.
    #+BEGIN_SRC conf :tangle ~/.taskrc
@@ -1579,6 +1578,13 @@
       if [ -f $CONFORG_DIR/contrib/bash-insulter/src/bash.command-not-found ]; then
 	source $CONFORG_DIR/contrib/bash-insulter/src/bash.command-not-found
       fi
+    #+END_SRC
+
+*** Frequently Used Paths
+    Saves the need to type full paths.
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      setopt auto_cd
+      cdpath=($HOME/Nextcloud $HOME/Research)
     #+END_SRC
 
 *** Environment variables
