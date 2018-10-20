@@ -71,9 +71,8 @@ fi;
 # cli-utils
 if [ -L $HOME/cli-utils ]; then
   rm -f $HOME/cli-utils
-else
-  ln -sf $DEFAULT_CONFORG_DIR/contrib/cli-utils $HOME/cli-utils
 fi
+ln -sf $DEFAULT_CONFORG_DIR/contrib/cli-utils $HOME/cli-utils
 
 set +o xtrace
 echo "+ Adding contents to .gitignore_global"
