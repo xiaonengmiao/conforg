@@ -72,7 +72,8 @@ fi;
 if [ -L $HOME/cli-utils ]; then
   rm -f $HOME/cli-utils
 else
-ln -sf $DEFAULT_CONFORG_DIR/contrib/cli-utils $HOME/cli-utils
+  ln -sf $DEFAULT_CONFORG_DIR/contrib/cli-utils $HOME/cli-utils
+fi
 
 set +o xtrace
 echo "+ Adding contents to .gitignore_global"
@@ -88,3 +89,4 @@ box_out "Almost done: manual setup required."
 echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
 echo "- To finish setting up Neovim plugins, open up neovim and run ':PlugInstall'."
 echo "- To finish setting up, open up zsh and do the zkbd setup (preferably in a true terminal)."
+

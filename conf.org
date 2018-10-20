@@ -811,7 +811,7 @@
 
 **** Neoformat
      If using other formatting plugin, define noNeoformat for
-     that file type.
+     that file type (for example, yapf for Python).
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       if !exists('b:noNeoformat')
 	nnoremap <buffer><Leader>= :<C-u>Neoformat<CR>
@@ -875,13 +875,13 @@
 
 *** Language-Specific Plugins
 *** Key Maps
-    Toggle outline using VOom.
+**** Toggle outline using VOom
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       nnoremap <Leader>v :VoomToggle<cr>
       nnoremap <Leader>o :VoomToggle<cr>
     #+END_SRC
 
-    Set how airline looks and tmux integration.
+**** Set how airline looks and tmux integration
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let g:airline_powerline_fonts = 1
       let g:airline_theme='sol'
@@ -890,18 +890,18 @@
       let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-statusline-colors.conf"
     #+END_SRC
     
-    Toggle tag bar.
+**** Toggle tag bar
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       nmap <Leader>t :TagbarToggle<cr>
       nmap tb :TagbarToggle<cr>
     #+END_SRC
     
-    Start fuzzy search
+**** Start fuzzy search
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let g:ctrlp_map = '<c-p>'
     #+END_SRC
 
-    Start interactive EasyAlign.
+**** Start interactive EasyAlign
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       xmap ga <Plug>(EasyAlign)
       nmap ga <Plug>(EasyAlign)
@@ -909,7 +909,7 @@
       nmap <Leader>a <Plug>(EasyAlign)
     #+END_SRC
     
-    Toggle nerd-tree.
+**** Toggle nerd-tree
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       map <C-n> :NERDTreeToggle<CR>
       nmap <Leader>f :NERDTreeToggle<cr>
@@ -956,6 +956,21 @@
       endfunction
       nnoremap <Leader>K :call FindCursor()<CR>
       nnoremap <Leader>k :call FindCursor()<CR>
+    #+END_SRC
+
+*** Code Formatting
+**** Python
+     Run through `black` and then `docformatter`.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:neoformat_enabled_python = ['black', 'docformatter']
+      let g:neoformat_run_all_formatters = 1
+    #+END_SRC
+
+**** C/C++
+     Clang-format is used.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:neoformat_enabled_c = ['clangformat']
+      let g:neoformat_enabled_cpp = ['clangformat']
     #+END_SRC
 
 *** Kill Trailing Spaces
@@ -1101,6 +1116,7 @@
       set gcr=n:blinkon0
     #+END_SRC
     
+
 ** Taskwarrior
    The common header.
    #+BEGIN_SRC conf :tangle ~/.taskrc
@@ -1780,7 +1796,7 @@ to land yet.
       POWERLEVEL9K_COLOR_SCHEME='light'
       POWERLEVEL9K_MODE='nerdfont-complete'
       POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir anaconda)
+      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir vcs anaconda)
       POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
       source  $CONFORG_DIR/contrib/powerlevel9k/powerlevel9k.zsh-theme
     #+END_SRC
