@@ -775,6 +775,11 @@
       Plug 'edkolev/tmuxline.vim'
     #+END_SRC
 
+    Use tmux nav keys to navigate.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'christoomey/vim-tmux-navigator'
+    #+END_SRC
+
     Always load vim-devicons at last.
     (vim-plug loads the plugins in the same order as they are registered)
     The terminal's font must be set as one of the nerd-fonts
@@ -1058,6 +1063,11 @@
     Use spaces instead of tabs.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       set tabstop=2 shiftwidth=2 expandtab
+    #+END_SRC
+    
+    Disable tumx nav mappings. (Configure nav keys on the tmux side.)
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:tmux_navigator_no_mappings = 1
     #+END_SRC
 
     Use system clipboard
