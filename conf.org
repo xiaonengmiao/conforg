@@ -734,6 +734,14 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'majutsushi/tagbar'
     #+END_SRC
+
+    Deoplete. Update remote plugins when load.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      function! DoRemote(arg)
+	UpdateRemotePlugins
+      endfunction
+      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    #+END_SRC
     
     CtrlP.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -878,7 +886,47 @@
       let delimitMate_autoclose = 0
     #+END_SRC
 
+*** Auto-completion
+    Ways to do auto-completion:
+    1. vim's defaualt keybindings, among which the
+       awesome ones are:
+       - Ctrl+x Ctrl+n  Just this file
+       - Ctrl+x Ctrl+f  For filenames (under var path)
+       - Ctrl+x Ctrl+]  For tags
+
+       - Ctrl+n         Everything specified by the 'complete' option
+
+    2. vim's omnifunc Ctrl+x Ctrl+o
+       (often too verbose)
+
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set omnifunc=syntaxcomplete#Complete
+    #+END_SRC
+
+    3. Deoplete plugin Ctrl+l (clang/jedi based)
+       
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:deoplete#enable_at_startup = 1
+      let g:deoplete#disable_auto_complete = 0
+      let g:deoplete#omni#input_patterns = {}
+      inoremap <silent><expr><C-l> deoplete#mappings#manual_complete()
+      autocmd CompleteDone * pclose
+    #+END_SRC
+
 *** Language-Specific Plugins
+**** Python
+    Install `jedi` through `pip` first.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'zchee/deoplete-jedi'
+    #+END_SRC
+    
+    Options
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:deoplete#sources#jedi#statement_length = 50
+      let g:deoplete#sources#jedi#enable_typeinfo = 1
+      let g:deoplete#sources#jedi#show_docstring = 1
+    #+END_SRC
+
 *** Key Maps
 **** Toggle outline using VOom
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -927,20 +975,14 @@
       call plug#end()
     #+END_SRC
 
-*** Auto-completion
-    Ways to do auto-completion:
-    1. vim's defaualt keybindings, among which the
-       awesome ones are:
-       - Ctrl+x Ctrl+n  Just this file
-       - Ctrl+x Ctrl+f  For filenames (under var path)
-       - Ctrl+x Ctrl+]  For tags
-
-       - Ctrl+n         Everything specified by the 'complete' option
-
-    2. vim's omnifunc Ctrl+x Ctrl+o
-       (often too verbose)
-
-    3. Deoplete plugin Ctrl+l (clang based)
+*** Neomake
+    Auto-run when writing or reading a buffer,
+    and on changes in insert and normal mode
+    (after 1s; no delay when writing).
+    Must be used after loading Neomake.
+   #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+     call neomake#configure#automake('nrwi', 500)
+   #+END_SRC
 
 *** Find Cursor
     Lost track of cursor?
@@ -1059,7 +1101,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       filetype plugin indent on
     #+END_SRC
-    
+
     Use spaces instead of tabs.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       set tabstop=2 shiftwidth=2 expandtab
