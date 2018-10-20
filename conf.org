@@ -743,6 +743,11 @@
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     #+END_SRC
     
+    UltiSnips.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'SirVer/ultisnips'
+    #+END_SRC
+    
     CtrlP.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'ctrlpvim/ctrlp.vim'
@@ -885,6 +890,16 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let delimitMate_autoclose = 0
     #+END_SRC
+
+**** UltiSnips
+     Use <tab> to expand snippets.
+     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+       let g:UltiSnipsExpandTrigger="<tab>"
+       let g:UltiSnipsJumpForwardTrigger="<tab>"
+       let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+       let g:UltiSnipsListSnippets="<c-u>"
+       let g:UltiSnipsEditSplit="vertical"
+     #+END_SRC
 
 *** Auto-completion
     Ways to do auto-completion:
@@ -1117,6 +1132,13 @@
       if (executable('pbcopy') || executable('xclip') || executable('xsel')) && has('clipboard')
 	set clipboard=unnamed
       endif
+    #+END_SRC
+
+    Add snippets from ConfOrg.
+    FIXME: UltiSnipsSnippetDirectories does not work with noweb.
+    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/nvim/init.vim
+      set runtimepath+=<<conforg-dir>>/contrib/nvim-snips
+      let g:UltiSnipsSnippetDirectories=[$HOME.'/.conforg/contrib/nvim-snips']
     #+END_SRC
 
     Set python interpreter on MacOS (ignore virtualenv and conda)
