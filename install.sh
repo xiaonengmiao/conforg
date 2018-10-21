@@ -83,6 +83,9 @@ echo "+ Adding contents to .gitignore_global"
 cat $GITIGNORE_IN/Global/*.gitignore >> $GITIGNORE_OUT
 cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 
+# Python files are not to be ignored (e.g. __init__.py)
+echo "!*.py" >> $GITIGNORE_OUT
+
 # Taskwarrior sync
 echo "+ Setting up connection with Taskwarrior server"
 AEHOME=$(echo $HOME | sed 's@\/@\\\\\\\/@g')
@@ -98,9 +101,6 @@ else
   pass WXYZG/TaskwarriorUserKey-xywei > $HOME/.task/xywei.key.pem
   HAS_TASKD_SERVER=true
 fi
-
-# Python files are not to be ignored (e.g. __init__.py)
-echo "!*.py" >> $GITIGNORE_OUT
 
 if $HAS_TASKD_SERVER; then
   box_out "Syncing Tasks"
