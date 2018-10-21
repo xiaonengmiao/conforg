@@ -33,6 +33,8 @@ box_out "Setting up directory structure.."
 
   mkdir -p $HOME/.tmux;
   mkdir -p $HOME/.tmux/plugins;
+
+  mkdir -p $HOME/.task
 )
 
 box_out "Parsing conf.org.."
@@ -81,8 +83,29 @@ echo "+ Adding contents to .gitignore_global"
 cat $GITIGNORE_IN/Global/*.gitignore >> $GITIGNORE_OUT
 cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 
+# Taskwarrior sync
+echo "+ Setting up connection with Taskwarrior server"
+AEHOME=$(echo $HOME | sed 's@\/@\\\\\\\/@g')
+HAS_TASKD_SERVER=false
+sed -i "s@ABSOLUTE_ESCAPED_HOME_DIR@$AEHOME@g" $HOME/.taskrc
+if ! [ -x "$(command -v pass)" ]; then
+  echo 'Warning: .taskrc is not setup with server sync (lacking credentials).' >&2
+else
+  sed -i "s@TASKD_SERVER_ADDR@$(pass WXYZG/TaskwarriorServerAddress)@g" $HOME/.taskrc
+  sed -i "s@TASKD_SERVER_USER_KEY@$(pass WXYZG/TaskwarriorUserUUID-xywei)@g" $HOME/.taskrc
+  pass WXYZG/TaskwarriorServerCertificate > $HOME/.task/ca.cert.pem
+  pass WXYZG/TaskwarriorUserCertificate-xywei > $HOME/.task/xywei.cert.pem
+  pass WXYZG/TaskwarriorUserKey-xywei > $HOME/.task/xywei.key.pem
+  HAS_TASKD_SERVER=true
+fi
+
 # Python files are not to be ignored (e.g. __init__.py)
 echo "!*.py" >> $GITIGNORE_OUT
+
+if $HAS_TASKD_SERVER; then
+  box_out "Syncing Tasks"
+  task sync
+fi
 
 box_out "Almost done: manual setup required."
 echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
