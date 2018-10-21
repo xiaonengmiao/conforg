@@ -19,6 +19,31 @@ function box_out() {
 
 box_out "Greetings. Please make sure you cloned the repo under $DEFAULT_CONFORG_DIR."
 
+box_out "Detecting your OS.."
+
+PLATFORM='unknown'
+UNAMESTR=`uname`
+if [[ "$UNAMESTR" == 'Linux' ]]; then
+   PLATFORM='linux'
+elif [[ "$UNAMESTR" == 'Darwin' ]]; then
+   PLATFORM='mac'
+elif [[ "$UNAMESTR" == 'FreeBSD' ]]; then
+   PLATFORM='freebsd'
+fi
+
+echo "+ Running on $PLATFORM"
+
+SED_BIN=sed
+if [[ $PLATFORM == 'mac' ]]; then
+  if ! [ -x "$(command -v gsed)" ]; then
+    echo 'Error: GNU sed is necessary for the setup. Installing gsed with homebrew is recommended.' >&2
+    exit 1
+  else
+    SED_BIN=gsed
+    echo '+ Found gsed'
+  fi
+fi
+
 box_out "Setting up directory structure.."
 # in a subshell
 (
@@ -28,7 +53,7 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config;
 
   mkdir -p $HOME/.config/nvim;
-  mkdir -p /home/xywei/.config/nvim/autoload/;
+  mkdir -p $HOME/.config/nvim/autoload/;
   mkdir -p $HOME/.config/i3;
 
   mkdir -p $HOME/.tmux;
@@ -60,7 +85,7 @@ cd contrib/ranger_devicons && make install \
 cd ../..
 
 # Vim-plug
-cp contrib/vim-plug/plug.vim /home/xywei/.config/nvim/autoload/plug.vim
+cp contrib/vim-plug/plug.vim $HOME/.config/nvim/autoload/plug.vim
 
 # TPM (auto update if exists)
 TPMPATH=$HOME/.tmux/plugins/tpm
@@ -85,14 +110,14 @@ cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 
 # Taskwarrior sync
 echo "+ Setting up connection with Taskwarrior server"
-AEHOME=$(echo $HOME | sed 's@\/@\\\\\\\/@g')
+AEHOME=$(echo $HOME | $SED_BIN 's@\/@\\\\\\\/@g')
 HAS_TASKD_SERVER=false
-sed -i "s@ABSOLUTE_ESCAPED_HOME_DIR@$AEHOME@g" $HOME/.taskrc
+$SED_BIN -i "s@ABSOLUTE_ESCAPED_HOME_DIR@$AEHOME@g" $HOME/.taskrc
 if ! [ -x "$(command -v pass)" ]; then
   echo 'Warning: .taskrc is not setup with server sync (lacking credentials).' >&2
 else
-  sed -i "s@TASKD_SERVER_ADDR@$(pass WXYZG/TaskwarriorServerAddress)@g" $HOME/.taskrc
-  sed -i "s@TASKD_SERVER_USER_KEY@$(pass WXYZG/TaskwarriorUserUUID-xywei)@g" $HOME/.taskrc
+  $SED_BIN -i "s@TASKD_SERVER_ADDR@$(pass WXYZG/TaskwarriorServerAddress)@g" $HOME/.taskrc
+  $SED_BIN -i "s@TASKD_SERVER_USER_KEY@$(pass WXYZG/TaskwarriorUserUUID-xywei)@g" $HOME/.taskrc
   pass WXYZG/TaskwarriorServerCertificate > $HOME/.task/ca.cert.pem
   pass WXYZG/TaskwarriorUserCertificate-xywei > $HOME/.task/xywei.cert.pem
   pass WXYZG/TaskwarriorUserKey-xywei > $HOME/.task/xywei.key.pem
