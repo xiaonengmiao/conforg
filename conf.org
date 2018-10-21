@@ -1219,7 +1219,7 @@
    
 *** Color Theme
    #+BEGIN_SRC conf :tangle ~/.taskrc
-     include /usr/share/doc/task/rc/solarized-light-256.theme
+     include TASKWARRIOR_COLOR_THEME
    #+END_SRC
 
 *** Sync Server

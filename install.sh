@@ -111,6 +111,14 @@ cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 # Python files are not to be ignored (e.g. __init__.py)
 echo "!*.py" >> $GITIGNORE_OUT
 
+# Taskwarrior Theme
+if [[ $PLATFORM == 'mac' ]]; then
+  TASK_THEME=/usr/local/share/doc/task/rc/solarized-light-256.theme
+else
+  TASK_THEME=/usr/share/doc/task/rc/solarized-light-256.theme
+fi
+$SED_BIN -i "s@TASKWARRIOR_COLOR_THEME@$TASK_THEME@g" $HOME/.taskrc
+
 # Taskwarrior sync
 echo "+ Setting up connection with Taskwarrior server"
 AEHOME=$(echo $HOME | $SED_BIN 's@\/@\\\\\\\/@g')
