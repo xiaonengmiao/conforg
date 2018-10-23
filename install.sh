@@ -17,6 +17,21 @@ function box_out() {
   tput sgr 0
 }
 
+function box_warn()
+{
+  local s=("$@") b w
+  for l in "${s[@]}"; do
+    ((w<${#l})) && { b="$l"; w="${#l}"; }
+  done
+  tput setaf 5
+  echo "  **${b//?/*}**"
+  for l in "${s[@]}"; do
+    printf '  * %s%*s%s *\n' "$(tput setaf 6)" "-$w" "$l" "$(tput setaf 5)"
+  done
+  echo "  **${b//?/*}**"
+  tput sgr 0
+}
+
 box_out "Greetings. Please make sure you cloned the repo under $DEFAULT_CONFORG_DIR."
 
 box_out "Detecting your OS.."
@@ -118,6 +133,16 @@ pass show WXYZG/Email-mkmaildirs > $HOME/.mkmaildirs_commands.tmp
 source $HOME/.mkmaildirs_commands.tmp
 rm $HOME/.mkmaildirs_commands.tmp
 pass show WXYZG/Email-mbsyncrc > $HOME/.mbsyncrc
+if [ -d $HOME/Mail ]; then
+  box_warn "Warning: Mail directory already exists."\
+    "Updating .mbsyncrc could cause errors for future syncs." \
+    "Remove \$HOME/.mbsync/ for a clean re-sync."
+fi
+if [ -d $HOME/.mbsync ]; then
+  box_warn "Warning: .mbsync directory already exists." \
+    "Updating .mbsyncrc could cause errors for future syncs." \
+    "Remove \$HOME/.mbsync/ for a clean re-sync."
+fi
 
 # msmtp
 echo "+ Setting up msmtp (SMTP client)"
