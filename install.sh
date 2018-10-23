@@ -60,6 +60,7 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.tmux/plugins;
 
   mkdir -p $HOME/.task
+  mkdir -p $HOME/Contacts
 )
 
 box_out "Parsing conf.org.."
@@ -110,6 +111,17 @@ cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 
 # Python files are not to be ignored (e.g. __init__.py)
 echo "!*.py" >> $GITIGNORE_OUT
+
+# isync
+echo "+ Setting up isync (IMAP client)"
+pass show WXYZG/Email-mkmaildirs > $HOME/.mkmaildirs_commands.tmp
+source $HOME/.mkmaildirs_commands.tmp
+rm $HOME/.mkmaildirs_commands.tmp
+pass show WXYZG/Email-mbsyncrc > $HOME/.mbsyncrc
+
+# msmtp
+echo "+ Setting up msmtp (SMTP client)"
+pass show WXYZG/Email-msmtprc > $HOME/.msmtprc
 
 # Taskwarrior Theme
 if [[ $PLATFORM == 'mac' ]]; then

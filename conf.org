@@ -1321,6 +1321,12 @@
      set -g renumber-windows on
      set -g automatic-rename on
    #+END_SRC
+*** Clipboard
+    A nice article explaining clipboards: https://medium.freecodecamp.org/tmux-in-practice-integration-with-system-clipboard-bcd72c62ff7b
+   #+BEGIN_SRC conf :tangle ~/.tmux.conf
+     bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
+   #+END_SRC
+
 *** Look and Feel
    Set terminal title
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
