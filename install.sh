@@ -148,6 +148,10 @@ fi
 echo "+ Setting up msmtp (SMTP client)"
 pass show WXYZG/Email-msmtprc > $HOME/.msmtprc
 
+# mu4e
+echo "+ Setting up mu4e"
+pass show WXYZG/Email-mu4erc > $HOME/.emacs.d/mu4e-config.el
+
 # Taskwarrior Theme
 if [[ $PLATFORM == 'mac' ]]; then
   TASK_THEME=/usr/local/share/doc/task/rc/solarized-light-256.theme
