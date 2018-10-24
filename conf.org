@@ -186,6 +186,7 @@
           magit
           org-plus-contrib
           org-ref
+          use-package
           yasnippet
          ) "a list of packages to ensure are installed at launch.")
     #+END_SRC
@@ -398,7 +399,66 @@
 
 **** Snippets
      Here are some snippets that I would like to have on all my machines
-     
+** Email
+*** isync
+    The install script handles configuring `isync`.
+    (It dumps encrypted config files using pass).
+
+*** Mutt/Neomutt
+    One can use mutt/neomutt to read mails.
+    Here is a one liner that uses Lynx to open mails
+    in mutt.
+    #+BEGIN_SRC conf :tangle "~/.muttrc"
+      auto_view text/html
+    #+END_SRC
+    
+    #+BEGIN_SRC conf :tangle "~/.mailcap"
+      text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput;
+    #+END_SRC
+
+*** Mu4e
+**** Installation
+    Mu4e is the email client of choice due to its great integration
+    with org-mode.
+
+    Note: Since mu4e is not just elisp, much of it is in C, it cannot
+    be installed from MELPA. This setup assume that it is installed
+    from Arch's repository (Community/mu), and we load it into Emacs
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+      (require 'mu4e)
+    #+END_SRC
+    
+**** Configuration
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (require 'use-package)
+      (use-package use-package-ensure-system-package
+        :ensure t)
+      (use-package mu4e
+	:ensure nil
+	:ensure-system-package mu
+	:custom
+	(mu4e-attachment-dir "~/Downloads")
+	(mu4e-compose-signature-auto-include nil)
+	(mu4e-drafts-folder "/xywei@illinois.edu/Drafts")
+	(mu4e-get-mail-command "mbsync -a")
+	(mu4e-maildir "~/Mail")
+	(mu4e-refile-folder "/xywei@illinois.edu/Archive")
+	(mu4e-sent-folder "/xywei@illinois.edu/Sent")
+	(mu4e-maildir-shortcuts
+	 '(("/xywei@illinois.edu/Inbox" . ?i)
+	   ("/xywei@illinois.edu/Archive" . ?a)
+	   ("/xywei@illinois.edu/Trash" . ?t)
+	   ("/xywei@illinois.edu/Drafts" . ?d)
+	   ("/xywei@illinois.edu/Sent" . ?s)
+	   ))
+	(mu4e-trash-folder "/Trash")
+	(mu4e-update-interval 300)
+	(mu4e-use-fancy-chars t)
+	(mu4e-view-show-addresses t)
+	(mu4e-view-show-images t))
+    #+END_SRC
+
 ** Firefox
 
    The configs for Firefox allows easily resetting it my `rm -rf ~/.mozilla` and
