@@ -92,13 +92,24 @@
 	   (run-at-time nil (* 5 60) 'recentf-save-list)
 	   (global-set-key "\C-x\ \C-r" 'recentf-open-files))))
      #+END_SRC
+**** Auto-backup and auto-save files
+     Emacs creates `file~` auto-backup files and `#file#` auto-save files.
+     Such behavior confuses programs like `git` and `isync`.
+     Instead of turning this feature off, it is more prudent to simply get
+     them out of sight by storing them in the OS’s tmp directory instead.
+     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (setq backup-directory-alist
+	     `((".*" . ,temporary-file-directory)))
+       (setq auto-save-file-name-transforms
+	     `((".*" ,temporary-file-directory t)))
+     #+END_SRC
 
 **** Larger workspace
      Remove scroll bars, menu bars, and toolbars to make more space
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
        (add-hook 'after-init-hook '(lambda ()
        (progn
-           (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+           ;; (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
            (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
            (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
          )
@@ -181,12 +192,13 @@
       (defvar required-packages
         '(
           evil
+          evil-collection
           fill-column-indicator
           linum-relative
           magit
           org-plus-contrib
           org-ref
-	  solarized-theme
+          solarized-theme
           use-package
           yasnippet
          ) "a list of packages to ensure are installed at launch.")
@@ -226,10 +238,25 @@
      (delete-selection-mode t)
     #+END_SRC
 
-    Enable global evil-mode
+    Enable global evil-mode.
+    (As a general guideline, don’t bind anything to : nor <escape>).
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
-      (require 'evil)
-      (evil-mode 1)
+    (use-package evil
+     :ensure t
+     :init
+     (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+     (setq evil-want-keybinding nil)
+     :config
+     (evil-mode 1))
+    #+END_SRC
+    
+    Enable evil-collection for keybindings in more modes.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package evil-collection
+       :after evil
+       :ensure t
+       :config
+       (evil-collection-init))
     #+END_SRC
 
     Adding new word to dictionary
@@ -383,6 +410,7 @@
     When starting for the first time Emacs will ask if you want to trust this
     theme. Answer yes to have it auto-loaded on future startups.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (setq x-underline-at-descent-line t)
       (add-hook 'after-init-hook (lambda () (load-theme 'solarized-light)))
     #+END_SRC
 
@@ -443,6 +471,43 @@
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (load-file "~/.emacs.d/mu4e-config.el")
     #+END_SRC
+    
+    The evil-collection adds evil keybindings for mu4e.
+
+    General commands:
+    | Commmand                 | evil-mu4e | Alternative |
+    |--------------------------+-----------+-------------|
+    | Jump to maildir          | J         |             |
+    | Update                   | u         |             |
+    | Compose message          | cc        | C           |
+    | Kill update mail process | x         |             |
+
+    Commands for header-mode and view-mode:
+    | Command                         | evil-mu4e | Alternative |
+    |---------------------------------+-----------+-------------|
+    | Next message                    | C-j       |             |
+    | Previous message                | C-k       |             |
+    | Mark the current thread as read | T         |             |
+    | Compose message                 | cc        | C           |
+    | Compose edit**                  | ce        | E           |
+    | Compose forward**               | cf        | F           |
+    | Compose reply                   | cr        | R           |
+    | Change sorting***               | o         | O           |
+    | Rerun search                    | gr        |             |
+    | Toggle include related          | zr        |             |
+    | Toggle threading                | zt        |             |
+    | Toggle hide cited               | za        |             |
+    | Skip duplicates                 | zd        |             |
+    | Show log                        | gl        |             |
+    | Select other view               | gv        |             |
+    | Save attachement(s)             | p         | P           |
+    | Save url                        | yu        |             |
+    | Go to url                       | gx        |             |
+    | Fetch url                       | gX        |             |
+
+    - * denotes only in header-mode
+    - ** denotes Alternative only in header-mode
+    - *** denotes Alternative only in view-mode
 
 ** Firefox
 
