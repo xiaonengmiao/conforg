@@ -509,6 +509,103 @@
     - ** denotes Alternative only in header-mode
     - *** denotes Alternative only in view-mode
 
+**** Search
+
+     The following guide is excerpted from https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html.
+
+     mu4e queries are the same as the ones that mu find understands30. Let’s look at some examples here; you can consult the mu-query man page for the details.
+
+     - Get all messages regarding bananas:
+     : bananas
+
+     - Get all messages regarding bananas from John with an attachment:
+     : from:john and flag:attach and bananas
+
+     - Get all messages with subject wombat in June 2017
+     : subject:wombat and date:20170601..20170630
+
+     - Get all messages with PDF attachments in the /projects folder
+     : maildir:/projects and mime:application/pdf
+
+     - Get all messages about Rupert in the /Sent Items folder. Note that maildirs with spaces must be quoted.
+     : "maildir:/Sent Items" and rupert
+
+     - Get all important messages which are signed:
+     : flag:signed and prio:high
+
+     - Get all messages from Jim without an attachment:
+     : from:jim and not flag:attach
+
+     - Get all messages with Alice in one of the contacts-fields (to, from, cc, bcc):
+     : contact:alice
+
+     - Get all unread messages where the subject mentions Ångström: (search is case-insensitive and accent-insensitive, so this matches Ångström, angstrom, aNGstrøM, ...)
+     : subject:Ångström and flag:unread
+
+     - Get all unread messages between Mar-2012 and Aug-2013 about some bird:
+     : date:20120301..20130831 and nightingale and flag:unread
+
+     - Get today’s messages:
+     : date:today..now
+
+     - Get all messages we got in the last two weeks regarding emacs:
+     : date:2w.. and emacs
+
+     - Get messages from the Mu mailing list:
+     : list:mu-discuss.googlegroups.com
+     Note — in the Headers view you may see the ‘friendly name’ for a list; however, when searching you need the real name. You can see the real name for a mailing list from the friendly name’s tool-tip.
+
+     - Get messages with a subject soccer, Socrates, society, ...; note that the ‘*’-wildcard can only appear as a term’s rightmost character:
+     : subject:soc*
+
+     - Get all messages not sent to a mailing-list:
+     : NOT flag:list
+
+     - Get all mails with attachments with filenames starting with pic; note that the ‘*’ wildcard can only appear as the term’s rightmost character:
+     : file:pic*
+
+     - Get all messages with PDF-attachments:
+     : mime:application/pdf
+
+     - Get all messages with image attachments, and note that the ‘*’ wildcard can only appear as the term’s rightmost character:
+     : mime:image/*
+
+**** Mark
+
+     The following guide is excerpted from
+     https://www.djcbsoftware.nl/code/mu/mu4e/What-to-mark-for.html.
+
+     What to mark for -- mu4e supports a number of marks:
+
+     | mark for/as | keybinding  | description                   |
+     |-------------+-------------+-------------------------------|
+     | 'something' | *, <insert> | mark now, decide later        |
+     | delete      | D, <delete> | delete                        |
+     | flag        | +           | mark as 'flagged' ('starred') |
+     | move        | m           | move to some maildir          |
+     | read        | !           | mark as read                  |
+     | refile      | r           | mark for refiling             |
+     | trash       | d           | move to the trash folder      |
+     | untrash     | =           | remove 'trash' flag           |
+     | unflag      | -           | remove 'flagged' mark         |
+     | unmark      | u           | remove mark at point          |
+     | unmark all  | U           | remove all marks              |
+     | unread      | ?           | marks as unread               |
+     | action      | a           | apply some action             |
+
+     After marking a message, the left-most columns in the headers view indicate
+     the kind of mark. This is informative, but if you mark many (say,
+     thousands)
+     messages, this slows things down significantly32. For this reason,
+     you can disable this by setting mu4e-headers-show-target to nil.
+
+     "something" is a special kind of mark; you can use it to mark messages
+     for ‘something’, and then decide later what the ‘something’ should be33
+     Later,
+     you can set the actual mark using M-x mu4e-mark-resolve-deferred-marks
+     (#). Alternatively, mu4e will ask you when you try to execute the marks
+     (x). 
+
 ** Firefox
 
    The configs for Firefox allows easily resetting it my `rm -rf ~/.mozilla` and
