@@ -196,6 +196,7 @@
           fill-column-indicator
           linum-relative
           magit
+	  org-bullets
           org-plus-contrib
           org-ref
           solarized-theme
@@ -318,7 +319,41 @@
         (plist-put org-format-latex-options :scale 1.6))
     #+END_SRC
 
+    Org-bullets that display nice bullet symbols.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (require 'org-bullets)
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    #+END_SRC
+    
+    To do similar stuff with TODO items (courtesy of
+    https://www.draketo.de/english/emacs/todo-letters): 
+    - ❢ To do
+    - ☯ In progress
+      - ⚙ A program is running (optional detail)
+      - ✍ I’m writing (optional detail)
+    - ⧖ Waiting
+    - ☺ To report
+    - ✔ Done
+    - ⌚ Maybe do this at some later time
+    - ✘ Won’t do / Canceled
+
+    Here I only use the symbols to make the interface less cluttered.
+    Note: Anything before the | in the SEQ_TODO is shown in red (not yet done),
+    anything after the | is show in green (done). Things which get triggered
+    when something is done (like storing the time of a scheduled entry) happen
+    when the state crosses the |. 
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (with-eval-after-load 'org
+	(setq org-todo-keywords '(
+				  (sequence "❢" "☯" "⚙" "✍" "⧖" "|" "☺" "✔" "⌚" "✘"))))
+    #+END_SRC
+
 **** Behaviors
+    Use mouse to toggle tree visibility.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (require 'org-mouse)
+    #+END_SRC
+
     Auto new-line
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (add-hook 'org-mode-hook 'turn-on-auto-fill)
@@ -454,60 +489,60 @@
 
 *** Mu4e
 **** Installation
-    Mu4e is the email client of choice due to its great integration
-    with org-mode.
+     Mu4e is the email client of choice due to its great integration
+     with org-mode.
 
-    Note: Since mu4e is not just elisp, much of it is in C, it cannot
-    be installed from MELPA. This setup assume that it is installed
-    from Arch's repository (Community/mu), and we load it into Emacs
-    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+     Note: Since mu4e is not just elisp, much of it is in C, it cannot
+     be installed from MELPA. This setup assume that it is installed
+     from Arch's repository (Community/mu), and we load it into Emacs
+     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
       (require 'mu4e)
-    #+END_SRC
+     #+END_SRC
     
 **** Configuration
      Load the configuration file for mu4e.
      (Requires use-package).
-    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (load-file "~/.emacs.d/mu4e-config.el")
-    #+END_SRC
+     #+END_SRC
     
-    The evil-collection adds evil keybindings for mu4e.
+     The evil-collection adds evil keybindings for mu4e.
 
-    General commands:
-    | Commmand                 | evil-mu4e | Alternative |
-    |--------------------------+-----------+-------------|
-    | Jump to maildir          | J         |             |
-    | Update                   | u         |             |
-    | Compose message          | cc        | C           |
-    | Kill update mail process | x         |             |
+     General commands:
+     | Commmand                 | evil-mu4e | Alternative |
+     |--------------------------+-----------+-------------|
+     | Jump to maildir          | J         |             |
+     | Update                   | u         |             |
+     | Compose message          | cc        | C           |
+     | Kill update mail process | x         |             |
 
-    Commands for header-mode and view-mode:
-    | Command                         | evil-mu4e | Alternative |
-    |---------------------------------+-----------+-------------|
-    | Next message                    | C-j       |             |
-    | Previous message                | C-k       |             |
-    | Mark the current thread as read | T         |             |
-    | Compose message                 | cc        | C           |
-    | Compose edit**                  | ce        | E           |
-    | Compose forward**               | cf        | F           |
-    | Compose reply                   | cr        | R           |
-    | Change sorting***               | o         | O           |
-    | Rerun search                    | gr        |             |
-    | Toggle include related          | zr        |             |
-    | Toggle threading                | zt        |             |
-    | Toggle hide cited               | za        |             |
-    | Skip duplicates                 | zd        |             |
-    | Show log                        | gl        |             |
-    | Select other view               | gv        |             |
-    | Save attachement(s)             | p         | P           |
-    | Save url                        | yu        |             |
-    | Go to url                       | gx        |             |
-    | Fetch url                       | gX        |             |
+     Commands for header-mode and view-mode:
+     | Command                         | evil-mu4e | Alternative |
+     |---------------------------------+-----------+-------------|
+     | Next message                    | C-j       |             |
+     | Previous message                | C-k       |             |
+     | Mark the current thread as read | T         |             |
+     | Compose message                 | cc        | C           |
+     | Compose edit**                  | ce        | E           |
+     | Compose forward**               | cf        | F           |
+     | Compose reply                   | cr        | R           |
+     | Change sorting***               | o         | O           |
+     | Rerun search                    | gr        |             |
+     | Toggle include related          | zr        |             |
+     | Toggle threading                | zt        |             |
+     | Toggle hide cited               | za        |             |
+     | Skip duplicates                 | zd        |             |
+     | Show log                        | gl        |             |
+     | Select other view               | gv        |             |
+     | Save attachement(s)             | p         | P           |
+     | Save url                        | yu        |             |
+     | Go to url                       | gx        |             |
+     | Fetch url                       | gX        |             |
 
-    - * denotes only in header-mode
-    - ** denotes Alternative only in header-mode
-    - *** denotes Alternative only in view-mode
+     - * denotes only in header-mode
+     - ** denotes Alternative only in header-mode
+     - *** denotes Alternative only in view-mode
 
 **** Search
 
@@ -1500,10 +1535,9 @@
      set -g escape-time 1
    #+END_SRC
 
-   Setup 'v' to begin selection and 'y' to yank as in Vim
+   Setup 'v' to begin selection
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      bind-key -T copy-mode-vi v send -X begin-selection
-     bind-key -T copy-mode-vi y send -X copy-pipe "xclip" \; display-message "Copied to clipboard."
    #+END_SRC
 
    Increase repeat time for repeatable commands
@@ -1532,6 +1566,7 @@
     A nice article explaining clipboards: https://medium.freecodecamp.org/tmux-in-practice-integration-with-system-clipboard-bcd72c62ff7b
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
+     bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
    #+END_SRC
 
 *** Look and Feel
