@@ -33,3 +33,50 @@ snippet np "Import numpy" b
 import numpy as np
 $0
 endsnippet
+
+snippet b "Set breakpoint" b
+import pudb; pu.db
+$0
+endsnippet
+
+snippet doc "Insert autodoc block" b
+__doc__ = """
+
+$0
+
+"""
+endsnippet
+
+snippet vf "Set vim fold method" b
+# vim:fdm=marker
+endsnippet
+
+snippet pytest "Boilerplate: pytest main" b
+#!/usr/bin/env python3
+"""
+You can auto-discover and run all tests with this command:
+
+  $ py.test
+
+Documentation: https://docs.pytest.org/en/latest/
+
+Or you can test individual routines by typing
+
+  $ python ${1:test_file}.py 'test_routine()'
+
+"""
+
+# {{{ main
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) > 1:
+        exec(sys.argv[1])
+    else:
+        from pytest import main
+        main([__file__])
+
+# }}} End main
+
+# vim:fdm=marker
+endsnippet

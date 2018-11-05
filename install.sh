@@ -69,6 +69,7 @@ box_out "Setting up directory structure.."
 
   mkdir -p $HOME/.config/nvim;
   mkdir -p $HOME/.config/nvim/autoload/;
+  mkdir -p $HOME/.config/nvim/syntax/;
   mkdir -p $HOME/.config/i3;
 
   mkdir -p $HOME/.tmux;
@@ -102,6 +103,9 @@ cd ../..
 
 # Vim-plug
 cp contrib/vim-plug/plug.vim $HOME/.config/nvim/autoload/plug.vim
+
+# Vim-pyopencl
+cp contrib/vim-pyopencl/pyopencl.vim $HOME/.config/nvim/syntax/pyopencl.vim
 
 # TPM (auto update if exists)
 TPMPATH=$HOME/.tmux/plugins/tpm
