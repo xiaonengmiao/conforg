@@ -101,6 +101,9 @@ cd contrib/ranger_devicons && make install \
   >> /tmp/conforg.log 2>&1
 cd ../..
 
+# Ranger scope.sh
+chmod +x ~/.config/ranger/scope.sh
+
 # Vim-plug
 cp contrib/vim-plug/plug.vim $HOME/.config/nvim/autoload/plug.vim
 
