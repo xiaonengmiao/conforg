@@ -11,7 +11,6 @@ GITIGNORE_IN=./contrib/gitignore
 GITIGNORE_OUT=$HOME/.gitignore_global
 
 INSTALL_ARGS="$*"
-echo $INSTALL_ARGS > $HOME/.config/conforgrc
 
 function show_help() {
   echo "-v Show detailed logs"
@@ -266,6 +265,9 @@ if $HAS_TASKD_SERVER; then
   box_out "Syncing Tasks"
   task sync >> $LOGFILE 2>&1
 fi
+
+# Save the command only if the installer proceeds this far
+echo $INSTALL_ARGS > $HOME/.config/conforgrc
 
 box_out "Almost done: manual setup required."
 if [[ $QUIET != 0 ]]; then
