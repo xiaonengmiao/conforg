@@ -2219,6 +2219,11 @@
       alias emacs='SHELL=/bin/bash emacs'
     #+END_SRC
     
+    Force tmux to accept UTF-8
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      alias tmux='tmux -u'
+    #+END_SRC
+    
     A simple calculator.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       autoload -U zcalc
