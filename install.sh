@@ -10,10 +10,14 @@ DEFAULT_CONFORG_DIR=$HOME/.conforg
 GITIGNORE_IN=./contrib/gitignore
 GITIGNORE_OUT=$HOME/.gitignore_global
 
+INSTALL_ARGS="$*"
+echo $INSTALL_ARGS > $HOME/.config/conforgrc
+
 function show_help() {
   echo "-v Show detailed logs"
   echo "-q Supress all warnings, also unset -v"
-  echo "-d <DPI> Set the DPI value in .Xresources (default to be 100)"
+  echo "-d <DPI> Set the DPI value in .Xresources (default to be 100)."
+  echo "         A rule of thumb is to set this value such that 11pt font looks nice."
   echo "-f <file> Set log file"
   echo "-c <path> Set conforg path"
   echo "-g <file> Set global gitignore file"
