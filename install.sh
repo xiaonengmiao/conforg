@@ -203,6 +203,12 @@ pass show WXYZG/Email-mkmaildirs > $HOME/.mkmaildirs_commands.tmp 2>>$LOGFILE
 source $HOME/.mkmaildirs_commands.tmp
 rm $HOME/.mkmaildirs_commands.tmp
 pass show WXYZG/Email-mbsyncrc > $HOME/.mbsyncrc 2>>$LOGFILE
+
+# use openssl's ca list (brew install openssl)
+if [[ $PLATFORM == 'mac' ]]; then
+  $SED_BIN -i '/CertificateFile/c\CertificateFile /usr/local/etc/openssl/cert.pem' $HOME/.mbsyncrc
+fi
+
 if [ -d $HOME/Mail ]; then
   box_warn "Warning: Mail directory already exists."\
     "Updating .mbsyncrc could cause errors for future syncs." \
