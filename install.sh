@@ -1,12 +1,56 @@
 #!/bin/bash
 
+OPTIND=1
+
+DPI=100
+VERBOSE=0
+QUIET=0
 LOGFILE=/tmp/conforg.log
 DEFAULT_CONFORG_DIR=$HOME/.conforg
-
 GITIGNORE_IN=./contrib/gitignore
 GITIGNORE_OUT=$HOME/.gitignore_global
 
+function show_help() {
+  echo "-v Show detailed logs"
+  echo "-q Supress all warnings, also unset -v"
+  echo "-d <DPI> Set the DPI value in .Xresources (default to be 100)"
+  echo "-f <file> Set log file"
+  echo "-c <path> Set conforg path"
+  echo "-g <file> Set global gitignore file"
+}
+
+while getopts "h?vd:f:qc:g" opt; do
+  case "$opt" in
+    h|\?)
+      show_help
+      exit 0
+      ;;
+    v)
+      VERBOSE=1;;
+    d)
+      DPI=$OPTARG;;
+    f)
+      LOGFILE=$OPTARG;;
+    q)
+      QUIET=1;;
+    c)
+      DEFAULT_CONFORG_DIR=$OPTARG;;
+    g)
+      GITIGNORE_OUT=$OPTARG;;
+    : )
+      echo "Option -"$OPTARG" requires an argument." >&2
+      exit 1;;
+  esac
+done
+
+if [[ $QUIET != 0 ]]; then
+  VERBOSE=0
+fi
+
 function box_out() {
+  if [[ $VERBOSE == 0 ]]; then
+    return
+  fi
   local s="$*"
   tput setaf 3
   echo " -${s//?/-}-
@@ -19,6 +63,9 @@ function box_out() {
 
 function box_warn()
 {
+  if [[ $QUIET != 0 ]]; then
+    return
+  fi
   local s=("$@") b w
   for l in "${s[@]}"; do
     ((w<${#l})) && { b="$l"; w="${#l}"; }
@@ -46,7 +93,9 @@ elif [[ "$UNAMESTR" == 'FreeBSD' ]]; then
    PLATFORM='freebsd'
 fi
 
-echo "+ Running on $PLATFORM"
+if [[ $VERBOSE != 0 ]]; then
+  echo "+ Running on $PLATFORM"
+fi
 
 SED_BIN=sed
 if [[ $PLATFORM == 'mac' ]]; then
@@ -62,7 +111,9 @@ fi
 box_out "Setting up directory structure.."
 # in a subshell
 (
-  set -x;
+  if [[ $VERBOSE != 0 ]]; then
+    set -x;
+  fi
   mkdir -p $HOME/.emacs.d;
   mkdir -p $HOME/.mozilla;
   mkdir -p $HOME/.config;
@@ -83,16 +134,23 @@ box_out "Parsing conf.org.."
 emacs -Q --batch --eval '(require (quote org))' \
   --eval '(org-babel-tangle-file "conf.org")' \
   >> $LOGFILE 2>&1
-tail -n 1 $LOGFILE
-echo "See $LOGFILE for details"
+if [[ $VERBOSE != 0 ]]; then
+  tail -n 1 $LOGFILE
+  echo "See $LOGFILE for details"
+fi
 
 box_out "Adding final touches.."
 # update X server database
+$SED_BIN -i "/Xft.dpi/c\Xft.dpi:\ $DPI" $HOME/.Xresources  
 if ! [ -x "$(command -v xrdb)" ]; then
   echo 'Warning: .Xresources is not activated.' >&2
-  set -o xtrace
+  if [[ $VERBOSE != 0 ]]; then
+    set -o xtrace
+  fi
 else
-  set -o xtrace
+  if [[ $VERBOSE != 0 ]]; then
+    set -o xtrace
+  fi
   xrdb ~/.Xresources
 fi
 
@@ -113,9 +171,10 @@ cp contrib/vim-pyopencl/pyopencl.vim $HOME/.config/nvim/syntax/pyopencl.vim
 # TPM (auto update if exists)
 TPMPATH=$HOME/.tmux/plugins/tpm
 if ! [ -d $TPMPATH/.git ]; then
-  git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+  git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm \
+  >> $LOGFILE 2>&1
 else
-  cd $TPMPATH && git pull && cd -
+  (cd $TPMPATH && git pull >> $LOGFILE 2>&1 && cd - >> $LOGFILE 2>&1)
 fi;
 
 # cli-utils
@@ -124,8 +183,10 @@ if [ -L $HOME/cli-utils ]; then
 fi
 ln -sf $DEFAULT_CONFORG_DIR/contrib/cli-utils $HOME/cli-utils
 
-set +o xtrace
-echo "+ Adding contents to .gitignore_global"
+if [[ $VERBOSE != 0 ]]; then
+  set +o xtrace
+  echo "+ Adding contents to .gitignore_global"
+fi
 
 # .gitignore_global
 cat $GITIGNORE_IN/Global/*.gitignore >> $GITIGNORE_OUT
@@ -135,11 +196,13 @@ cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 echo "!*.py" >> $GITIGNORE_OUT
 
 # isync
-echo "+ Setting up isync (IMAP client)"
-pass show WXYZG/Email-mkmaildirs > $HOME/.mkmaildirs_commands.tmp
+if [[ $VERBOSE != 0 ]]; then
+  echo "+ Setting up isync (IMAP client)"
+fi
+pass show WXYZG/Email-mkmaildirs > $HOME/.mkmaildirs_commands.tmp 2>>$LOGFILE
 source $HOME/.mkmaildirs_commands.tmp
 rm $HOME/.mkmaildirs_commands.tmp
-pass show WXYZG/Email-mbsyncrc > $HOME/.mbsyncrc
+pass show WXYZG/Email-mbsyncrc > $HOME/.mbsyncrc 2>>$LOGFILE
 if [ -d $HOME/Mail ]; then
   box_warn "Warning: Mail directory already exists."\
     "Updating .mbsyncrc could cause errors for future syncs." \
@@ -152,12 +215,16 @@ if [ -d $HOME/.mbsync ]; then
 fi
 
 # msmtp
-echo "+ Setting up msmtp (SMTP client)"
-pass show WXYZG/Email-msmtprc > $HOME/.msmtprc
+if [[ $VERBOSE != 0 ]]; then
+  echo "+ Setting up msmtp (SMTP client)"
+fi
+pass show WXYZG/Email-msmtprc > $HOME/.msmtprc 2>>$LOGFILE
 
 # mu4e
-echo "+ Setting up mu4e"
-pass show WXYZG/Email-mu4erc > $HOME/.emacs.d/mu4e-config.el
+if [[ $VERBOSE != 0 ]]; then
+  echo "+ Setting up mu4e"
+fi
+pass show WXYZG/Email-mu4erc > $HOME/.emacs.d/mu4e-config.el 2>>$LOGFILE
 
 # Taskwarrior Theme
 if [[ $PLATFORM == 'mac' ]]; then
@@ -168,7 +235,9 @@ fi
 $SED_BIN -i "s@TASKWARRIOR_COLOR_THEME@$TASK_THEME@g" $HOME/.taskrc
 
 # Taskwarrior sync
-echo "+ Setting up connection with Taskwarrior server"
+if [[ $VERBOSE != 0 ]]; then
+  echo "+ Setting up connection with Taskwarrior server"
+fi
 AEHOME=$(echo $HOME | $SED_BIN 's@\/@\\\\\\\/@g')
 HAS_TASKD_SERVER=false
 $SED_BIN -i "s@ABSOLUTE_ESCAPED_HOME_DIR@$AEHOME@g" $HOME/.taskrc
@@ -177,19 +246,22 @@ if ! [ -x "$(command -v pass)" ]; then
 else
   $SED_BIN -i "s@TASKD_SERVER_ADDR@$(pass WXYZG/TaskwarriorServerAddress)@g" $HOME/.taskrc
   $SED_BIN -i "s@TASKD_SERVER_USER_KEY@$(pass WXYZG/TaskwarriorUserUUID-xywei)@g" $HOME/.taskrc
-  pass WXYZG/TaskwarriorServerCertificate > $HOME/.task/ca.cert.pem
-  pass WXYZG/TaskwarriorUserCertificate-xywei > $HOME/.task/xywei.cert.pem
-  pass WXYZG/TaskwarriorUserKey-xywei > $HOME/.task/xywei.key.pem
+  pass WXYZG/TaskwarriorServerCertificate > $HOME/.task/ca.cert.pem 2>>$LOGFILE
+  pass WXYZG/TaskwarriorUserCertificate-xywei > $HOME/.task/xywei.cert.pem 2>>$LOGFILE
+  pass WXYZG/TaskwarriorUserKey-xywei > $HOME/.task/xywei.key.pem 2>>$LOGFILE
   HAS_TASKD_SERVER=true
 fi
 
 if $HAS_TASKD_SERVER; then
   box_out "Syncing Tasks"
-  task sync
+  task sync >> $LOGFILE 2>&1
 fi
 
 box_out "Almost done: manual setup required."
-echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
-echo "- To finish setting up Neovim plugins, open up neovim and run ':PlugInstall'."
-echo "- To finish setting up, open up zsh and do the zkbd setup (preferably in a true terminal)."
-
+if [[ $QUIET != 0 ]]; then
+  exit 0
+else
+  echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
+  echo "- To finish setting up Neovim plugins, open up neovim and run ':PlugInstall'."
+  echo "- To finish setting up, open up zsh and do the zkbd setup (preferably in a true terminal)."
+fi

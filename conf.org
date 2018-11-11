@@ -365,6 +365,12 @@
          (lambda () (local-set-key (kbd "C-c p") 'org-toggle-latex-fragment)))
     #+END_SRC
 
+    Save link with =C-c l=, (insert link with =C-c C-l=, follow link with =C-c C-o=)
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (add-hook 'org-mode-hook
+         (lambda () (local-set-key (kbd "C-c l") 'org-store-link)))
+    #+END_SRC
+
 **** References
      For org-ref. Load the module and set keybindings or inserting citations and
      cross-references.
