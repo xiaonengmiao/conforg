@@ -193,6 +193,8 @@
         '(
           evil
           evil-collection
+	  evil-goggles
+	  evil-surround
           fill-column-indicator
           linum-relative
           magit
@@ -260,6 +262,23 @@
        (evil-collection-init))
     #+END_SRC
 
+    Enable evil-surround for keybindings like =ds"=.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package evil-surround
+	:ensure t
+	:config
+	(global-evil-surround-mode 1))
+    #+END_SRC
+    
+    Visual hints to help keeping up with what's happening.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package evil-goggles
+	:ensure t
+	:config
+	(evil-goggles-mode)
+	(evil-goggles-use-diff-faces))
+    #+END_SRC
+
     Adding new word to dictionary
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (define-key evil-normal-state-map "zg" 'flyspell-correct-word-before-point)
@@ -299,7 +318,7 @@
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (require 'linum-relative)
       (add-hook 'prog-mode-hook 'linum-relative-mode)
-      (add-hook 'text-mode-hook 'linum-relative-mode)
+      ;; (add-hook 'text-mode-hook 'linum-relative-mode)
     #+END_SRC
 
     One caveat: it does not play well with folding.
@@ -369,6 +388,17 @@
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
        (add-hook 'org-mode-hook
          (lambda () (local-set-key (kbd "C-c l") 'org-store-link)))
+    #+END_SRC
+
+    Agenda view (global) =C-c a=
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (setq org-agenda-files (directory-files-recursively "~/Agenda/" "\.org$"))
+      (add-hook 'after-init-hook
+		'(lambda ()
+		   (progn
+		     (global-set-key (kbd "C-c a") 'org-agenda)
+		     )
+		   ))
     #+END_SRC
 
 **** References
