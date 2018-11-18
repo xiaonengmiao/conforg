@@ -194,13 +194,16 @@
           evil
           evil-collection
 	  evil-goggles
+	  evil-org
 	  evil-surround
           fill-column-indicator
-          linum-relative
           magit
+	  nlinum
+          nlinum-relative
 	  org-bullets
           org-plus-contrib
           org-ref
+	  powerline
           solarized-theme
           use-package
           yasnippet
@@ -283,6 +286,20 @@
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (define-key evil-normal-state-map "zg" 'flyspell-correct-word-before-point)
     #+END_SRC
+    
+    Evil-org
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package evil-org
+	:ensure t
+	:after org
+	:config
+	(add-hook 'org-mode-hook 'evil-org-mode)
+	(add-hook 'evil-org-mode-hook
+		  (lambda ()
+		    (evil-org-set-key-theme)))
+	(require 'evil-org-agenda)
+	(evil-org-agenda-set-keys))
+    #+END_SRC
 
 *** FCI (indicate column 80)
     Indicate column 80 for programming and text editing
@@ -311,19 +328,35 @@
 
     Show the real line number of the current line instead of "0"
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
-      (setq linum-relative-current-symbol "")
+      ;; (setq linum-relative-current-symbol "")
     #+END_SRC
 
     This mode is so nice that I want it to be always on
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
-      (require 'linum-relative)
-      (add-hook 'prog-mode-hook 'linum-relative-mode)
+      ;; (require 'linum-relative)
+      ;; (add-hook 'prog-mode-hook 'linum-relative-mode)
       ;; (add-hook 'text-mode-hook 'linum-relative-mode)
     #+END_SRC
 
     One caveat: it does not play well with folding.
     [[https://github.com/syl20bnr/spacemacs/issues/6536][Read more about this issue]]
+    
+    Now I have switched to =nlinum= for better performance
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package nlinum-relative
+	  :config
+	  ;; something else you want
+	  (nlinum-relative-setup-evil)
+	  (add-hook 'prog-mode-hook 'nlinum-relative-mode)
+	  (add-hook 'text-mode-hook 'nlinum-relative-mode))
+    #+END_SRC
 
+*** Powerline
+    (No need for patched fonts)
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (require 'powerline)
+      (powerline-center-evil-theme)
+    #+END_SRC
 *** Org-mode
 **** Display
     Fontify code in code blocks
