@@ -80,7 +80,8 @@ box_out "Setting up directory structure.."
 )
 
 box_out "Parsing conf.org.."
-emacs -Q --batch --eval '(require (quote org))' \
+emacs -Q --batch \
+  --eval '(require (quote org))' \
   --eval '(org-babel-tangle-file "conf.org")' \
   >> $LOGFILE 2>&1
 tail -n 1 $LOGFILE
@@ -164,6 +165,11 @@ pass show WXYZG/Email-msmtprc > $HOME/.msmtprc
 # mu4e
 echo "+ Setting up mu4e"
 pass show WXYZG/Email-mu4erc > $HOME/.emacs.d/mu4e-config.el
+
+# patch for MacOS (brew install mu --with-emacs)
+if [[ $PLATFORM == 'mac' ]]; then
+  $SED_BIN -i 's@/usr/share/emacs/site-lisp/@/usr/local/share/emacs/site-lisp/mu/@g' $HOME/.emacs.d/init.el
+fi
 
 # Taskwarrior Theme
 if [[ $PLATFORM == 'mac' ]]; then
