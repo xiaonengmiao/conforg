@@ -78,6 +78,15 @@
 
       (package-initialize)
     #+END_SRC
+    
+    A helper function for tracing obsolete functions
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (defun debug-on-load-obsolete (filename)
+        (when (equal (car (last (split-string filename "[/\\]") 2))
+                     "obsolete")
+          (debug)))
+      (add-to-list 'after-load-functions #'debug-on-load-obsolete)
+    #+END_SRC
 
 *** Native configs
     Configs in here should overrides all the others if there are conflicts,
@@ -188,23 +197,25 @@
     Define a list of required packages. For ease of use, keep the list
     in alphabetical order.
 
+    TODO: transition to manage packages with =use-package=.
+
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (defvar required-packages
         '(
           evil
           evil-collection
-	  evil-goggles
-	  evil-org
-	  evil-surround
+          evil-goggles
+          evil-org
+          evil-surround
           fill-column-indicator
           magit
-	  nlinum
+          nlinum
           nlinum-relative
-	  org-bullets
+          org-bullets
           org-plus-contrib
           org-ref
-	  org2blog
-	  powerline
+          org2blog
+          powerline
           solarized-theme
           use-package
           yasnippet
@@ -237,9 +248,31 @@
             (package-install p))))
     #+END_SRC
     
+    TODO: manage system packages using =system-packages=.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package system-packages
+        :ensure t)
+    #+END_SRC
+    
     Load org2blog configs.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
      (load-file "~/.emacs.d/org2blogrc.el")
+    #+END_SRC
+
+*** MacOS Compatibilities
+    Ensure that Emacs uses the same environment setup as user shell.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (when (memq window-system '(mac ns x))
+        (use-package exec-path-from-shell
+                     :ensure t)
+        (exec-path-from-shell-initialize))
+    #+END_SRC
+    
+    Set package manager to =homebrew=.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (when (memq window-system '(mac ns))
+        (setq system-packages-use-sudo nil)
+        (setq system-packages-package-manager 'brew))
     #+END_SRC
 
 *** Evil-mode
