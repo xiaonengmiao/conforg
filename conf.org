@@ -193,12 +193,18 @@
         '(
           evil
           evil-collection
+	  evil-goggles
+	  evil-org
+	  evil-surround
           fill-column-indicator
-          linum-relative
           magit
+	  nlinum
+          nlinum-relative
 	  org-bullets
           org-plus-contrib
           org-ref
+	  org2blog
+	  powerline
           solarized-theme
           use-package
           yasnippet
@@ -230,6 +236,11 @@
           (when (not (package-installed-p p))
             (package-install p))))
     #+END_SRC
+    
+    Load org2blog configs.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+     (load-file "~/.emacs.d/org2blogrc.el")
+    #+END_SRC
 
 *** Evil-mode
     Replace selection, use Ctrl+u to scroll
@@ -260,9 +271,49 @@
        (evil-collection-init))
     #+END_SRC
 
+    Enable evil-surround for keybindings like =ds"=.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package evil-surround
+	:ensure t
+	:config
+	(global-evil-surround-mode 1))
+    #+END_SRC
+    
+    Visual hints to help keeping up with what's happening.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package evil-goggles
+	:ensure t
+	:config
+	(evil-goggles-mode)
+	(evil-goggles-use-diff-faces))
+    #+END_SRC
+
     Adding new word to dictionary
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (define-key evil-normal-state-map "zg" 'flyspell-correct-word-before-point)
+    #+END_SRC
+    
+    Evil-org
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package evil-org
+	:ensure t
+	:after org
+	:config
+	(add-hook 'org-mode-hook 'evil-org-mode)
+	(add-hook 'evil-org-mode-hook
+		  (lambda ()
+		    (evil-org-set-key-theme)))
+	(require 'evil-org-agenda)
+	(evil-org-agenda-set-keys))
+    #+END_SRC
+    
+    Org2blog
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package org2blog
+	:ensure t
+	:after org
+	:config
+	(add-hook 'org-mode-hook #'org2blog/wp-org-mode-hook-fn))
     #+END_SRC
 
 *** FCI (indicate column 80)
@@ -292,19 +343,35 @@
 
     Show the real line number of the current line instead of "0"
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
-      (setq linum-relative-current-symbol "")
+      ;; (setq linum-relative-current-symbol "")
     #+END_SRC
 
     This mode is so nice that I want it to be always on
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
-      (require 'linum-relative)
-      (add-hook 'prog-mode-hook 'linum-relative-mode)
-      (add-hook 'text-mode-hook 'linum-relative-mode)
+      ;; (require 'linum-relative)
+      ;; (add-hook 'prog-mode-hook 'linum-relative-mode)
+      ;; (add-hook 'text-mode-hook 'linum-relative-mode)
     #+END_SRC
 
     One caveat: it does not play well with folding.
     [[https://github.com/syl20bnr/spacemacs/issues/6536][Read more about this issue]]
+    
+    Now I have switched to =nlinum= for better performance
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package nlinum-relative
+	  :config
+	  ;; something else you want
+	  (nlinum-relative-setup-evil)
+	  (add-hook 'prog-mode-hook 'nlinum-relative-mode)
+	  (add-hook 'text-mode-hook 'nlinum-relative-mode))
+    #+END_SRC
 
+*** Powerline
+    (No need for patched fonts)
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (require 'powerline)
+      (powerline-center-evil-theme)
+    #+END_SRC
 *** Org-mode
 **** Display
     Fontify code in code blocks
@@ -363,6 +430,23 @@
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
        (add-hook 'org-mode-hook
          (lambda () (local-set-key (kbd "C-c p") 'org-toggle-latex-fragment)))
+    #+END_SRC
+
+    Save link with =C-c l=, (insert link with =C-c C-l=, follow link with =C-c C-o=)
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (add-hook 'org-mode-hook
+         (lambda () (local-set-key (kbd "C-c l") 'org-store-link)))
+    #+END_SRC
+
+    Agenda view (global) =C-c a=
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (setq org-agenda-files (directory-files-recursively "~/Agenda/" "\.org$"))
+      (add-hook 'after-init-hook
+		'(lambda ()
+		   (progn
+		     (global-set-key (kbd "C-c a") 'org-agenda)
+		     )
+		   ))
     #+END_SRC
 
 **** References
@@ -2211,6 +2295,11 @@
     plugins.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias emacs='SHELL=/bin/bash emacs'
+    #+END_SRC
+    
+    Force tmux to accept UTF-8
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      alias tmux='tmux -u'
     #+END_SRC
     
     A simple calculator.
