@@ -203,6 +203,7 @@
 	  org-bullets
           org-plus-contrib
           org-ref
+	  org2blog
 	  powerline
           solarized-theme
           use-package
@@ -234,6 +235,11 @@
         (dolist (p required-packages)
           (when (not (package-installed-p p))
             (package-install p))))
+    #+END_SRC
+    
+    Load org2blog configs.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+     (load-file "~/.emacs.d/org2blogrc.el")
     #+END_SRC
 
 *** Evil-mode
@@ -299,6 +305,15 @@
 		    (evil-org-set-key-theme)))
 	(require 'evil-org-agenda)
 	(evil-org-agenda-set-keys))
+    #+END_SRC
+    
+    Org2blog
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (use-package org2blog
+	:ensure t
+	:after org
+	:config
+	(add-hook 'org-mode-hook #'org2blog/wp-org-mode-hook-fn))
     #+END_SRC
 
 *** FCI (indicate column 80)

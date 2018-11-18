@@ -229,6 +229,9 @@ if [[ $VERBOSE != 0 ]]; then
 fi
 pass show WXYZG/Email-msmtprc > $HOME/.msmtprc 2>>$LOGFILE
 
+# org2blog
+pass show WXYZG/Blog-org2blogrc > $HOME/.emacs.d/org2blogrc.el
+
 # mu4e
 if [[ $VERBOSE != 0 ]]; then
   echo "+ Setting up mu4e"
