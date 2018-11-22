@@ -471,13 +471,14 @@
          (lambda () (local-set-key (kbd "C-c l") 'org-store-link)))
     #+END_SRC
 
-    Agenda view (global) =C-c a=
+    Agenda view (global) =C-c a=, capture (global) =C-c c=
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (setq org-agenda-files (directory-files-recursively "~/Agenda/" "\.org$"))
       (add-hook 'after-init-hook
 		'(lambda ()
 		   (progn
 		     (global-set-key (kbd "C-c a") 'org-agenda)
+		     (global-set-key (kbd "C-c c") 'org-capture)
 		     )
 		   ))
     #+END_SRC
@@ -491,7 +492,7 @@
        (add-hook 'org-mode-hook
          (lambda ()
            (setq org-latex-prefer-user-labels t)
-           (local-set-key (kbd "C-c c") 'org-ref-helm-insert-cite-link)
+           (local-set-key (kbd "C-c t") 'org-ref-helm-insert-cite-link)
            (local-set-key (kbd "C-c r") 'org-ref-helm-insert-ref-link)
            ))
      #+END_SRC
