@@ -81,11 +81,11 @@
     
     A helper function for tracing obsolete functions
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
-      (defun debug-on-load-obsolete (filename)
-        (when (equal (car (last (split-string filename "[/\\]") 2))
-                     "obsolete")
-          (debug)))
-      (add-to-list 'after-load-functions #'debug-on-load-obsolete)
+      ;; (defun debug-on-load-obsolete (filename)
+      ;;  (when (equal (car (last (split-string filename "[/\\]") 2))
+      ;;               "obsolete")
+      ;;    (debug)))
+      ;; (add-to-list 'after-load-functions #'debug-on-load-obsolete)
     #+END_SRC
 
 *** Native configs
@@ -557,6 +557,43 @@
        (with-eval-after-load 'org
          (require 'ox-extra)
          (ox-extras-activate '(ignore-headlines)))
+     #+END_SRC
+
+**** Agenda
+     Open agenda in current window
+     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (setq org-agenda-window-setup (quote current-window))
+     #+END_SRC
+
+     Warn me of any deadlines in next 7 days
+     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (setq org-deadline-warning-days 7)
+     #+END_SRC
+
+     Show me tasks scheduled or due in next fortnight
+     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (setq org-agenda-span (quote fortnight))
+     #+END_SRC
+
+     Sort tasks in order of when they are due and then by priority
+     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (setq org-agenda-sorting-strategy
+	 (quote
+	  ((agenda deadline-up priority-down)
+	   (todo priority-down category-keep)
+	   (tags priority-down category-keep)
+	   (search category-keep))))
+     #+END_SRC
+
+**** Capture
+     Default to capturing a task dated today and optionally link to the current file (e.g. email)
+     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+       (setq org-capture-templates
+        '(("m" "todo (email)" entry (file+headline "~/Agenda/mylife.org" "Inbox")
+            "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
+          ("t" "todo" entry (file+headline "~/Agenda/mylife.org" "Inbox")
+           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")
+         ))
      #+END_SRC
 
 *** Color Theme
