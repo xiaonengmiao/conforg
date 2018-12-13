@@ -2386,14 +2386,15 @@
       alias tmux='tmux -u'
     #+END_SRC
     
-    A simple calculator.
+    A simple calculator. Alias =equal sign= disabled due to incompatibility with
+    =zsh-sytax-highlighting=.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       autoload -U zcalc
       function __calc_plugin {
 	  zcalc -e "$*"
       }
       aliases[calc]='noglob __calc_plugin'
-      aliases[=]='noglob __calc_plugin'
+      # aliases[=]='noglob __calc_plugin'
     #+END_SRC
 
 *** Dircolors
