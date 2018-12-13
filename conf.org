@@ -2454,6 +2454,15 @@
       fi
     #+END_SRC
     
+    Load syntax highlighting, which can be installed from
+    =community/zsh-syntax-highlighting=.
+    (It must be at the end of the =.zshrc= file).
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+	  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+      fi
+    #+END_SRC
+    
     Stop profiling
     #+BEGIN_SRC sh :noweb yes :tangle "~/.zshrc"
       <<stop-profiling>>
