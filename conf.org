@@ -523,12 +523,14 @@
 **** References
      For org-ref. Load the module and set keybindings or inserting citations and
      cross-references.
+     Disable =show-broken-links= for better performance.
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
        (with-eval-after-load 'org
          (require 'org-ref))
        (add-hook 'org-mode-hook
          (lambda ()
            (setq org-latex-prefer-user-labels t)
+	   (setq org-ref-show-broken-links nil)
            (local-set-key (kbd "C-c t") 'org-ref-helm-insert-cite-link)
            (local-set-key (kbd "C-c r") 'org-ref-helm-insert-ref-link)
            ))
@@ -2004,9 +2006,12 @@
      # all changes will be overwritten.
     #+END_SRC
    
-    Use the monocolor theme and enable image previews.
+    Use the custom theme and enable image previews.
+    For best experiences, set the terminal to use solarized light colors.
     #+BEGIN_SRC conf :tangle ~/.config/ranger/rc.conf
-     set colorscheme snow
+     set colorscheme custom
+     set draw_borders true
+     set line_numbers relative
      set preview_images false
     #+END_SRC
    
@@ -2551,6 +2556,7 @@
 
      set statusbar-h-padding 0
      set statusbar-v-padding 0
+     set first-page-column 1
      set page-padding 1
      map K zoom in
      map J zoom out

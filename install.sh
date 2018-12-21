@@ -126,6 +126,9 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/nvim/syntax/;
   mkdir -p $HOME/.config/i3;
 
+  mkdir -p $HOME/.config/ranger;
+  mkdir -p $HOME/.config/ranger/colorschemes/;
+
   mkdir -p $HOME/.tmux;
   mkdir -p $HOME/.tmux/plugins;
 
@@ -161,6 +164,11 @@ fi
 # Ranger file glyphs
 cd contrib/ranger_devicons && make install \
   >> /tmp/conforg.log 2>&1
+cd ../..
+
+# Ranger color theme
+cd contrib/ranger_colortheme && cat ranger_colortheme_custom.py \
+  > $HOME/.config/ranger/colorschemes/custom.py
 cd ../..
 
 # Ranger scope.sh
