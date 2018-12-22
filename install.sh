@@ -252,6 +252,12 @@ if [[ $PLATFORM == 'mac' ]]; then
   $SED_BIN -i 's@/usr/share/emacs/site-lisp/@/usr/local/share/emacs/site-lisp/mu/@g' $HOME/.emacs.d/init.el
 fi
 
+# newsboat feeds
+if [[ $VERBOSE != 0 ]]; then
+  echo "+ Setting up newsboat"
+fi
+pass show WXYZG/RSS-newsboat-feeds >> $HOME/.newsboat/config
+
 # Taskwarrior Theme
 if [[ $PLATFORM == 'mac' ]]; then
   TASK_THEME=/usr/local/share/doc/task/rc/solarized-light-256.theme
