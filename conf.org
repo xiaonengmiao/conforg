@@ -1187,6 +1187,11 @@
       Plug 'vim-voom/VOoM'
     #+END_SRC
     
+    A code minimap that resembles Sublime text.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'severin-lemaignan/vim-minimap'
+    #+END_SRC
+    
     Syntax highlighting for prm files.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'xywei/vim-dealii-prm'
