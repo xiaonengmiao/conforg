@@ -125,6 +125,7 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/nvim/autoload/;
   mkdir -p $HOME/.config/nvim/syntax/;
   mkdir -p $HOME/.config/i3;
+  mkdir -p $HOME/.config/kitty;
 
   mkdir -p $HOME/.config/ranger;
   mkdir -p $HOME/.config/ranger/colorschemes/;
