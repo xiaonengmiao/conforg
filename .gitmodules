@@ -25,3 +25,6 @@
 [submodule "contrib/xrandr-brightness-script"]
 	path = contrib/xrandr-brightness-script
 	url = git@github.com:xywei/xrandr-brightness-script.git
+[submodule "contrib/vim-anywhere"]
+	path = contrib/vim-anywhere
+	url = git@github.com:xywei/vim-anywhere.git
