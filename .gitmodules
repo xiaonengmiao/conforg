@@ -22,3 +22,6 @@
 [submodule "contrib/gitignore"]
 	path = contrib/gitignore
 	url = git@github.com:github/gitignore
+[submodule "contrib/xrandr-brightness-script"]
+	path = contrib/xrandr-brightness-script
+	url = git@github.com:xywei/xrandr-brightness-script.git
