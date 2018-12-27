@@ -32,6 +32,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec kitty -1
 
+# start vim-anywhere
+bindsym $mod+Shift+Return exec /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
