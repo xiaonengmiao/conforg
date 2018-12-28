@@ -11,7 +11,8 @@ case $BLOCK_BUTTON in
 🔌: charging
 ⚡: charged
 ❗: battery very low!
-- Text color reflects charge left" ;;
+- BAT0: Internal battery.
+- BAT1: Swappable bettery." ;;
 esac
 
 capacity=$(cat /sys/class/power_supply/"$1"/capacity) || exit
