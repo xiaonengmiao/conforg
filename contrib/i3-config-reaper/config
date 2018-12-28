@@ -10,10 +10,50 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+focus_follows_mouse no
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:monospace 8
+# Borders & gaps
+for_window [class="^.*"] border pixel 3
+gaps inner 1
+gaps outer 1
+
+# Composite manager
+exec --no-startup-id compton -b
+
+# Notification center
+exec --no-startup-id dunst
+
+# Unclutter makes the mouse invisible after a brief period
+exec --no-startup-id unclutter
+
+# Set Xresources colors:
+set_from_resource $darkblack    i3wm.color0  #000000
+set_from_resource $black        i3wm.color8  #000000
+set_from_resource $darkred      i3wm.color1  #000000
+set_from_resource $red          i3wm.color9  #000000
+set_from_resource $darkgreen    i3wm.color2  #000000
+set_from_resource $green        i3wm.color10 #000000
+set_from_resource $darkyellow   i3wm.color3  #000000
+set_from_resource $yellow       i3wm.color11 #000000
+set_from_resource $darkblue     i3wm.color4  #000000
+set_from_resource $blue         i3wm.color12 #000000
+set_from_resource $darkmagenta  i3wm.color5  #000000
+set_from_resource $magenta      i3wm.color13 #000000
+set_from_resource $darkcyan     i3wm.color6  #000000
+set_from_resource $cyan         i3wm.color14 #000000
+set_from_resource $darkwhite    i3wm.color7  #000000
+set_from_resource $white        i3wm.color15 #000000
+set $transparent  #00000000
+
+#                       BORDER       BACKGROUND  TEXT        INDICATOR    CHILD_BORDER
+client.focused          $red         $red        $magenta    $darkmagenta $darkblue
+client.unfocused        $transparent $blue       $white      $darkblue    $darkblack
+client.focused_inactive $transparent $blue       $white      $darkblue    $darkblack
+client.urgent           $darkred     $darkred    $black      $darkred     $darkred
+client.background       $black
+
+# Font for window titles.
+font pango:monospace 11
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -35,6 +75,9 @@ bindsym $mod+Return exec kitty -1
 # start vim-anywhere
 bindsym $mod+Shift+Return exec /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
 
+# start emacsclient
+bindsym $mod+Escape exec emacsclient -c -n
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -48,7 +91,7 @@ bindsym $mod+d exec dmenu_run
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
-bindsym $mod+u focus up
+bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
@@ -98,7 +141,7 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # previous workspace
-bindsym $mod+Escape		workspace prev
+# bindsym $mod+Escape     workspace prev
 
 # switch to workspace
 bindsym $mod+1 workspace number 1
@@ -169,6 +212,12 @@ exec_always xset dpms 0 0 1200
 # Nextcloud client
 exec "sleep 10; nextcloud"
 
+# Wallpaper
+exec_always feh --randomize --bg-scale /usr/share/archlinux/wallpaper/*[a-z].jpg
+
+# Emacs daemon
+exec_always emacs --daemon &
+
 # Volume control from my daskeyboard
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
@@ -180,9 +229,26 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 # bindsym Print exec --no-startup-id xbacklight -dec 5
 
 # On T480, xbacklight does not work
-bindsym XF86MonBrightnessDown	exec sh /home/xywei/.conforg/contrib/xrandr-brightness-script/brightness.sh - eDP-1
-bindsym XF86MonBrightnessUp	exec sh /home/xywei/.conforg/contrib/xrandr-brightness-script/brightness.sh + eDP-1
+bindsym XF86MonBrightnessDown   exec sh /home/xywei/.conforg/contrib/xrandr-brightness-script/brightness.sh - eDP-1
+bindsym XF86MonBrightnessUp exec sh /home/xywei/.conforg/contrib/xrandr-brightness-script/brightness.sh + eDP-1
+# Default is full brightness, which is too bright in most cases
+exec_always xrandr --output eDP-1 --brightness 0.6
 
 bar {
-    status_command i3status -c ~/.config/i3/i3status.conf
+    # Font for status bar
+    font pango:monospace 11
+    colors {
+        background $darkblack
+        statusline $darkwhite
+        separator $cyan
+        focused_workspace  $blue $darkblue $darkblack
+        active_workspace   $blue $blue $darkwhite
+        inactive_workspace $darkblack $darkblack $white
+        urgent_workspace   $darkblack $darkblack $white
+    }
+    # status_command i3status -c ~/.config/i3/i3status.conf
+    status_command i3blocks
+    position       top
+    mode           dock
+    modifier       None
 }
