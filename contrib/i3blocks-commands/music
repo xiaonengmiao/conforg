@@ -1,0 +1,23 @@
+#!/bin/sh
+
+filter() {
+	sed "/^volume:/d" | tac | sed -e "s/\\&/&amp;/g;s/\\[paused\\].*/<span color=\"gray\" font_style=\"italic\">/g;s/\\[playing\\].*/<span>/g" | tr -d '\n' | sed -e "s/$/<\\/span>/g" > /dev/null
+	}
+
+case $BLOCK_BUTTON in
+    1) mpc status | filter && setsid kitty -1 -e ncmpcpp & ;;
+    2) mpc toggle | filter ;;
+    3) mpc status | filter && pgrep -x dunst >/dev/null && notify-send "<b>🎵 Music module:</b>" "$(mpc status | sed -e "s/\\&/&amp;/g")";;
+    4) mpc prev   | filter ;;  # scroll up, previous
+    5) mpc next   | filter ;;  # scroll down, next
+    *) mpc status | filter ;;
+esac
+
+status_string=$(mpc status)
+if [[ $status_string == *"paused"* ]]; then
+  echo "⏸️ Paused"
+elif [[ $status_string == *"playing"* ]]; then
+  echo "🎵Playing"
+else
+  echo "⛔MPD unavailable"
+fi

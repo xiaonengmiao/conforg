@@ -131,6 +131,9 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/ranger;
   mkdir -p $HOME/.config/ranger/colorschemes/;
 
+  mkdir -p $HOME/.config/mpd;
+  mkdir -p $HOME/.config/mpd/playlists;
+
   mkdir -p $HOME/.tmux;
   mkdir -p $HOME/.tmux/plugins;
 
