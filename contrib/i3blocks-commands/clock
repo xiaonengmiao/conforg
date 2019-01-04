@@ -1,0 +1,11 @@
+#!/bin/sh
+
+date '+%Y %b %d (%a) %I:%M%p'
+
+case $BLOCK_BUTTON in
+  1) emacsclient -n -c --eval "(org-agenda-list)" >/dev/null;;
+	# 2) pgrep -x dunst >/dev/null && $HOME/.conforg/contrib/i3blocks-commands/daily_agenda.el 2>&1 | awk NF | sed -e 's/^"//' -e 's/"$//' | xargs -I {} notify-send "{}" ;;
+	3) pgrep -x dunst >/dev/null && notify-send "<b>📅 Time/date module:</b>
+- Left click to open org-agenda
+- Right click shows help" ;;
+esac

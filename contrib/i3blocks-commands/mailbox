@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# i3blocks mail module.
+# Displays number of new mails and an loading icon if updating.
+# When clicked, brings up `mu4e`.
+
+# FIXME: syncing blocks the status bar
+# May be related to: https://github.com/vivien/i3blocks/issues/288
+
+case $BLOCK_BUTTON in
+  1) emacsclient -n -c --eval "(mu4e)" >/dev/null;;
+  # 2) $HOME/.conforg/contrib/i3blocks-commands/syncmail >/dev/null;;
+	3) pgrep -x dunst >/dev/null && notify-send "<b>📬 Mail module:</b>
+- Shows unread mail
+- Shows 🔃 if syncing mail
+- Left click opens mu4e
+- Middle click syncs mail (disabled)" ;;
+esac
+
+# Maildir. Email accounts are under folers named with email addresses
+maildir="$HOME/Mail/"
+
+n_inbox_mails=0
+for addr in "$maildir"*"@"*
+do
+  n_dir_incur_mails=$(ls $addr/Inbox/cur | wc -l)
+  n_dir_innew_mails=$(ls $addr/Inbox/new | wc -l)
+  n_inbox_mails=$(($n_inbox_mails+$n_dir_innew_mails+$n_dir_incur_mails))
+done
+
+n_mbsync_procs=$(ps aux | grep mbsync | wc -l)
+if [ $n_mbsync_procs \> 1 ];
+then 
+    sync_label="🔃"
+else
+    sync_label=""
+fi;
+
+echo "$n_inbox_mails $sync_label"
+

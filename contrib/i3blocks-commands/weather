@@ -1,0 +1,18 @@
+#!/bin/sh
+[ "$(stat -c %y $HOME/.weatherreport | awk '{print $1}')" != "$(date '+%Y-%m-%d')" ] && curl "wttr.in?m" | tee $HOME/.weatherreport | perl -pe 's/\x1b\[[0-9;]*[a-zA-Z]//g' >> $HOME/.weatherreport_plain
+
+
+case $BLOCK_BUTTON in
+    1) kitty -1 -e less -S $HOME/.weatherreport_plain;;
+    3) pgrep -x dunst >/dev/null && notify-send "<b>🌈 Weather module:</b>
+- Click for wttr.in forecast.
+☔: Chance of rain/snow
+❄: Daily low
+🌞: Daily high" ;;
+esac
+
+# Max probability of tomorrow
+printf "%s" "$(sed '16q;d' $HOME/.weatherreport | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/☔ /g" | tr -d '\n')"
+
+# Min/max temps of tomorrow
+sed '13q;d' $HOME/.weatherreport | grep -o "\\([^0-9]-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " ❄️",$1 "°C","🌞",$2 "°C"}'

@@ -125,6 +125,7 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/nvim/autoload/;
   mkdir -p $HOME/.config/nvim/syntax/;
   mkdir -p $HOME/.config/i3;
+  mkdir -p $HOME/.config/dunst;
   mkdir -p $HOME/.config/kitty;
 
   mkdir -p $HOME/.config/ranger;
@@ -173,7 +174,7 @@ cd contrib/ranger_colortheme && cat ranger_colortheme_custom.py \
 cd ../..
 
 # Ranger scope.sh
-chmod +x ~/.config/ranger/scope.sh
+# chmod +x ~/.config/ranger/scope.sh
 
 # Vim-plug
 cp contrib/vim-plug/plug.vim $HOME/.config/nvim/autoload/plug.vim
