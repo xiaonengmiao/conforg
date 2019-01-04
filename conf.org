@@ -1501,6 +1501,11 @@
       Plug 'vim-voom/VOoM'
     #+END_SRC
     
+    NeoSolarized: A fixed solarized colorscheme for better truecolor support.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'icymind/NeoSolarized'
+    #+END_SRC
+
     A code minimap that resembles Sublime text.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'severin-lemaignan/vim-minimap'
@@ -1908,6 +1913,14 @@
       endif
     #+END_SRC
 
+*** Color Scheme
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      set termguicolors
+      set background=light
+      " set background=dark
+      colorscheme NeoSolarized
+    #+END_SRC
+    
 *** Additional Settings
     Enable mouse.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
