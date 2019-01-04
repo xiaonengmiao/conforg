@@ -6,4 +6,7 @@ case $1 in
     xset dpms force off ;;
   "cancel")
     exit 1 ;;
+  *)
+    i3lock -c 000000;
+    xset dpms force off ;;
 esac
