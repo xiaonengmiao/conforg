@@ -194,7 +194,7 @@
    
    NOTE: It might be helpful to run dunst -print in a terminal in order
    to find fitting options for rules.
-   #+BEGIN_SRC conf
+   #+BEGIN_SRC conf :tangle no
      #[espeak]
      #    summary = "*"
      #    script = dunst_espeak.sh
