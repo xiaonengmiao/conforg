@@ -1,0 +1,50 @@
+command=~/.conforg/contrib/i3blocks-commands/$BLOCK_NAME
+separator_block_width=15
+markup=pango
+
+# [memory]
+# interval=10
+# label=🧠
+
+# [disk]
+# label=💾
+# command=~/.conforg/contrib/i3blocks-commands/disk /
+# interval=60
+
+# [cpu]
+# interval=5
+# label=💻
+
+[mailbox]
+label=📬
+interval=300
+signal=11
+
+[battery]
+command=~/.conforg/contrib/i3blocks-commands/battery BAT0
+label=BAT0
+interval=30
+
+[battery]
+command=~/.conforg/contrib/i3blocks-commands/battery BAT1
+label=BAT1
+interval=30
+
+[weather]
+interval=7200
+
+[clock]
+label=📅
+interval=30
+
+[volume]
+interval=30
+signal=10
+
+[music]
+interval=30
+
+[internet]
+interval=10
+
+# vim: ft=cfg
