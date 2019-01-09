@@ -2666,6 +2666,7 @@
 
 ** Xmodmap
    Map Capslock to be Esc
+   TODO: switch to =setxkbmap=
    #+BEGIN_SRC conf :tangle "~/.Xmodmap"
      clear Lock
      keycode 0x42=Escape
