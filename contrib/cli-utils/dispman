@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# setup displays via a dmenu interface
+# depends on: xrandr, arandr (gui), autorandr (auto setup)
+
+# compatibility: this script is compatible with dockd
+
+# Get all possible displays
+allposs=$(xrandr -q | grep "connected")
+
+# Get all connected screens.
+screens=$(echo "$allposs" | grep " connected" | awk '{print $1}')
+
+auto_setup() {
+  # re-detect and load the setup profile
+  autorandr --change
+}
+
+# Get user choice including multi-monitor and manual selection:
+chosen=$(printf "%s\\nAuto\\nCustomize" "$screens" | dmenu -i -p "Choose a display arangement:") &&
+case "$chosen" in
+	"Customize") arandr ; exit ;;
+	"Auto") auto_setup ; exit ;;
+	*) xrandr --output "$chosen" --auto --scale 1.0x1.0 $(echo "$screens" | grep -v "$chosen" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
+esac
+
+pgrep -x dunst >/dev/null && killall dunst && setsid dunst & # Restart dunst to ensure proper notification locations
