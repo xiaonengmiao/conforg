@@ -82,16 +82,17 @@
      [global]
 	 monitor = 0
 	 follow = keyboard
-	 geometry = "350x5-0+24"
+	 geometry = "1000x5-0+0"
 	 indicate_hidden = yes
-	 shrink = yes
-	 transparency = 20
+	 shrink = no
+	 transparency = 0
 	 notification_height = 0
-	 separator_height = 2
-	 padding = 0
-	 horizontal_padding = 8
+	 
+	 separator_height = 3
+	 padding = 12
+	 horizontal_padding = 12
 	 frame_width = 3
-	 frame_color = "#282828"
+	 frame_color = "#268bd2"
 
 	 # Define a color for the separator.
 	 # possible values are:
@@ -119,21 +120,22 @@
 	 #   %n  progress value if set without any extra characters
 	 #   %%  Literal %
 	 # Markup is allowed
-	 format = "%s\n%b"
+	 format = "%a%p: %s\n%b"
 
 	 alignment = left
-	 show_age_threshold = 60
+	 show_age_threshold = 30
 	 word_wrap = yes
 	 ellipsize = middle
 	 ignore_newline = no
 	 stack_duplicates = true
-	 hide_duplicate_count = true
+	 hide_duplicate_count = false
 	 show_indicators = yes
 	 icon_position = left
-	 max_icon_size = 40
-	 #icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/:/usr/share/icons/Adwaita/256x256/status/
+	 max_icon_size = 80
+	 icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/:/usr/share/icons/Adwaita/256x256/status/
 	 sticky_history = yes
-	 history_length = 20
+	 history_length = 200
+	 
 	 dmenu = /usr/bin/dmenu -p dunst:
 	 browser = /usr/bin/firefox -new-tab
 
@@ -163,9 +165,9 @@
 	 #icon = /path/to/icon
 
      [urgency_normal]
-	 background = "#458588"
-	 foreground = "#ebdbb2"
-	 timeout = 5
+	 background = "#1d2021"
+	 foreground = "#f2f2f2"
+	 timeout = 15
 
      [urgency_critical]
 	 background = "#cc2421"
