@@ -22,7 +22,7 @@ sleep 1
 # Reload dunst
 # Assuming i3 config has: exec_always --no-startup-id dunst
 killall dunst
-notify-send -a "Conforg" "Configs refreshed. 😎" "Remember to open emacs and review theme settings."
+notify-send -a "Conforg" "Configs refreshed. 😎" "Things that may need manual setup: TPM, vim-plug, zkbd."
 
 # Reload nextcloud
 # Fix the (bug) lost tray icon after restarting i3

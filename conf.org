@@ -78,11 +78,12 @@
    #+END_SRC
    
    Global (default) configurations.
+   - For Icons, install =adwaita-icon-theme=
    #+BEGIN_SRC conf :tangle "~/.config/dunst/dunstrc"
      [global]
 	 monitor = 0
 	 follow = keyboard
-	 geometry = "1000x5-0+0"
+	 geometry = "1000x0-0-0"
 	 indicate_hidden = yes
 	 shrink = no
 	 transparency = 0
@@ -106,7 +107,8 @@
 	 sort = yes
 
 	 idle_threshold = 120
-	 font = Monospace 14
+	 # The font that comes latter takes precedence
+	 font = EmojiOne 11, Monospace 11
 	 line_height = 0
 	 markup = full
 
@@ -120,7 +122,7 @@
 	 #   %n  progress value if set without any extra characters
 	 #   %%  Literal %
 	 # Markup is allowed
-	 format = "%a%p: %s\n%b"
+	 format = "<b>%a</b>%p: %s\n%b"
 
 	 alignment = left
 	 show_age_threshold = 30
@@ -132,7 +134,7 @@
 	 show_indicators = yes
 	 icon_position = left
 	 max_icon_size = 80
-	 icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/:/usr/share/icons/Adwaita/256x256/status/
+	 icon_path = /usr/share/icons/gnome/16x16/devices/:/usr/share/icons/Adwaita/256x256/status/
 	 sticky_history = yes
 	 history_length = 200
 	 
@@ -165,7 +167,7 @@
 	 #icon = /path/to/icon
 
      [urgency_normal]
-	 background = "#1d2021"
+	 background = "#4f5b66"
 	 foreground = "#f2f2f2"
 	 timeout = 15
 
@@ -819,9 +821,10 @@
 *** Color Theme
     When starting for the first time Emacs will ask if you want to trust this
     theme. Answer yes to have it auto-loaded on future startups.
+    (Warning: this will load the theme without prompting for safety concerns)
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (setq x-underline-at-descent-line t)
-      (add-hook 'after-init-hook (lambda () (load-theme 'solarized-light)))
+      (add-hook 'after-init-hook (lambda () (load-theme 'solarized-light t)))
     #+END_SRC
 
 *** YaSnippet

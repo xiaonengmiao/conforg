@@ -5,14 +5,8 @@
 for x in "$(xrdb -query | grep -v URxvt | sed "s/.*\./export /g;s/:\s*/=\"/g;s/$/\"/g")"; do eval "$x"; done
 
 case $BLOCK_BUTTON in
-    3) pgrep -x dunst >/dev/null && notify-send "<b>🔋 Battery module:</b>
-🔋: discharging
-♻: stagnant charge
-🔌: charging
-⚡: charged
-❗: battery very low!
-- BAT0: Internal battery.
-- BAT1: Swappable bettery." ;;
+    3) notify-send -a "Battery" "Meaning of symbols" "🔋: discharging<br>♻: stagnant charge<br>🔌: charging<br>⚡: charged<br>❗: battery very low!";
+       notify-send -a "Battery" "List of batteries"  "BAT1: Internal battery.<br>BAT0: Swappable bettery.";;
 esac
 
 capacity=$(cat /sys/class/power_supply/"$1"/capacity) || exit
