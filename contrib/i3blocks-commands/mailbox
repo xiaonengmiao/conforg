@@ -9,12 +9,8 @@
 
 case $BLOCK_BUTTON in
   1) emacsclient -n -c --eval "(mu4e)" >/dev/null;;
-  # 2) $HOME/.conforg/contrib/i3blocks-commands/syncmail >/dev/null;;
-	3) pgrep -x dunst >/dev/null && notify-send "<b>📬 Mail module:</b>
-- Shows unread mail
-- Shows 🔃 if syncing mail
-- Left click opens mu4e
-- Middle click syncs mail (disabled)" ;;
+  2) get_mails >/dev/null;;
+	3) pgrep -x dunst >/dev/null && notify-send -a "Mail" "Instructions" "📬 Shows number of mails in the inbox.<br>🔃 Indicator that appears when syncing.<br>📧 Left click opens mu4e.<br>📩 Middle click syncs mail." ;;
 esac
 
 # Maildir. Email accounts are under folers named with email addresses

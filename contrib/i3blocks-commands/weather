@@ -4,11 +4,7 @@
 
 case $BLOCK_BUTTON in
     1) kitty -1 -e less -S $HOME/.weatherreport_plain;;
-    3) pgrep -x dunst >/dev/null && notify-send "<b>🌈 Weather module:</b>
-- Click for wttr.in forecast.
-☔: Chance of rain/snow
-❄: Daily low
-🌞: Daily high" ;;
+    3) pgrep -x dunst >/dev/null && notify-send -a "Weather" "🌈 wttr.in forecast" "☔: Chance of rain/snow<br>❄: Daily low<br>🌞: Daily high" ;;
 esac
 
 # Max probability of tomorrow

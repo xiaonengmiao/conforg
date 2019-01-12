@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Lock screen and turn off displays
+
 case $1 in
   "lock")
     i3lock -c 000000;

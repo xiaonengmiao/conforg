@@ -7,7 +7,7 @@ filter() {
 case $BLOCK_BUTTON in
     1) mpc status | filter && setsid kitty -1 -e ncmpcpp & ;;
     2) mpc toggle | filter ;;
-    3) mpc status | filter && pgrep -x dunst >/dev/null && notify-send "<b>🎵 Music module:</b>" "$(mpc status | sed -e "s/\\&/&amp;/g")";;
+    3) mpc status | filter && pgrep -x dunst >/dev/null && notify-send -a "Music" "Daemon status 🎵" "$(mpc status | sed -e "s/\\&/&amp;/g")";;
     4) mpc prev   | filter ;;  # scroll up, previous
     5) mpc next   | filter ;;  # scroll down, next
     *) mpc status | filter ;;

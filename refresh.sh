@@ -28,3 +28,7 @@ notify-send -a "Conforg" "Configs refreshed. 😎" "Things that may need manual 
 # Fix the (bug) lost tray icon after restarting i3
 killall nextcloud
 i3-msg exec nextcloud
+
+# Reload emacs daemon
+emacs-daemon-shutdown
+i3-msg exec "emacs --daemon &"
