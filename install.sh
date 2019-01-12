@@ -252,6 +252,9 @@ if [[ $VERBOSE != 0 ]]; then
 fi
 pass show WXYZG/Email-mu4erc > $HOME/.emacs.d/mu4e-config.el 2>>$LOGFILE
 
+# emojisel
+ln -sf contrib/emojisel/emoji_list $HOME/.config/emoji_list
+
 # patch for MacOS (brew install mu --with-emacs)
 if [[ $PLATFORM == 'mac' ]]; then
   $SED_BIN -i 's@/usr/share/emacs/site-lisp/@/usr/local/share/emacs/site-lisp/mu/@g' $HOME/.emacs.d/init.el
