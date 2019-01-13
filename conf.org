@@ -2908,6 +2908,19 @@
       zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
     #+END_SRC
 
+*** TLDR
+    =tldr= provides fast cheatsheet style references to command line utilities.
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      export TLDR_COLOR_NAME="cyan"
+      export TLDR_COLOR_DESCRIPTION="grey"
+      export TLDR_COLOR_BLANK="grey"
+      export TLDR_COLOR_PARAMETER="grey"
+      export TLDR_CACHE_ENABLED=1
+      export TLDR_CACHE_MAX_AGE=720
+    #+END_SRC
+    
+    To update cache, run =tldr -u=.
+
 *** End of zshrc
     Speed up zsh compinit by only checking cache once a day.
     On slow systems, checking the cached =.zcompdump= file to see if it must be 
