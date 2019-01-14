@@ -62,10 +62,16 @@
    #+END_SRC
 
 ** Cli-utils directory:
-   Directory of my scripts
+   Directory of my synced scripts
    #+NAME: cli-utils-dir
    #+BEGIN_SRC sh :results output :exports none :tangle no
      $HOME/cli-utils
+   #+END_SRC
+   
+   Directory of machine-specific scripts (not synced) 
+   #+NAME: scripts-dir
+   #+BEGIN_SRC sh :results output :exports none :tangle no
+     $HOME/.scripts
    #+END_SRC
 
 * Configurations
@@ -2723,6 +2729,7 @@
       export CONFORG_DIR=<<conforg-dir>>
       export CONDA_DIR=<<conda-dir>>
       export CLI_UTILS_DIR=<<cli-utils-dir>>
+      export SCRIPTS_DIR=<<scripts-dir>>
     #+END_SRC
 
 *** Basic setup
@@ -2762,8 +2769,10 @@
 *** Environment variables
     Set PATH to include:
     - cli-utils: my scripts
+    - scripts: local scripts
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export PATH=$CLI_UTILS_DIR:$PATH
+      export PATH=$SCRIPTS_DIR:$PATH
     #+END_SRC
     
     Set default editor to be neovim
