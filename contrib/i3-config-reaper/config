@@ -21,13 +21,18 @@ gaps outer 1
 exec --no-startup-id compton -b
 
 # Notification center
-exec --no-startup-id dunst
+exec_always --no-startup-id dunst
 
 # Unclutter makes the mouse invisible after a brief period
 exec --no-startup-id unclutter
 
 # Fcitx input method
 exec --no-startup-id fcitx
+
+# Dockd detects docking station and changes the screen layout
+exec --no-startup-id dockd --daemon
+
+exec ~/cli-utils/setup_monitors.sh
 
 # Set Xresources colors:
 set_from_resource $darkblack    i3wm.color0  #000000
@@ -56,7 +61,7 @@ client.urgent           $darkred     $darkred    $black      $darkred     $darkr
 client.background       $black
 
 # Font for window titles.
-font pango:monospace 11
+font pango:Hack 11
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -76,7 +81,7 @@ floating_modifier $mod
 bindsym $mod+Return exec kitty -1
 
 # start vim-anywhere
-bindsym $mod+Shift+Return exec ~/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
+bindsym $mod+Shift+Return exec /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
 
 # start emacsclient
 bindsym $mod+Escape exec emacsclient -c -n
@@ -115,6 +120,18 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+# move workspace across monitors
+bindsym $mod+Control+Shift+h move workspace to output left
+bindsym $mod+Control+Shift+j move workspace to output down
+bindsym $mod+Control+Shift+k move workspace to output up
+bindsym $mod+Control+Shift+l move workspace to output right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Control+Shift+Left move workspace to output left
+bindsym $mod+Control+Shift+Down move workspace to output down
+bindsym $mod+Control+Shift+Up move workspace to output up
+bindsym $mod+Control+Shift+Right move workspace to output right
 
 # split in horizontal orientation
 # (daws a bar in between windows)
@@ -171,8 +188,8 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
+# reload conforg
+bindsym $mod+Shift+c exec ~/.conforg/refresh.sh
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -216,16 +233,16 @@ exec_always xset s off
 exec_always xset dpms 0 0 1200
 
 # Nextcloud client
-exec "sleep 10; nextcloud"
+exec "nextcloud"
 
 # Bluetooth manager
-exec_always "sleep 1; blueman-applet"
+exec_always "blueman-applet"
 
 # Wallpaper
 exec_always feh --randomize --bg-scale /usr/share/archlinux/wallpaper/*[a-z].jpg
 
 # Emacs daemon
-exec_always emacs --daemon &
+exec emacs --daemon &
 
 # Volume control from my daskeyboard
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -SIGRTMIN+10 i3blocks #increase sound volume
@@ -247,10 +264,12 @@ exec xbacklight -set 50
 
 # XF86WLAN, XF86Bluetooth works without extra setting
 
-# TODO: setup external display/projector
-# bindsym XF86Display
+bindsym XF86Display exec ~/cli-utils/dispman
 
-bindsym XF86Tools exec --no-startup-id rofi -combi-modi window#drun#run -show combi -font "hack 18" -theme solarized
+# A rescue measure when accidentally lose all displays :P
+bindsym $mod+XF86Display exec --no-startup-id autorandr --change && notify-send  "Display Restored 😎: mind your own step :P"
+
+bindsym XF86Tools exec ~/cli-utils/emojisel
 
 # TODO:
 # Cannot see a log in xev when pressing fn+f12 and fn+f11
@@ -262,7 +281,7 @@ for_window [class="Lazarus"] floating enable
 
 bar {
     # Font for status bar
-    font pango:monospace 11
+    font pango:Hack 11
     colors {
         background $darkblack
         statusline $darkwhite
