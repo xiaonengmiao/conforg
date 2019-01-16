@@ -1216,6 +1216,10 @@
    by `install.sh` after tangling.
 
 ** i3
+   NOTE: =i3= related configurations are highly machine-specific
+   (depends on the keyboard layout, screen size etc.); therefore,
+   those are tracked under =contrib= until I come up with a better
+   way.
 *** Basic Settings
    Some added customization based on generated i3 config file.
    At the moment it has to be added MANUALLY to =~/.config/i3/config=
