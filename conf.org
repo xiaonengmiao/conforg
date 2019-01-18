@@ -2870,6 +2870,11 @@
       alias vim='nvim'
     #+END_SRC
     
+    Fcitx input method (IME) for emacs
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      alias emacs='LC_CTYPE=zh_CN.UTF-8 emacs'
+    #+END_SRC
+    
     Use Bash as the default shell for Emacs, due to compatibility issues for certain
     plugins.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
