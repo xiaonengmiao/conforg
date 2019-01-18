@@ -1534,6 +1534,7 @@
     Search for emoji with =rofi= interface.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym XF86Tools exec ~/cli-utils/emojisel
+      bindsym $mod+q exec ~/cli-utils/emojisel
     #+END_SRC
 
     TODO:
