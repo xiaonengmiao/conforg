@@ -31,4 +31,4 @@ i3-msg exec nextcloud
 
 # Reload emacs daemon
 emacs-daemon-shutdown
-i3-msg exec "emacs --daemon &"
+i3-msg exec "LC_CTYPE=zh_CN.UTF-8 emacs --daemon &"
