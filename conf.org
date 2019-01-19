@@ -3114,6 +3114,15 @@
       fi
     #+END_SRC
 
+*** Conda
+    Starting from =conda 4.4=, it uses =conda activate= command instead of the
+    old =source activate=, which is a nice move: it is no longer needed to add
+    it to =PATH=.
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      if [ -f $CONDA_DIR/etc/profile.d/conda.sh ]; then
+	  . $CONDA_DIR/etc/profile.d/conda.sh
+      fi
+    #+END_SRC
 *** Frequently Used Paths
     Saves the need to type full paths.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
