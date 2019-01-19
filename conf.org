@@ -1048,6 +1048,10 @@
    by `install.sh` after tangling.
 
 ** i3
+   NOTE: =i3= related configurations are highly machine-specific
+   (depends on the keyboard layout, screen size etc.); therefore,
+   those are tracked under =contrib= until I come up with a better
+   way.
 *** Basic Settings
    Checklist:
    - Note that =i3-renameworkspaces= needs some perl modules
@@ -2581,23 +2585,23 @@
     #+BEGIN_SRC conf :tangle ~/.newsboat/config
       articlelist-format "%4i %f %D  %?T?|%-17T| ?%t"
 
-      highlight feedlist    "^  *[0-9]+  *N  "                    color156 default
-      highlight articlelist "^  *[0-9]+  *N  "                    color156 default
+      highlight feedlist    "^  *[0-9]+  *N  "                    default  default
+      highlight articlelist "^  *[0-9]+  *N  "                    default  default
 
-      highlight article     "(^Feed:.*|^Title:.*|^Author:.*)"     color75  default
-      highlight article     "(^Link:.*|^Date:.*)"                 color75  default
-      highlight article     "^Podcast Download URL:.*"            color71  default
-      highlight article     "^Links:"                             white    color240 underline
-      highlight article     "\\[[0-9][0-9]*\\]"                   color72  default  bold
-      highlight article     "\\[image [0-9][0-9]*\\]"             color72  default  bold
-      highlight article     "\\[embedded flash: [0-9][0-9]*\\]"   color72  default  bold
-      highlight article     ":.*\\(link\\)$"                      color74  default
-      highlight article     ":.*\\(image\\)$"                     color74  default
-      highlight article     ":.*\\(embedded flash\\)$"            color74  default
+      highlight article     "(^Feed:.*|^Title:.*|^Author:.*)"     default  default
+      highlight article     "(^Link:.*|^Date:.*)"                 default  default
+      highlight article     "^Podcast Download URL:.*"            default  default
+      highlight article     "^Links:"                             default  default  underline
+      highlight article     "\\[[0-9][0-9]*\\]"                   default  default  bold
+      highlight article     "\\[image [0-9][0-9]*\\]"             default  default  bold
+      highlight article     "\\[embedded flash: [0-9][0-9]*\\]"   default  default  bold
+      highlight article     ":.*\\(link\\)$"                      default  default
+      highlight article     ":.*\\(image\\)$"                     default  default
+      highlight article     ":.*\\(embedded flash\\)$"            default  default
 
-      color listnormal                                            white    default
-      color listfocus                                             default  color240
-      color info                                                  default  color240
+      color listnormal                                            default  default
+      color listfocus                                             default  blue 
+      color info                                                  default  default
     #+END_SRC
     
 ** Taskwarrior
