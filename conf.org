@@ -3153,6 +3153,36 @@
       export PIP_REQUIRE_VIRTUALENV=false
     #+END_SRC
 
+*** Keyboard (Insert, Delete, Home, PageUp etc.)
+    Setup zkbd to use some keys in zsh. It prompts for an interactive setup when
+    used for the first time. Note that the file generated sometimes does not
+    have the correct filename.
+    
+    On first start, =zkbd= will prompt for an interactive test of keyboard, which
+    generates =~/.zkbd/term-name-xxx= file. Make a copy of this file named,
+    e.g., =screen-256color-pc-linux-gnu= to let it be sourced.
+    
+    Sometimes system update changes what the key sends (why??). If that happens,
+    simply remove the aforementioned config file and =zsh= will prompt for retests
+    on next start.
+    
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      autoload zkbd
+      [[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE ]] && zkbd
+      source ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE
+
+      [[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
+      [[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
+      [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
+      [[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-history
+      [[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
+      [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
+      [[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-history
+      [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
+      [[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
+      [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
+      [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
+    #+END_SRC
 *** Command history
     Save 1000 commands and enable history sharing among all terminals
     #+BEGIN_SRC sh :tangle "~/.zshrc"
@@ -3167,12 +3197,19 @@
       autoload -Uz compinit
     #+END_SRC
 
-    Git command autocomplete
+    Git command autocompletion
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       GIT_COMPLETION_BASH=/usr/share/git/completion/git-completion.zsh
       if [ -f $GIT_COMPLETION_ZSH ]; then
 	zstyle ':completion:*:*:git:*' script $GIT_COMPLETION_ZSH
       fi
+    #+END_SRC
+    
+    Conda commands autocompletion
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      fpath+=$CONFORG_DIR/contrib/conda-zsh-completion
+      compinit conda
+      zstyle ':completion::complete:*' use-cache 1
     #+END_SRC
     
     Taskwarrior. For Arch Linux, install `community/task`.
@@ -3218,6 +3255,16 @@
       esac
     #+END_SRC
 
+*** Theme: PowerLevel9k
+    Theme settings
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      POWERLEVEL9K_COLOR_SCHEME='light'
+      POWERLEVEL9K_MODE='nerdfont-complete'
+      POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir vcs anaconda)
+      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+      source  $CONFORG_DIR/contrib/powerlevel9k/powerlevel9k.zsh-theme
+    #+END_SRC
 *** Convenient aliases
     Some aliases for ls
     #+BEGIN_SRC sh :tangle "~/.zshrc"
