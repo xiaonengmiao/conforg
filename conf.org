@@ -113,9 +113,11 @@
      #+END_SRC
 **** Default browser
      Set the browser for opening URLs.
+     TIP: use =qutebrowser= instead of =chromium=, since the =vimium= plugin
+     does not work when viewing local pages.
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (setq browse-url-browser-function 'browse-url-generic
-          browse-url-generic-program "chromium")
+          browse-url-generic-program "qutebrowser")
      #+END_SRC
 **** Auto-backup and auto-save files
      Emacs creates `file~` auto-backup files and `#file#` auto-save files.
