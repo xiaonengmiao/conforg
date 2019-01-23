@@ -242,6 +242,7 @@ if [[ $VERBOSE != 0 ]]; then
   echo "+ Setting up msmtp (SMTP client)"
 fi
 pass show WXYZG/Email-msmtprc > $HOME/.msmtprc 2>>$LOGFILE
+chmod 600 $HOME/.msmtprc
 
 # org2blog
 pass show WXYZG/Blog-org2blogrc > $HOME/.emacs.d/org2blogrc.el
