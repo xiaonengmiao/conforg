@@ -130,6 +130,8 @@
        (setq auto-save-file-name-transforms
 	     `((".*" ,temporary-file-directory t)))
      #+END_SRC
+     
+     Also, periodically save files to the disk.
 
 **** Larger workspace
      Remove scroll bars, menu bars, and toolbars to make more space
@@ -1403,14 +1405,14 @@
     #+END_SRC
     
     Reload =conforg=
-    #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym $mod+Shift+c exec ~/.conforg/refresh.sh
+    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
+      bindsym $mod+Shift+c exec <<conforg-dir>>/refresh.sh
     #+END_SRC
     
     Restart i3 inplace (preserves your layout/session, can be used to upgrade
     i3). Caveat: =nextcloud-client= tray icon will be lost.
-    #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym $mod+Shift+r restart
+    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
+      bindsym $mod+Shift+r exec <<conforg-dir>>/restart.sh
     #+END_SRC
     
     Exit i3 (logs you out of your X session)
