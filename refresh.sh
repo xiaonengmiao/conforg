@@ -27,14 +27,14 @@ notify-send -t 1500 -a "Conforg" "Configs refreshed, reloading stuff.. 😎" "Th
 # Reload nextcloud
 # Fix the (bug) lost tray icon after restarting i3
 killall nextcloud
-i3-msg exec nextcloud
+i3-msg "exec --no-startup-id nextcloud"
 
 # Reload emacs daemon
 emacs-daemon-shutdown
-i3-msg exec "LC_CTYPE=zh_CN.UTF-8 emacs --daemon &"
+i3-msg "exec --no-startup-id 'LC_CTYPE=zh_CN.UTF-8 emacs --daemon &'"
 
 # Reload compton
 i3-msg killall compton
-i3-msg exec compton -b
+i3-msg "exec --no-startup-id compton -b"
 
 notify-send -t 1500 -a "Conforg" "Reload finished. 😎" "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"

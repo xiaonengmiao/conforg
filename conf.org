@@ -1027,8 +1027,8 @@
    Turn off X screen saver.
    Power saver (Energy Star): turn off screen after 20min idle
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
-     exec_always xset s off
-     exec_always xset dpms 0 0 1200
+     exec_always --no-startup-id xset s off
+     exec_always --no-startup-id xset dpms 0 0 1200
    #+END_SRC
    
    Float some windows for better compatibility
@@ -1039,8 +1039,7 @@
 *** Bluetooth Manager
     Start Bluetooth manager if installed
     #+BEGIN_SRC conf :tangle (if (file-exists-p "/usr/bin/blueman-applet") "~/.config/i3/config" "no")
-    #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      exec_always "blueman-applet"
+      exec_always --no-startup-id "blueman-applet"
     #+END_SRC
 
 *** Colors
@@ -1077,7 +1076,7 @@
 *** Compton
     I use =compton= as the compositor for =i3=.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      exec_always --no-startup-id compton -b
+      exec --no-startup-id compton -b
     #+END_SRC
 
     #+BEGIN_SRC conf :tangle ~/.config/compton.conf
@@ -1095,7 +1094,7 @@
     section will not be tangled.
     
     #+BEGIN_SRC conf :tangle (if (file-exists-p "/usr/bin/dockd") "~/.config/i3/config" "no")
-      exec --no-startup-id dockd --daemon
+      exec_always --no-startup-id dockd --daemon
     #+END_SRC
 
 *** Dunst
@@ -1107,7 +1106,7 @@
     #+END_SRC
    
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      exec_always --no-startup-id dunst
+      exec --no-startup-id dunst
     #+END_SRC
    
     Global (default) configurations.
@@ -1213,8 +1212,8 @@
 
 *** Emacs Daemon
     Start Emacs daemon, setting =LC_CTYPE= for compatibility with =fcitx=.
-    #+BEGIN_SRC conf :tangle "~/.config/dunst/dunstrc"
-      exec LC_CTYPE=zh_CN.UTF-8 emacs --daemon &
+    #+BEGIN_SRC conf :tangle "~/.config/i3/config"
+      exec --no-startup-id LC_CTYPE=zh_CN.UTF-8 emacs --daemon &
     #+END_SRC
 *** Fcitx
     =fcitx=, short for /Flexible Context-aware Input Tool with eXtension/, is
@@ -1442,7 +1441,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
       bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
-      exec xbacklight -set 50
+      exec --no-startup-id xbacklight -set 50
     #+END_SRC
 
     Note: =XF86WLAN=, =XF86Bluetooth= work without extra setting
@@ -1521,13 +1520,13 @@
     =autorandr= is used to handle different setups.
     On startup, detect and set the output profile.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      exec autorandr --change
+      exec_always --no-startup-id autorandr --change
     #+END_SRC
 *** Nextcloud
     Nextcloud client. Note: do not use =--no-startup-id= option so that the tray
     icon works normally.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      exec "nextcloud"
+      exec --no-startup-id "nextcloud"
     #+END_SRC
 *** Unclutter
     =unclutter= hides the mouse cursor when inactive
@@ -1537,7 +1536,7 @@
 *** Wallpaper
     Wallpapers set from =archlinux-wallpaper=.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      exec_always feh --randomize --bg-scale /usr/share/archlinux/wallpaper/*[a-z].jpg
+      exec_always --no-startup-id feh --randomize --bg-scale /usr/share/archlinux/wallpaper/*[a-z].jpg
     #+END_SRC
 ** i3blocks
    =i3blocks= is scripted with block-wise callback controls.
