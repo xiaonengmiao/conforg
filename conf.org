@@ -3056,6 +3056,7 @@
     - cli-utils: my scripts
     - scripts: local scripts
     #+BEGIN_SRC sh :tangle "~/.zshrc"
+      export PATH=$HOME/.local/bin:$PATH
       export PATH=$CLI_UTILS_DIR:$PATH
       export PATH=$SCRIPTS_DIR:$PATH
     #+END_SRC
