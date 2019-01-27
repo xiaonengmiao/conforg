@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# hide the block if mpd is not installed
+if ! hash mpd 2>/dev/null; then
+  exit 0
+fi
+
 filter() {
 	sed "/^volume:/d" | tac | sed -e "s/\\&/&amp;/g;s/\\[paused\\].*/<span color=\"gray\" font_style=\"italic\">/g;s/\\[playing\\].*/<span>/g" | tr -d '\n' | sed -e "s/$/<\\/span>/g" > /dev/null
 	}

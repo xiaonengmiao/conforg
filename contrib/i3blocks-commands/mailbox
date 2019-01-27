@@ -27,10 +27,10 @@ done
 n_mbsync_procs=$(ps aux | grep mbsync | wc -l)
 if [ $n_mbsync_procs \> 1 ];
 then 
-    sync_label="🔃"
+    sync_label=" 🔃"
 else
     sync_label=""
 fi;
 
-echo "$n_inbox_mails $sync_label"
+echo "$n_inbox_mails$sync_label"
 
