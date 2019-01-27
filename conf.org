@@ -1568,6 +1568,11 @@
    
    Enabled blocks:
    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3blocks/config
+     [eject]
+     label=⏏️
+     interval=10
+     signal=22
+
      [mailbox]
      label=📬
      interval=300
