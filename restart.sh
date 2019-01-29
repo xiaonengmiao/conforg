@@ -26,6 +26,11 @@ notify-send -t $NOTI_TIMEOUT -a "Conforg" "Reloading Emacs daemon.. ⛳"
 emacs-daemon-shutdown
 i3-msg "exec --no-startup-id 'LC_CTYPE=zh_CN.UTF-8 emacs --daemon &'"
 
+# Reload KDEConnect
+notify-send -t $NOTI_TIMEOUT -a "Conforg" "Reloading KDEConnect.. ⛳"
+killall kdeconnect-indi
+i3-msg "exec --no-startup-id kdeconnect-indicator"
+
 # Reload compton
 notify-send -t $NOTI_TIMEOUT -a "Conforg" "Reloading Compton.. ⛳"
 i3-msg killall compton

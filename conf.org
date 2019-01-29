@@ -1226,6 +1226,11 @@
     Caveats:
     - =kitty= does not support it yet.
     - =emacs= supports it only when setting =LC_CTYPE= to =zh_CN.UTF-8=.
+*** KDEConnect
+    This sections sets up =kdeconnect= for =i3=.
+    #+BEGIN_SRC conf :tangle ~/.config/i3/config
+      exec_always --no-startup-id kdeconnect-indicator
+    #+END_SRC
 *** Keybindings
     Use keycode to bind numpad keys (so that it works with numlock on/off)
     #+BEGIN_SRC conf :tangle ~/.config/i3/config

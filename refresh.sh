@@ -33,6 +33,10 @@ i3-msg "exec --no-startup-id nextcloud"
 emacs-daemon-shutdown
 i3-msg "exec --no-startup-id 'LC_CTYPE=zh_CN.UTF-8 emacs --daemon &'"
 
+# Reload KDEConnect
+killall kdeconnect-indi
+i3-msg "exec --no-startup-id kdeconnect-indicator"
+
 # Reload compton
 i3-msg killall compton
 i3-msg "exec --no-startup-id compton -b"
