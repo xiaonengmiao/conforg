@@ -9,6 +9,7 @@ LOGFILE=/tmp/conforg.log
 DEFAULT_CONFORG_DIR=$HOME/.conforg
 GITIGNORE_IN=./contrib/gitignore
 GITIGNORE_OUT=$HOME/.gitignore_global
+PASSWORD_STORE=true
 
 INSTALL_ARGS="$*"
 
@@ -20,6 +21,7 @@ function show_help() {
   echo "-f <file> Set log file"
   echo "-c <path> Set conforg path"
   echo "-g <file> Set global gitignore file"
+  echo "-p Plain install (do not set up credentials with pass)."
 }
 
 while getopts "h?vd:f:qc:g" opt; do
@@ -40,6 +42,8 @@ while getopts "h?vd:f:qc:g" opt; do
       DEFAULT_CONFORG_DIR=$OPTARG;;
     g)
       GITIGNORE_OUT=$OPTARG;;
+    p)
+      PASSWORD_STORE=false;;
     : )
       echo "Option -"$OPTARG" requires an argument." >&2
       exit 1;;
@@ -212,14 +216,16 @@ cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 # Python files are not to be ignored (e.g. __init__.py)
 echo "!*.py" >> $GITIGNORE_OUT
 
-# isync
-if [[ $VERBOSE != 0 ]]; then
-  echo "+ Setting up isync (IMAP client)"
+if $PASSWORD_STORE; then
+  # isync
+  if [[ $VERBOSE != 0 ]]; then
+    echo "+ Setting up isync (IMAP client)"
+  fi
+  pass show WXYZG/Email-mkmaildirs > $HOME/.mkmaildirs_commands.tmp 2>>$LOGFILE
+  source $HOME/.mkmaildirs_commands.tmp
+  rm $HOME/.mkmaildirs_commands.tmp
+  pass show WXYZG/Email-mbsyncrc > $HOME/.mbsyncrc 2>>$LOGFILE
 fi
-pass show WXYZG/Email-mkmaildirs > $HOME/.mkmaildirs_commands.tmp 2>>$LOGFILE
-source $HOME/.mkmaildirs_commands.tmp
-rm $HOME/.mkmaildirs_commands.tmp
-pass show WXYZG/Email-mbsyncrc > $HOME/.mbsyncrc 2>>$LOGFILE
 
 # use openssl's ca list (brew install openssl)
 if [[ $PLATFORM == 'mac' ]]; then
@@ -237,21 +243,23 @@ if [ -d $HOME/.mbsync ]; then
     "Remove \$HOME/.mbsync/ for a clean re-sync."
 fi
 
-# msmtp
-if [[ $VERBOSE != 0 ]]; then
-  echo "+ Setting up msmtp (SMTP client)"
-fi
-pass show WXYZG/Email-msmtprc > $HOME/.msmtprc 2>>$LOGFILE
-chmod 600 $HOME/.msmtprc
+if $PASSWORD_STORE; then
+  # msmtp
+  if [[ $VERBOSE != 0 ]]; then
+    echo "+ Setting up msmtp (SMTP client)"
+  fi
+  pass show WXYZG/Email-msmtprc > $HOME/.msmtprc 2>>$LOGFILE
+  chmod 600 $HOME/.msmtprc
 
-# org2blog
-pass show WXYZG/Blog-org2blogrc > $HOME/.emacs.d/org2blogrc.el
+  # org2blog
+  pass show WXYZG/Blog-org2blogrc > $HOME/.emacs.d/org2blogrc.el
 
-# mu4e
-if [[ $VERBOSE != 0 ]]; then
-  echo "+ Setting up mu4e"
+  # mu4e
+  if [[ $VERBOSE != 0 ]]; then
+    echo "+ Setting up mu4e"
+  fi
+  pass show WXYZG/Email-mu4erc > $HOME/.emacs.d/mu4e-config.el 2>>$LOGFILE
 fi
-pass show WXYZG/Email-mu4erc > $HOME/.emacs.d/mu4e-config.el 2>>$LOGFILE
 
 # emojisel
 rm -f $HOME/.config/emoji_list
@@ -276,22 +284,24 @@ else
 fi
 $SED_BIN -i "s@TASKWARRIOR_COLOR_THEME@$TASK_THEME@g" $HOME/.taskrc
 
-# Taskwarrior sync
-if [[ $VERBOSE != 0 ]]; then
-  echo "+ Setting up connection with Taskwarrior server"
-fi
-AEHOME=$(echo $HOME | $SED_BIN 's@\/@\\\\\\\/@g')
-HAS_TASKD_SERVER=false
-$SED_BIN -i "s@ABSOLUTE_ESCAPED_HOME_DIR@$AEHOME@g" $HOME/.taskrc
-if ! [ -x "$(command -v pass)" ]; then
-  echo 'Warning: .taskrc is not setup with server sync (lacking credentials).' >&2
-else
-  $SED_BIN -i "s@TASKD_SERVER_ADDR@$(pass WXYZG/TaskwarriorServerAddress)@g" $HOME/.taskrc
-  $SED_BIN -i "s@TASKD_SERVER_USER_KEY@$(pass WXYZG/TaskwarriorUserUUID-xywei)@g" $HOME/.taskrc
-  pass WXYZG/TaskwarriorServerCertificate > $HOME/.task/ca.cert.pem 2>>$LOGFILE
-  pass WXYZG/TaskwarriorUserCertificate-xywei > $HOME/.task/xywei.cert.pem 2>>$LOGFILE
-  pass WXYZG/TaskwarriorUserKey-xywei > $HOME/.task/xywei.key.pem 2>>$LOGFILE
-  HAS_TASKD_SERVER=true
+if $PASSWORD_STORE; then
+  # Taskwarrior sync
+  if [[ $VERBOSE != 0 ]]; then
+    echo "+ Setting up connection with Taskwarrior server"
+  fi
+  AEHOME=$(echo $HOME | $SED_BIN 's@\/@\\\\\\\/@g')
+  HAS_TASKD_SERVER=false
+  $SED_BIN -i "s@ABSOLUTE_ESCAPED_HOME_DIR@$AEHOME@g" $HOME/.taskrc
+  if ! [ -x "$(command -v pass)" ]; then
+    echo 'Warning: .taskrc is not setup with server sync (lacking credentials).' >&2
+  else
+    $SED_BIN -i "s@TASKD_SERVER_ADDR@$(pass WXYZG/TaskwarriorServerAddress)@g" $HOME/.taskrc
+    $SED_BIN -i "s@TASKD_SERVER_USER_KEY@$(pass WXYZG/TaskwarriorUserUUID-xywei)@g" $HOME/.taskrc
+    pass WXYZG/TaskwarriorServerCertificate > $HOME/.task/ca.cert.pem 2>>$LOGFILE
+    pass WXYZG/TaskwarriorUserCertificate-xywei > $HOME/.task/xywei.cert.pem 2>>$LOGFILE
+    pass WXYZG/TaskwarriorUserKey-xywei > $HOME/.task/xywei.key.pem 2>>$LOGFILE
+    HAS_TASKD_SERVER=true
+  fi
 fi
 
 if $HAS_TASKD_SERVER; then
