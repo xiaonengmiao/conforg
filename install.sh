@@ -284,13 +284,13 @@ else
 fi
 $SED_BIN -i "s@TASKWARRIOR_COLOR_THEME@$TASK_THEME@g" $HOME/.taskrc
 
+HAS_TASKD_SERVER=false
 if $PASSWORD_STORE; then
   # Taskwarrior sync
   if [[ $VERBOSE != 0 ]]; then
     echo "+ Setting up connection with Taskwarrior server"
   fi
   AEHOME=$(echo $HOME | $SED_BIN 's@\/@\\\\\\\/@g')
-  HAS_TASKD_SERVER=false
   $SED_BIN -i "s@ABSOLUTE_ESCAPED_HOME_DIR@$AEHOME@g" $HOME/.taskrc
   if ! [ -x "$(command -v pass)" ]; then
     echo 'Warning: .taskrc is not setup with server sync (lacking credentials).' >&2
