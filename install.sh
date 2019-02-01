@@ -125,10 +125,12 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.mozilla;
   mkdir -p $HOME/.config;
 
+  mkdir -p $HOME/.config/fontconfig;
   mkdir -p $HOME/.config/nvim;
   mkdir -p $HOME/.config/nvim/autoload/;
   mkdir -p $HOME/.config/nvim/syntax/;
   mkdir -p $HOME/.config/i3;
+  mkdir -p $HOME/.config/i3blocks;
   mkdir -p $HOME/.config/dunst;
   mkdir -p $HOME/.config/kitty;
 
