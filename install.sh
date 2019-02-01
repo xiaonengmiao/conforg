@@ -151,6 +151,8 @@ box_out "Setting up directory structure.."
 )
 
 box_out "Parsing conf.org.."
+echo "If the process hangs, try openning a standalone emacs session to debug."
+echo " (Possibly need to set encoding / install plugins.)"
 emacs -Q --batch \
   --eval '(require (quote org))' \
   --eval '(org-babel-tangle-file "conf.org")' \
