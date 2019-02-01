@@ -34,21 +34,21 @@
   To finish the setup for an individual program, see the corresponding
   section for more information.
   (Tip: search for MANUALLY in all caps to find those places).
-  
+
   For the best experience, having a comprehensive set of fonts installed is
   recommended. The following packages are helpful to simplify the process:
   - =aur/all-repository-fonts=
   - =aur/nerd-fonts-complete=
-    
+
   NOTE: the *recommended* way of setting up is to use the provided
   script `install.sh`. Before running the install script, make sure that the
-  repository is cloned at the path set in the meta-configuration section 
+  repository is cloned at the path set in the meta-configuration section
   (=$HOME/.conforg= by default) and all submodules are downloaded
   #+BEGIN_SRC sh :tangle no
       git submodule update --init --recursive
   #+END_SRC
   See the output of =install.sh --help= for detailed usage information.
-  
+
 * Meta-Configurations
   First of all, set some global options to help setting things up.
   The meta-configurations are set via noweb references.
@@ -58,7 +58,7 @@
    #+BEGIN_SRC sh :results output :exports none :tangle no
      $HOME/.conforg
    #+END_SRC
-** Conda directory: 
+** Conda directory:
    - Set the root directory of Anaconda/Miniconda installation
    #+NAME: conda-dir
    #+BEGIN_SRC sh :results output :exports none :tangle no
@@ -70,8 +70,8 @@
    #+BEGIN_SRC sh :results output :exports none :tangle no
      $HOME/cli-utils
    #+END_SRC
-   
-   - Set the directory of machine-specific scripts (not synced) 
+
+   - Set the directory of machine-specific scripts (not synced)
    #+NAME: scripts-dir
    #+BEGIN_SRC sh :results output :exports none :tangle no
      $HOME/.scripts
@@ -88,7 +88,7 @@
       (setq inhibit-x-resources t)
       (package-initialize)
     #+END_SRC
-    
+
     A helper function for tracing obsolete functions
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       ;; (defun debug-on-load-obsolete (filename)
@@ -97,7 +97,7 @@
       ;;    (debug)))
       ;; (add-to-list 'after-load-functions #'debug-on-load-obsolete)
     #+END_SRC
-      
+
 *** Native configs
     Configs in here should overrides all the others if there are conflicts,
     which is done using after-init-hook
@@ -130,7 +130,7 @@
        (setq auto-save-file-name-transforms
 	     `((".*" ,temporary-file-directory t)))
      #+END_SRC
-     
+
      Also, periodically save files to the disk.
 
 **** Larger workspace
@@ -304,13 +304,13 @@
           (when (not (package-installed-p p))
             (package-install p))))
     #+END_SRC
-    
+
     TODO: manage system packages using =system-packages=.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (use-package system-packages
         :ensure t)
     #+END_SRC
-    
+
     Load org2blog configs.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
      (load-file "~/.emacs.d/org2blogrc.el")
@@ -324,7 +324,7 @@
                      :ensure t)
         (exec-path-from-shell-initialize))
     #+END_SRC
-    
+
     Set package manager to =homebrew=.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (when (memq window-system '(mac ns))
@@ -351,7 +351,7 @@
      :config
      (evil-mode 1))
     #+END_SRC
-    
+
     Enable evil-collection for keybindings in more modes.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (use-package evil-collection
@@ -368,7 +368,7 @@
 	:config
 	(global-evil-surround-mode 1))
     #+END_SRC
-    
+
     Visual hints to help keeping up with what's happening.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (use-package evil-goggles
@@ -382,7 +382,7 @@
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (define-key evil-normal-state-map "zg" 'flyspell-correct-word-before-point)
     #+END_SRC
-    
+
     Evil-org
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (use-package evil-org
@@ -396,7 +396,7 @@
 	(require 'evil-org-agenda)
 	(evil-org-agenda-set-keys))
     #+END_SRC
-    
+
     Org2blog
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (use-package org2blog
@@ -445,7 +445,7 @@
 
     One caveat: it does not play well with folding.
     [[https://github.com/syl20bnr/spacemacs/issues/6536][Read more about this issue]]
-    
+
     Now I have switched to =nlinum= for better performance
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (use-package nlinum-relative
@@ -481,9 +481,9 @@
       (require 'org-bullets)
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     #+END_SRC
-    
+
     To do similar stuff with TODO items (courtesy of
-    https://www.draketo.de/english/emacs/todo-letters): 
+    https://www.draketo.de/english/emacs/todo-letters):
     - ❢ To do
     - ☯ In progress
       - ⚙ A program is running (optional detail)
@@ -498,7 +498,7 @@
     Note: Anything before the | in the SEQ_TODO is shown in red (not yet done),
     anything after the | is show in green (done). Things which get triggered
     when something is done (like storing the time of a scheduled entry) happen
-    when the state crosses the |. 
+    when the state crosses the |.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (with-eval-after-load 'org
 	(setq org-todo-keywords '(
@@ -657,15 +657,15 @@
 
 **** Pomodoro
      (To have sound notifications, install =alsa-utiles= to get =aplay=.)
-     
+
      Usage:
      1. Move point to a task as you would do with org-clock-in. Call
-        =org-pomodoro= the task will be clocked-in. 
+        =org-pomodoro= the task will be clocked-in.
      2. When there's time for break, the task will be =org-clock-out='ed
      3. If you call =org-pomodoro= during a pomodoro, you'll be asked to reset a
-        pomodoro. 
+        pomodoro.
      4. If you call =org-pomodoro= outside org-mode, you'll be presented with list
-        of recent tasks, as C-u org-clock-in would. 
+        of recent tasks, as C-u org-clock-in would.
 
 *** Color Theme
     When starting for the first time Emacs will ask if you want to trust this
@@ -709,7 +709,7 @@
     #+BEGIN_SRC conf :tangle "~/.muttrc"
       auto_view text/html
     #+END_SRC
-    
+
     #+BEGIN_SRC conf :tangle "~/.mailcap"
       text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput;
     #+END_SRC
@@ -726,14 +726,14 @@
       (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
       (require 'mu4e)
      #+END_SRC
-    
+
 **** Configuration
      Load the configuration file for mu4e.
      (Requires use-package).
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (load-file "~/.emacs.d/mu4e-config.el")
      #+END_SRC
-    
+
      The evil-collection adds evil keybindings for mu4e.
 
      General commands:
@@ -866,11 +866,11 @@
      Later,
      you can set the actual mark using M-x mu4e-mark-resolve-deferred-marks
      (#). Alternatively, mu4e will ask you when you try to execute the marks
-     (x). 
+     (x).
 
 ** Fonts
    Fonts for Linux, for details, see https://www.freedesktop.org/software/fontconfig/fontconfig-user.html.
-   
+
    #+BEGIN_SRC xml :tangle ~/.config/fontconfig/fonts.conf
      <?xml version='1.0'?>
      <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
@@ -880,7 +880,7 @@
 	     # all changes will be overwritten.
      -->
    #+END_SRC
-   
+
    Basic fonts that I use.
    #+BEGIN_SRC xml :tangle ~/.config/fontconfig/fonts.conf
      <fontconfig>
@@ -902,7 +902,7 @@
        </alias>
      </fontconfig>
    #+END_SRC
-   
+
 ** Git
 *** The Git config file.
 
@@ -911,7 +911,7 @@
       # This file is generated by conf.org from xywei/conforg,
       # all changes will be overwritten.
    #+END_SRC
-      
+
    #+BEGIN_SRC conf :tangle ~/.gitconfig
      [user]
 	     email = wxy0516@gmail.com
@@ -955,7 +955,7 @@
 	     process = git-lfs filter-process
 	     required = true
    #+END_SRC
-   
+
 *** The global ignored file list.
    To un-ignore some of these files, or
    ignore more files on a project basis,
@@ -992,45 +992,45 @@
      - =nextcloud-client=
      - =blueman-applet=
      - =feh=
-       
+
    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
      # DO NOT EDIT
      # This file is generated by conf.org from xywei/conforg,
      # all changes will be overwritten.
-     
+
     set $mod Mod4
     focus_follows_mouse no
    #+END_SRC
-   
+
    If using =i3-gaps= fork,
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      for_window [class="^.*"] border pixel 3
      gaps inner 1
      gaps outer 1
    #+END_SRC
-   
+
    Font for window titles.
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      font pango:Hack 11
    #+END_SRC
-   
+
    Use Mouse+$mod to drag floating windows to their wanted position
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      floating_modifier $mod
    #+END_SRC
-   
+
    Dynamic workspace naming
    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
      exec_always --no-startup-id exec <<conforg-dir>>/contrib/i3-renameworkspaces/i3-renameworkspaces.pl
    #+END_SRC
-   
+
    Turn off X screen saver.
    Power saver (Energy Star): turn off screen after 20min idle
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      exec_always --no-startup-id xset s off
      exec_always --no-startup-id xset dpms 0 0 1200
    #+END_SRC
-   
+
    Float some windows for better compatibility
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      for_window [class="Xfce4-notifyd"] floating enable
@@ -1063,8 +1063,8 @@
       set_from_resource $white        i3wm.color15 #000000
       set $transparent  #00000000
     #+END_SRC
-    
-    Colors 
+
+    Colors
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       #                       BORDER       BACKGROUND  TEXT        INDICATOR    CHILD_BORDER
       client.focused          $red         $red        $magenta    $darkmagenta $darkblue
@@ -1101,7 +1101,7 @@
     =dockd= detects docking station and changes the screen layout.
     If using =conforg= on a non-thinkpad, simply do not install =dockd= and this
     section will not be tangled.
-    
+
     #+BEGIN_SRC conf :tangle (if (file-exists-p "/usr/bin/dockd") "~/.config/i3/config" "no")
       exec_always --no-startup-id dockd --daemon
     #+END_SRC
@@ -1113,11 +1113,11 @@
       # This file is generated by conf.org from xywei/conforg,
       # all changes will be overwritten.
     #+END_SRC
-   
+
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       exec --no-startup-id dunst
     #+END_SRC
-   
+
     Global (default) configurations.
     - For Icons, install =adwaita-icon-theme=
     #+BEGIN_SRC conf :tangle "~/.config/dunst/dunstrc"
@@ -1129,7 +1129,7 @@
 	  shrink = no
 	  transparency = 0
 	  notification_height = 0
-	 
+
 	  separator_height = 3
 	  padding = 12
 	  horizontal_padding = 12
@@ -1178,7 +1178,7 @@
 	  icon_path = /usr/share/icons/gnome/16x16/devices/:/usr/share/icons/Adwaita/256x256/status/
 	  sticky_history = yes
 	  history_length = 200
-	 
+
 	  dmenu = /usr/bin/dmenu -p dunst:
 	  browser = /usr/bin/firefox -new-tab
 
@@ -1234,11 +1234,11 @@
 *** Fcitx
     =fcitx=, short for /Flexible Context-aware Input Tool with eXtension/, is
     used for Chinese input.
-    
+
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       exec_always --no-startup-id fcitx
     #+END_SRC
-    
+
     Caveats:
     - =kitty= does not support it yet.
     - =emacs= supports it only when setting =LC_CTYPE= to =zh_CN.UTF-8=.
@@ -1260,9 +1260,9 @@
       set $KP_8 80
       set $KP_9 81
       set $KP_0 90
-      set $KP_Return 104 
+      set $KP_Return 104
     #+END_SRC
-    
+
     Start a terminal
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+Return exec --no-startup-id kitty -1
@@ -1423,28 +1423,33 @@
       bindcode $mod+Shift+$KP_9 move container to workspace number 9
       bindcode $mod+Shift+$KP_0 move container to workspace number 10
     #+END_SRC
-    
+
     Reload =conforg=
     #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
       bindsym $mod+Shift+c exec --no-startup-id <<conforg-dir>>/refresh.sh
     #+END_SRC
-    
+
     Restart i3 inplace (preserves your layout/session, can be used to upgrade
     i3). Caveat: =nextcloud-client= tray icon will be lost.
     #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
       bindsym $mod+Shift+r exec --no-startup-id <<conforg-dir>>/restart.sh
     #+END_SRC
-    
+
     Exit i3 (logs you out of your X session)
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
     #+END_SRC
-    
+
+    Switch user (using =lightDM=)
+    #+BEGIN_SRC conf :tangle ~/.config/i3/config
+      bindsym $mod+Shift+f exec "i3-nagbar -t warning -m 'You pressed the switch user shortcut. Do you really want to switch user? This will throw you back to the greeter.' -B 'Yes, switch user' 'i3-msg exec dm-tool switch-to-greeter'"
+    #+END_SRC
+
     Lock screen (starts i3lock and turns off screen)
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+Shift+d exec notify-send "Lock Screen" "You pressed the lock shortcut. Do you really want to lock i3? This will turn off your screen." && echo -e "lock\ncancel" | dmenu | xargs ~/cli-utils/lock
     #+END_SRC
-    
+
     Volume control with media keys
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -SIGRTMIN+10 i3blocks #increase sound volume
@@ -1570,7 +1575,7 @@
      separator_block_width=15
      markup=pango
    #+END_SRC
-   
+
    Disabled blocks:
    #+BEGIN_SRC conf :noweb yes :tangle no
      [memory]
@@ -1586,7 +1591,7 @@
      interval=5
      label=💻
    #+END_SRC
-   
+
    Enabled blocks:
    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3blocks/config
      [eject]
@@ -1626,7 +1631,7 @@
      [internet]
      interval=10
    #+END_SRC
-   
+
 ** Kitty
    =Kitty= is a GPU accelerated terminal emulator, by the author of =Calibre=.
 *** Front-matter
@@ -1637,7 +1642,7 @@
       # This file is generated by conf.org from xywei/conforg,
       # all changes will be overwritten.
     #+END_SRC
-    
+
 *** Fonts
     =kitty= has very powerful font management. You can configure
     individual font faces and even specify special fonts for particular
@@ -1654,14 +1659,14 @@
       # To fix underscore rendering issues
       adjust_line_height 110%
     #+END_SRC
-    
+
 *** Cursor
     Block shaped cursor that does not blink.
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       cursor_shape block
       cursor_blink_interval 0
     #+END_SRC
-    
+
 *** Scrollback
     To reverse scroll direction, set a negative multiplier.
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
@@ -1669,14 +1674,14 @@
       scrollback_pager less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
       wheel_scroll_multiplier 5.0
     #+END_SRC
-    
+
     Show scrollback buffer in the current window: =ctrl+shift+h=.
-    
+
     Open the scrollback buffer in a new window.
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       map f1 pipe @ansi window less +G -R
     #+END_SRC
-    
+
 *** Mouse
     To reverse scroll direction, set a negative multiplier.
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
@@ -1699,7 +1704,7 @@
       # auto hide mouse cursor
       mouse_hide_wait 3.0
     #+END_SRC
-    
+
 *** Performance tuning
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       # ~100 FPS, while sync screen updates to the refresh rate of the monitor
@@ -1709,7 +1714,7 @@
       # input delay, increase this if screen flickers
       input_delay 3
     #+END_SRC
-    
+
 *** Terminal bell
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       enable_audio_bell yes
@@ -1722,7 +1727,7 @@
       # macOS or the taskbar flash on linux.
       window_alert_on_bell yes
     #+END_SRC
-    
+
 *** Window layout
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       remember_window_size  yes
@@ -1746,7 +1751,7 @@
 
       inactive_text_alpha 0.85
     #+END_SRC
-    
+
 *** Tab bar
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       tab_bar_edge top
@@ -1761,7 +1766,7 @@
       inactive_tab_background #999
       inactive_tab_font_style normal
     #+END_SRC
-    
+
 *** Color scheme
     About the opacity of the background: A number between 0 and 1, where 1 is
     opaque and 0 is fully transparent.  This will only work if
@@ -1780,14 +1785,14 @@
     If you want to dynamically
     change transparency of windows set dynamic_background_opacity to
     yes (this is off by default as it has a performance cost)
-    
+
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       background              #fdf6e3
-      foreground              #657b83 
+      foreground              #657b83
       cursor                  #586e75
 
       selection_background    #93a1a1
-      selection_foreground    #586e75 
+      selection_foreground    #586e75
 
       # black dark/light
       color0                #073642
@@ -1826,12 +1831,12 @@
 
       dim_opacity 0.75
     #+END_SRC
-    
+
 *** Advanced
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       editor nvim
     #+END_SRC
-    
+
 *** OS specific tweaks
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       macos_titlebar_color system
@@ -1936,7 +1941,7 @@
       map kitty_mod+f2     edit_config_file
       map kitty_mod+escape kitty_shell window
     #+END_SRC
-    
+
 ** Neovim
 *** Front-matter
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -1944,7 +1949,7 @@
       " This file is generated by conf.org from xywei/conforg,
       " all changes will be overwritten.
     #+END_SRC
-    
+
 *** Detect Platform
     Assign the results to `s:uname`.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -1972,18 +1977,18 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       call plug#begin('~/.vim/plugged')
     #+END_SRC
-    
+
     Vim-airline.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'vim-airline/vim-airline'
       Plug 'vim-airline/vim-airline-themes'
     #+END_SRC
-    
+
     VOom: an outliner based on folding marks.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'vim-voom/VOoM'
     #+END_SRC
-    
+
     NeoSolarized: A fixed solarized colorscheme for better truecolor support.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'icymind/NeoSolarized'
@@ -1993,18 +1998,18 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'severin-lemaignan/vim-minimap'
     #+END_SRC
-    
+
     Syntax highlighting for prm files.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'xywei/vim-dealii-prm'
     #+END_SRC
-    
+
     Neomake (note: do not use it with other async
     frameworks like ale).
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'neomake/neomake'
     #+END_SRC
-    
+
     Neoformat
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'sbdchd/neoformat'
@@ -2014,12 +2019,12 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'nathanaelkane/vim-indent-guides'
     #+END_SRC
-    
+
     Display ansi escape sequences in a readable way
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'IngoHeimbach/vim-plugin-AnsiEsc'
     #+END_SRC
-    
+
     Tag bar.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'majutsushi/tagbar'
@@ -2032,22 +2037,22 @@
       endfunction
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     #+END_SRC
-    
+
     UltiSnips.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'SirVer/ultisnips'
     #+END_SRC
-    
+
     CtrlP.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'ctrlpvim/ctrlp.vim'
     #+END_SRC
-    
+
     NerdTree with lazy loading.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     #+END_SRC
-    
+
     Easy align.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'junegunn/vim-easy-align'
@@ -2062,12 +2067,12 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'tpope/vim-commentary'
     #+END_SRC
-    
+
     Match pairs of quotes etc.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'Raimondi/delimitMate'
     #+END_SRC
-    
+
     Enhance undo functionality.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'mbbill/undotree'
@@ -2163,7 +2168,7 @@
 
       let g:webdevicons_enable_ctrlp = 1
     #+END_SRC
-    
+
     And some tweaks. Including:
     - use double-width(1) or single-width(0) glyphs
       only manipulates padding, has no effect on terminal or set(guifont) font
@@ -2209,7 +2214,7 @@
     #+END_SRC
 
     3. Deoplete plugin Ctrl+l (clang/jedi based)
-       
+
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let g:deoplete#enable_at_startup = 1
       let g:deoplete#disable_auto_complete = 0
@@ -2224,7 +2229,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'zchee/deoplete-jedi'
     #+END_SRC
-    
+
     Options
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let g:deoplete#sources#jedi#statement_length = 50
@@ -2247,13 +2252,13 @@
       let g:airline#extensions#tmuxline#enabled = 1
       let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-statusline-colors.conf"
     #+END_SRC
-    
+
 **** Toggle tag bar
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       nmap <Leader>t :TagbarToggle<cr>
       nmap tb :TagbarToggle<cr>
     #+END_SRC
-    
+
 **** Start fuzzy search
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let g:ctrlp_map = '<c-p>'
@@ -2266,13 +2271,13 @@
       xmap <Leader>a <Plug>(EasyAlign)
       nmap <Leader>a <Plug>(EasyAlign)
     #+END_SRC
-    
+
 **** Toggle nerd-tree
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       map <C-n> :NERDTreeToggle<CR>
       nmap <Leader>f :NERDTreeToggle<cr>
     #+END_SRC
-    
+
 *** Add Plugins to Runtimepath
     Note that some configurations have to
     go after this.
@@ -2403,13 +2408,13 @@
       " set background=dark
       colorscheme NeoSolarized
     #+END_SRC
-    
+
 *** Additional Settings
     Enable mouse.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       set mouse=a
     #+END_SRC
-    
+
     File type system.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       filetype plugin indent on
@@ -2419,7 +2424,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       set tabstop=2 shiftwidth=2 expandtab
     #+END_SRC
-    
+
     Disable tumx nav mappings. (Configure nav keys on the tmux side.)
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let g:tmux_navigator_no_mappings = 1
@@ -2471,7 +2476,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       hi Search cterm=None ctermbg=blue ctermfg=white
     #+END_SRC
-    
+
     Smooth scrolling
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       set scrolloff=4
@@ -2487,7 +2492,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       set gcr=n:blinkon0
     #+END_SRC
-    
+
 ** NewsBoat
 *** Front-matter
     #+BEGIN_SRC conf :tangle ~/.newsboat/config
@@ -2495,13 +2500,13 @@
       # This file is generated by conf.org from xywei/conforg,
       # all changes will be overwritten.
     #+END_SRC
-    
+
 *** Basic setup
     Use =Chromium= instead of default =Lynx=.
     #+BEGIN_SRC conf :tangle ~/.newsboat/config
       browser chromium
     #+END_SRC
-    
+
     Notifications setting.
     #+BEGIN_SRC conf :tangle ~/.newsboat/config
       notify-always yes
@@ -2510,7 +2515,7 @@
       notify-xterm yes
       notify-screen yes
     #+END_SRC
-    
+
     Keybindings resembling Vim/Ranger.
     Remember to unbind keys first to avoid collision.
     #+BEGIN_SRC conf :tangle ~/.newsboat/config
@@ -2528,7 +2533,7 @@
       bind-key g home
       bind-key G end
     #+END_SRC
-    
+
 *** Color Scheme
     #+BEGIN_SRC conf :tangle ~/.newsboat/config
       articlelist-format "%4i %f %D  %?T?|%-17T| ?%t"
@@ -2548,10 +2553,10 @@
       highlight article     ":.*\\(embedded flash\\)$"            default  default
 
       color listnormal                                            default  default
-      color listfocus                                             default  blue 
+      color listfocus                                             default  blue
       color info                                                  default  default
     #+END_SRC
-    
+
 ** Taskwarrior
 *** The Common Header.
    #+BEGIN_SRC conf :tangle ~/.taskrc
@@ -2573,12 +2578,12 @@
      # you can ask for a freshly generated config file.
      #
    #+END_SRC
-   
+
 *** Data Location
    #+BEGIN_SRC conf :tangle ~/.taskrc
      data.location=~/.task
    #+END_SRC
-   
+
 *** Color Theme
    #+BEGIN_SRC conf :tangle ~/.taskrc
      include TASKWARRIOR_COLOR_THEME
@@ -2594,7 +2599,7 @@
      taskd.server=TASKD_SERVER_ADDR
      taskd.credentials=WXYZG\/Xiaoyu Wei\/TASKD_SERVER_USER_KEY
    #+END_SRC
-   
+
 ** Tmux
 *** Basic Settings.
    Note: this config does not unset all default keybindings, for example,
@@ -2623,7 +2628,7 @@
      # This file is generated by conf.org from xywei/conforg,
      # all changes will be overwritten.
    #+END_SRC
-   
+
    Better colors
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      set -g default-terminal "screen-256color"
@@ -2695,7 +2700,7 @@
      set -g set-titles on
      set -g set-titles-string '#h ❐ #S ● #I #W'
    #+END_SRC
- 
+
    Slightly longer pane indicators/status messages display time
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      set -g display-panes-time 800
@@ -2713,7 +2718,7 @@
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      setw -g aggressive-resize on
    #+END_SRC
-   
+
    Status bar
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      set-option -g status on
@@ -2722,7 +2727,7 @@
      set -g status-interval 2
      set -g status-justify left
    #+END_SRC
-   
+
 
    Show host name, session, window, pane in the left
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
@@ -2742,7 +2747,7 @@
      if-shell "test -f ~/cli-utils/tmuxline" "source ~/cli-utils/tmuxline"
      if-shell "test -f ~/.tmux-status.conf" "source ~/.tmux-status.conf"
    #+END_SRC
-   
+
    Bold messages
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      set -g message-attr bold
@@ -2851,7 +2856,7 @@
      join-pane -h -t 1.1 \; \
      last-pane
    #+END_SRC
-   
+
    Clock
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      bind-key          c clock-mode
@@ -2884,7 +2889,7 @@
      # This file is generated by conf.org from xywei/conforg,
      # all changes will be overwritten.
     #+END_SRC
-   
+
     Use the custom theme and enable image previews.
     For best experiences, set the terminal to use solarized light colors.
     #+BEGIN_SRC conf :tangle ~/.config/ranger/rc.conf
@@ -2892,7 +2897,7 @@
      set draw_borders true
      set line_numbers relative
     #+END_SRC
-   
+
     Then there is a plugin that sets glyph for each file included in =contrib/=
     and is set up by running =install.sh=.
 
@@ -2938,7 +2943,7 @@
       !! Set a default font and font size as below:
       !! *.font: Monospace-11;
     #+END_SRC
-    
+
 *** URXVT
     Scrolling control
     #+BEGIN_SRC conf :tangle "~/.Xresources"
@@ -2958,7 +2963,7 @@
     ! hide scroll bar
     URxvt.scrollBar: false
     #+END_SRC
-    
+
     Fonts installed from:
     - WenQuanYi Zen Hei (Chinese) font from =any/wqy-zenhei=
     - WenQuanYi Micro Hei (Chinese) font from =any/wqy-microhei=
@@ -2995,10 +3000,10 @@
    #+BEGIN_SRC sh :tangle no
      chsh -s /bin/zsh
    #+END_SRC
-   
+
    I am not using any framework for my configurations. If you are new to zsh,
    you will probably be interested in checking out one of them, e.g., oh-my-zsh.
-   
+
    A way to profile the startup time as explained in [[https://kev.inburke.com/kevin/profiling-zsh-startup-time/][this blog post]] is to use
    this snippet at the start of =zshrc=:
    #+NAME: start-profiling
@@ -3011,7 +3016,7 @@
 	 setopt xtrace prompt_subst
      fi
    #+END_SRC
-   
+
    And then add this at the end:
    #+NAME: stop-profiling
    #+BEGIN_SRC sh :results output :exports none :tangle no
@@ -3026,7 +3031,7 @@
       # DO NOT EDIT
       # This file is generated by conf.org from xywei/conforg,
       # all changes will be overwritten.
-      
+
       <<start-profiling>>
 
       export CONFORG_DIR=<<conforg-dir>>
@@ -3043,12 +3048,12 @@
 	    ,*) return;;
       esac
     #+END_SRC
-    
+
     Use emacs mode
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       bindkey -e
     #+END_SRC
-    
+
     Fix GPG complaints
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export GPG_TTY=$(tty)
@@ -3087,7 +3092,7 @@
       export PATH=$CLI_UTILS_DIR:$PATH
       export PATH=$SCRIPTS_DIR:$PATH
     #+END_SRC
-    
+
     Use =vim= to open man pages, which
     - enables coloring
     - highlights current search math
@@ -3098,18 +3103,18 @@
 	  -c 'nnoremap <Space> <C-f>' \
 	  -c 'noremap q :quit<CR>' -\""
     #+END_SRC
-    
+
     Set default editor to be neovim
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export EDITOR="nvim"
       export VISUAL="nvim"
     #+END_SRC
-    
+
     Enable 256 color support in terminal
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export TERM=screen-256color
     #+END_SRC
-    
+
     Allow using pip outside a virtual env
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       export PIP_REQUIRE_VIRTUALENV=false
@@ -3119,15 +3124,15 @@
     Setup zkbd to use some keys in zsh. It prompts for an interactive setup when
     used for the first time. Note that the file generated sometimes does not
     have the correct filename.
-    
+
     On first start, =zkbd= will prompt for an interactive test of keyboard, which
     generates =~/.zkbd/term-name-xxx= file. Make a copy of this file named,
     e.g., =screen-256color-pc-linux-gnu= to let it be sourced.
-    
+
     Sometimes system update changes what the key sends (why??). If that happens,
     simply remove the aforementioned config file and =zsh= will prompt for retests
     on next start.
-    
+
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       autoload zkbd
       [[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM-$VENDOR-$OSTYPE ]] && zkbd
@@ -3152,7 +3157,7 @@
       HISTFILE=~/.zsh_history
       setopt inc_append_history
     #+END_SRC
-    
+
 *** Auto completion
     Enable completion by putting =compinit= at the end of the zshrc
     #+BEGIN_SRC sh :tangle "~/.zshrc"
@@ -3166,14 +3171,14 @@
 	zstyle ':completion:*:*:git:*' script $GIT_COMPLETION_ZSH
       fi
     #+END_SRC
-    
+
     Conda commands autocompletion
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       fpath+=$CONFORG_DIR/contrib/conda-zsh-completion
       compinit conda
       zstyle ':completion::complete:*' use-cache 1
     #+END_SRC
-    
+
     Taskwarrior. For Arch Linux, install `community/task`.
     This also sets the alias `t`.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
@@ -3234,29 +3239,29 @@
       alias la='ls -A'
       alias l='ls -CF'
     #+END_SRC
-    
+
     Use =nvim= for everything
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias vi='nvim'
       alias vim='nvim'
     #+END_SRC
-    
+
     Fcitx input method (IME) for emacs
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias emacs='LC_CTYPE=zh_CN.UTF-8 emacs'
     #+END_SRC
-    
+
     Use Bash as the default shell for Emacs, due to compatibility issues for certain
     plugins.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias emacs='SHELL=/bin/bash emacs'
     #+END_SRC
-    
+
     Force tmux to accept UTF-8
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias tmux='tmux -u'
     #+END_SRC
-    
+
     A simple calculator. Alias =equal sign= disabled due to incompatibility with
     =zsh-sytax-highlighting=.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
@@ -3303,14 +3308,14 @@
       export TLDR_CACHE_ENABLED=1
       export TLDR_CACHE_MAX_AGE=720
     #+END_SRC
-    
+
     To update cache, run =tldr -u=.
 
 *** End of zshrc
     Speed up zsh compinit by only checking cache once a day.
-    On slow systems, checking the cached =.zcompdump= file to see if it must be 
+    On slow systems, checking the cached =.zcompdump= file to see if it must be
     regenerated adds a noticable delay to zsh startup.
-    This little hack restricts it to once a day.  
+    This little hack restricts it to once a day.
     Credit of this trick goes to [[https://gist.github.com/ctechols/ca1035271ad134841284][here]].
 
     The globbing is a little complicated here:
@@ -3338,7 +3343,7 @@
 	  kitty + complete setup zsh | source /dev/stdin
       fi
     #+END_SRC
-    
+
     Load syntax highlighting, which can be installed from
     =community/zsh-syntax-highlighting=.
     (It must be at the end of the =.zshrc= file).
@@ -3347,7 +3352,7 @@
 	  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
       fi
     #+END_SRC
-    
+
     Stop profiling
     #+BEGIN_SRC sh :noweb yes :tangle "~/.zshrc"
       <<stop-profiling>>
@@ -3371,10 +3376,10 @@
      map i recolor
      map p print
     #+END_SRC
-   
+
 * Boneyard & Roadmap
 *** TODO Single place for all color schemes
     Put all color configs into =Xresources=, so that I can control them with a
     simple script for a global, uniform looking system.
     (Further, time-dependent colorschemes).
-    
+
