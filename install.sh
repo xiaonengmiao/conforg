@@ -140,6 +140,8 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/mpd;
   mkdir -p $HOME/.config/mpd/playlists;
 
+  mkdir -p $HOME/.newsboat;
+
   mkdir -p $HOME/.tmux;
   mkdir -p $HOME/.tmux/plugins;
 
