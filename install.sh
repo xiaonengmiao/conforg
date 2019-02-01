@@ -133,6 +133,7 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/i3blocks;
   mkdir -p $HOME/.config/dunst;
   mkdir -p $HOME/.config/kitty;
+  mkdir -p $HOME/.config/zathura;
 
   mkdir -p $HOME/.config/ranger;
   mkdir -p $HOME/.config/ranger/colorschemes/;
@@ -145,8 +146,8 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.tmux;
   mkdir -p $HOME/.tmux/plugins;
 
-  mkdir -p $HOME/.task
-  mkdir -p $HOME/Contacts
+  mkdir -p $HOME/.task;
+  mkdir -p $HOME/Contacts;
 )
 
 box_out "Parsing conf.org.."
