@@ -21,10 +21,10 @@ function show_help() {
   echo "-f <file> Set log file"
   echo "-c <path> Set conforg path"
   echo "-g <file> Set global gitignore file"
-  echo "-p Plain install (do not set up credentials with pass)."
+  echo "-p Plain install (do not set up credentials with pass)"
 }
 
-while getopts "h?vd:f:qc:g" opt; do
+while getopts "h?vd:f:qc:g:p" opt; do
   case "$opt" in
     h|\?)
       show_help
