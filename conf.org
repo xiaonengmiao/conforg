@@ -1227,7 +1227,7 @@
 *** Emacs Daemon
     Start Emacs daemon, setting =LC_CTYPE= for compatibility with =fcitx=.
     #+BEGIN_SRC conf :tangle "~/.config/i3/config"
-      exec --no-startup-id LC_CTYPE=zh_CN.UTF-8 emacs --daemon &
+      exec --no-startup-id LC_CTYPE=zh_CN.UTF-8 emacs --daemon
     #+END_SRC
 *** FlashFocus
     =flashfocus= adds focus animations.

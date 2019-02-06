@@ -24,7 +24,7 @@ i3-msg "exec --no-startup-id nextcloud"
 # Reload emacs daemon
 notify-send -t $NOTI_TIMEOUT -a "Conforg" "Reloading Emacs daemon.. ⛳"
 emacs-daemon-shutdown
-i3-msg "exec --no-startup-id 'LC_CTYPE=zh_CN.UTF-8 emacs --daemon &'"
+i3-msg "exec --no-startup-id LC_CTYPE=zh_CN.UTF-8 emacs --daemon"
 
 # Reload KDEConnect
 notify-send -t $NOTI_TIMEOUT -a "Conforg" "Reloading KDEConnect.. ⛳"
