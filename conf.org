@@ -1506,6 +1506,16 @@
     TODO:
     Cannot see a log in =xev= when pressing fn+f12 and fn+f11
     Need to bind them at system level (acpi)?
+*** Protonmail
+    Start the =protonmail-bridge= at login. NOTE: It uses =pass= to store login
+    session information; as a result, 2FA becomes useless if your password store
+    (not just the password itself) is compromised.
+    
+    (Protonmail Desktop Bridge can be installed from =AUR=.)
+    
+    #+BEGIN_SRC conf :tangle (if (file-exists-p "/usr/bin/Desktop-Bridge") "~/.config/i3/config" "no")
+      exec_always --no-startup-id Desktop-Bridge --no-window
+    #+END_SRC
 *** Resize mode
     A mode used to resize windows (you can also use the mouse for that)
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
