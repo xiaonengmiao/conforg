@@ -1,0 +1,11 @@
+#!/bin/sh
+# Turn on dark mode universally.
+
+# tell conforg to open new windows in dark mode
+echo "dark" > $HOME/.config/conforg/colortheme
+sed -i 's/^set\ background=light$/set\ background=dark/' $HOME/.config/nvim/init.vim
+
+# TODO: xresources (kitty, mpd, ranger)
+
+# switch running processes to dark mode
+emacsclient --eval "(load-theme 'solarized-dark t)"

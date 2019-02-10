@@ -1,0 +1,11 @@
+#!/bin/sh
+# Turn on light mode universally.
+
+# tell conforg to open new windows in light mode
+echo "light" > $HOME/.config/conforg/colortheme
+sed -i 's/^set\ background=dark$/set\ background=light/' $HOME/.config/nvim/init.vim
+
+# TODO: xresources (kitty, mpd, ranger)
+
+# switch running processes to light mode
+emacsclient --eval "(load-theme 'solarized-light t)"
