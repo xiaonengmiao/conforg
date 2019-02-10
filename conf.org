@@ -1288,6 +1288,17 @@
       bindsym $mod+Shift+Return exec /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
       bindcode $mod+Shift+$KP_Return exec /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
     #+END_SRC
+    
+    Check email
+    #+BEGIN_SRC conf :tangle ~/.config/i3/config
+      bindsym $mod+m exec "emacsclient -n -c --eval '(mu4e)'"
+    #+END_SRC
+    
+    Check agenda/todo list
+    #+BEGIN_SRC conf :tangle ~/.config/i3/config
+      bindsym $mod+t exec "emacsclient -n -c --eval '(org-agenda-list)'"
+      bindsym $mod+a exec emacsclient -n -c --eval '(find-file "~/Agenda/mylife.org")'
+    #+END_SRC
 
     Start emacsclient
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
