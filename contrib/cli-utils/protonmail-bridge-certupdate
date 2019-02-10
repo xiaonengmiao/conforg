@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Update the server cert (self-signed) for Protonmail Desktop Bridge
+openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts 2>&1 < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sed -ne '1,/-END CERTIFICATE-/p' > ~/.cert/protonmail-desktop-bridge.pem
