@@ -1,5 +1,7 @@
 #!/bin/sh
 
+~/cli-utils/protonmail-bridge-certupdate
+
 pkill mbsync
 (mbsync -aV) &
 pkill -SIGRTMIN+11 i3blocks
