@@ -76,6 +76,98 @@
    #+BEGIN_SRC sh :results output :exports none :tangle no
      $HOME/.scripts
    #+END_SRC
+** Colors
+   I use =solarized= light/dark color schemes system-wide. Setting color values
+   in one place ensures consistency.
+   Read more at https://ethanschoonover.com/solarized/.
+   
+   NOTE: by change those base colors, any color scheme can be implemented easily
+   while preserving a consistent universal look.
+   
+   Content/background monotones:
+
+   #+NAME: conforg-colorhex-base03
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #002b36
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-base02
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #073642
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-base01
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #586e75
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-base00
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #657b83
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-base0
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #839496
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-base1
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #93a1a1
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-base2
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #eee8d5
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-base3
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #fdf6e3
+   #+END_SRC
+   
+   Accent colors:
+   
+   #+NAME: conforg-colorhex-yellow
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #b58900
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-orange
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #cb4b16
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-red
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #dc322f
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-magenta
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #d33682
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-violet
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #6c71c4
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-blue
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #268bd2
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-cyan
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #2aa198
+   #+END_SRC
+   
+   #+NAME: conforg-colorhex-green
+   #+BEGIN_SRC conf :results output :exports none :tangle no
+     #859900
+   #+END_SRC
+
 * Main Configurations
 ** Emacs
 *** Header
@@ -1708,7 +1800,11 @@
       cursor_shape block
       cursor_blink_interval 0
     #+END_SRC
-
+*** Remote Control
+    Allow remote control.
+    #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
+      allow_remote_control yes 
+    #+END_SRC
 *** Scrollback
     To reverse scroll direction, set a negative multiplier.
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
@@ -1827,53 +1923,108 @@
     If you want to dynamically
     change transparency of windows set dynamic_background_opacity to
     yes (this is off by default as it has a performance cost)
+**** Dark
+     #+NAME: conforg-kitty-colors-dark
+     #+BEGIN_SRC conf :noweb yes :results output :exports none :tangle no
+       background              <<conforg-colorhex-base03>>
+       foreground              <<conforg-colorhex-base0>>
+       cursor                  <<conforg-colorhex-base1>>
 
-    #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
-      background              #fdf6e3
-      foreground              #657b83
-      cursor                  #586e75
+       selection_background    <<conforg-colorhex-base02>>
+       selection_foreground    <<conforg-colorhex-base1>>
 
-      selection_background    #93a1a1
-      selection_foreground    #586e75
+       # black dark/light
+       color0                  <<conforg-colorhex-base02>>
+       color8                  <<conforg-colorhex-base03>>
 
-      # black dark/light
-      color0                #073642
-      color8                #002b36
+       # red dark/light
+       color1                  <<conforg-colorhex-red>>
+       color9                  <<conforg-colorhex-orange>>
 
-      # red dark/light
-      color1                #dc322f
-      color9                #cb4b16
+       # green dark/light
+       color2                  <<conforg-colorhex-green>>
+       color10                 <<conforg-colorhex-base01>>
 
-      # green dark/light
-      color2                #859900
-      color10               #586e75
+       # yellow dark/light
+       color3                  <<conforg-colorhex-yellow>>
+       color11                 <<conforg-colorhex-base00>>
 
-      # yellow dark/light
-      color3              #b58900
-      color11             #657b83
+       # blue dark/light
+       color4                  <<conforg-colorhex-blue>>
+       color12                 <<conforg-colorhex-base0>>
 
-      # blue dark/light
-      color4                #268bd2
-      color12               #839496
+       # magenta dark/light
+       color5                  <<conforg-colorhex-magenta>>
+       color13                 <<conforg-colorhex-violet>>
 
-      # magenta dark/light
-      color5                #d33682
-      color13               #6c71c4
+       # cyan dark/light
+       color6                  <<conforg-colorhex-cyan>>
+       color14                 <<conforg-colorhex-base1>>
 
-      # cyan dark/light
-      color6                #2aa198
-      color14               #93a1a1
+       # white dark/light
+       color7                  <<conforg-colorhex-base2>>
+       color15                 <<conforg-colorhex-base3>>
+     #+END_SRC
+     
+     #+BEGIN_SRC conf :noweb yes :tangle ~/.config/kitty/solarized-dark.conf
+       <<conforg-kitty-colors-dark>>
+     #+END_SRC
+**** Light
+     #+NAME: conforg-kitty-colors-light
+     #+BEGIN_SRC conf :noweb yes :results output :exports none :tangle no
+       background              <<conforg-colorhex-base3>>
+       foreground              <<conforg-colorhex-base00>>
+       cursor                  <<conforg-colorhex-base01>>
 
-      # white dark/light
-      color7                #eee8d5
-      color15               #fdf6e3
+       selection_background    <<conforg-colorhex-base2>>
+       selection_foreground    <<conforg-colorhex-base01>>
 
-      background_opacity         1.0
-      dynamic_background_opacity no
+       # black dark/light
+       color0                  <<conforg-colorhex-base02>>
+       color8                  <<conforg-colorhex-base03>>
 
-      dim_opacity 0.75
-    #+END_SRC
+       # red dark/light
+       color1                  <<conforg-colorhex-red>>
+       color9                  <<conforg-colorhex-orange>>
 
+       # green dark/light
+       color2                  <<conforg-colorhex-green>>
+       color10                 <<conforg-colorhex-base01>>
+
+       # yellow dark/light
+       color3                  <<conforg-colorhex-yellow>>
+       color11                 <<conforg-colorhex-base00>>
+
+       # blue dark/light
+       color4                  <<conforg-colorhex-blue>>
+       color12                 <<conforg-colorhex-base0>>
+
+       # magenta dark/light
+       color5                  <<conforg-colorhex-magenta>>
+       color13                 <<conforg-colorhex-violet>>
+
+       # cyan dark/light
+       color6                  <<conforg-colorhex-cyan>>
+       color14                 <<conforg-colorhex-base1>>
+
+       # white dark/light
+       color7                  <<conforg-colorhex-base2>>
+       color15                 <<conforg-colorhex-base3>>
+     #+END_SRC
+     
+     #+BEGIN_SRC conf :noweb yes :tangle ~/.config/kitty/solarized-light.conf
+       <<conforg-kitty-colors-light>>
+     #+END_SRC
+**** Default
+     Write the default colors to =kitty.conf=, together some related parameters.
+     #+BEGIN_SRC conf :noweb yes :tangle ~/.config/kitty/kitty.conf
+       <<conforg-kitty-colors-light>>
+       
+       background_opacity         1.0
+       dynamic_background_opacity no
+
+       dim_opacity 0.75
+     #+END_SRC
 *** Advanced
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       editor nvim
