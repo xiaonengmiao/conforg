@@ -24,4 +24,8 @@ case "$chosen" in
 	*) xrandr --output "$chosen" --auto --scale 1.0x1.0 $(echo "$screens" | grep -v "$chosen" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
 esac
 
-pgrep -x dunst >/dev/null && killall dunst && setsid dunst & # Restart dunst to ensure proper notification locations
+# Restart dunst to ensure proper notification locations
+pgrep -x dunst >/dev/null && killall dunst && setsid dunst &
+
+# Reset wallpapers
+feh --randomize --bg-scale /usr/share/backgrounds/*
