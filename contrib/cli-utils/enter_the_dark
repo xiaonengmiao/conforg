@@ -13,6 +13,8 @@ sed -i "s/^let\ g:airline_theme='sol'$/let\ g:airline_theme='solarized'/" $HOME/
 
 sed -i "s/^POWERLEVEL9K_COLOR_SCHEME='light'$/POWERLEVEL9K_COLOR_SCHEME='dark'/" $HOME/.zshrc
 
+sed -i "s/solarized-light/solarized-dark/" $HOME/.emacs.d/init.el
+
 # TODO: xresources (mpd, ranger)
 
 emacsclient --eval "(load-theme 'solarized-dark t)"
