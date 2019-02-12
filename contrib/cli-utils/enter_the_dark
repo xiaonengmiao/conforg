@@ -5,7 +5,8 @@
 # . enter_the_dark
 
 # tell conforg to open new windows in dark mode
-echo "dark" > $HOME/.config/conforg/colortheme
+echo "dark" > $HOME/.config/conforg/colorscheme
+perl $HOME/cli-utils/reconfigure_kitty_colors.pl
 
 sed -i 's/^set\ background=light$/set\ background=dark/' $HOME/.config/nvim/init.vim
 sed -i "s/^let\ g:airline_theme='sol'$/let\ g:airline_theme='solarized'/" $HOME/.config/nvim/init.vim

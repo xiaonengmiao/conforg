@@ -1770,6 +1770,7 @@
    =Kitty= is a GPU accelerated terminal emulator, by the author of =Calibre=.
 *** Front-matter
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
+      # Current color scheme: default
       # vim:fileencoding=utf-8:ft=conf:foldmethod=marker
 
       # DO NOT EDIT

@@ -2,7 +2,8 @@
 # Turn on light mode universally.
 
 # tell conforg to open new windows in light mode
-echo "light" > $HOME/.config/conforg/colortheme
+echo "light" > $HOME/.config/conforg/colorscheme
+perl $HOME/cli-utils/reconfigure_kitty_colors.pl
 
 sed -i 's/^set\ background=dark$/set\ background=light/' $HOME/.config/nvim/init.vim
 sed -i "s/^let\ g:airline_theme='solarized'$/let\ g:airline_theme='sol'/" $HOME/.config/nvim/init.vim
