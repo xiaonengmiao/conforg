@@ -329,6 +329,9 @@ fi
 # Save the command only if the installer proceeds this far
 echo $INSTALL_ARGS > $HOME/.config/conforgrc
 
+# Lastly, do an inital setup of color scheme
+$HOME/cli-utils/set_dynamic_colors
+
 box_out "Almost done: manual setup required."
 if [[ $QUIET != 0 ]]; then
   exit 0

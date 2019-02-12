@@ -1696,7 +1696,7 @@
 *** Wallpaper
     Wallpapers set from =archlinux-wallpaper=.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      exec_always --no-startup-id feh --randomize --bg-scale /usr/share/archlinux/wallpaper/*[a-z].jpg
+      exec_always --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
     #+END_SRC
 ** i3blocks
    =i3blocks= is scripted with block-wise callback controls.
