@@ -143,6 +143,9 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/mpd;
   mkdir -p $HOME/.config/mpd/playlists;
 
+  mkdir -p $HOME/.config/systemd;
+  mkdir -p $HOME/.config/systemd/user;
+
   mkdir -p $HOME/.newsboat;
 
   mkdir -p $HOME/.tmux;
@@ -292,6 +295,11 @@ else
   TASK_THEME=/usr/share/doc/task/rc/solarized-light-256.theme
 fi
 $SED_BIN -i "s@TASKWARRIOR_COLOR_THEME@$TASK_THEME@g" $HOME/.taskrc
+
+# Enable time-based color switching
+systemctl --user daemon-reload
+systemctl --user enable night-and-day.timer
+systemctl --user start night-and-day.timer
 
 HAS_TASKD_SERVER=false
 if $PASSWORD_STORE; then
