@@ -1,7 +1,7 @@
 #!/bin/sh
 
 currenttime=$(date +%H:%M)
-if [[ "$currenttime" > "17:59" ]] || [[ "$currenttime" < "06:01" ]]; then
+if [[ "$currenttime" > "17:59" ]] || [[ "$currenttime" < "05:59" ]]; then
   notify-send -a "Conforg" "It's night time" \
     "🌙🦇🦉🌃 Long and behold, let's enter the dark."
   source ~/cli-utils/enter_the_dark
