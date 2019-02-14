@@ -18,7 +18,7 @@ emacsclient --eval "(load-theme 'solarized-light t)"
 
 # if running interactively, switch running shell to light mode
 if [[ $- == *i* ]]; then
-  kitty @ set-colors -c --configured $HOME/.config/kitty/solarized-light.conf
+  kitty @ --to unix:/tmp/mykitty set-colors --all --configured $HOME/.config/kitty/solarized-light.conf
 
   POWERLEVEL9K_COLOR_SCHEME='light'
   source  $CONFORG_DIR/contrib/powerlevel9k/powerlevel9k.zsh-theme

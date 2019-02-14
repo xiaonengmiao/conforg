@@ -1806,6 +1806,11 @@
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       allow_remote_control yes 
     #+END_SRC
+    
+    Path to listen for remote message, allowing inter-window control.
+    #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
+      listen-on unix:/tmp/mykitty
+    #+END_SRC
 *** Scrollback
     To reverse scroll direction, set a negative multiplier.
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
