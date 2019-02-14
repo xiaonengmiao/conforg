@@ -19,10 +19,10 @@ sed -i "s/solarized-light/solarized-dark/" $HOME/.emacs.d/init.el
 
 emacsclient --eval "(load-theme 'solarized-dark t)"
 
+kitty @ --to unix:/tmp/mykitty set-colors --all --configured $HOME/.config/kitty/solarized-dark.conf
+
 # if running interactively, switch running shell to dark mode
 if [[ $- == *i* ]]; then
-  kitty @ --to unix:/tmp/mykitty set-colors --all --configured $HOME/.config/kitty/solarized-dark.conf
-
   POWERLEVEL9K_COLOR_SCHEME='dark'
   source  $CONFORG_DIR/contrib/powerlevel9k/powerlevel9k.zsh-theme
 fi

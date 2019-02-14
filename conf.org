@@ -167,7 +167,13 @@
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #859900
    #+END_SRC
-
+** Sockets
+*** Kitty
+    Used for remote control of =kitty= windows.
+   #+NAME: conforg-kittysocket
+   #+BEGIN_SRC sh :results output :exports none :tangle no
+     unix:/tmp/mykitty
+   #+END_SRC
 * Main Configurations
 ** Emacs
 *** Header
@@ -1370,9 +1376,9 @@
     #+END_SRC
 
     Start a terminal
-    #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym $mod+Return exec --no-startup-id kitty -1
-      bindcode $mod+$KP_Return exec --no-startup-id kitty -1
+    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
+      bindsym $mod+Return exec --no-startup-id kitty -1 --listen-on <<conforg-kittysocket>>
+      bindcode $mod+$KP_Return exec --no-startup-id kitty -1 --listen-on <<conforg-kittysocket>>
     #+END_SRC
 
     Start vim-anywhere
@@ -1397,7 +1403,9 @@
       bindsym $mod+Escape exec --no-startup-id emacsclient -c -n
     #+END_SRC
 
-    Start chromium
+    Start chromium. TIP: install =background process= plugin
+    (https://chrome.google.com/webstore/detail/background-process/)
+    so that chromium process is kept alive after closing the last tab.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+BackSpace exec chromium
     #+END_SRC
@@ -1805,11 +1813,6 @@
     Allow remote control.
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       allow_remote_control yes 
-    #+END_SRC
-    
-    Path to listen for remote message, allowing inter-window control.
-    #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
-      listen-on unix:/tmp/mykitty
     #+END_SRC
 *** Scrollback
     To reverse scroll direction, set a negative multiplier.
