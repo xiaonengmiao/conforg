@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# i3blocks org-pomodoro integration.
+# Displays org-pomodoro status.
+
+case $BLOCK_BUTTON in
+  1) emacsclient -n -c --eval "(find-file "~/Agenda/mylife.org")" >/dev/null;;
+	3) pgrep -x dunst >/dev/null && notify-send -a "Pomodoro" "Instructions" "🍅 Shows timer status.<br>📔 Left click opens mylife.org.<br>❓ Right click shows help message." ;;
+esac
+
+has_timer=$(emacsclient -e '(org-pomodoro-active-p)')
+
+if [ $has_timer == 't' ]; then
+  session_type=$(emacsclient -e 'org-pomodoro-state' | sed 's/://g')
+  timer_status=$(emacsclient -e '(org-pomodoro-format-seconds)' | sed 's/\"//g')
+  if [ $session_type == 'pomodoro' ]; then
+    echo "🍅(Pomodoro) ${timer_status}"
+  elif [ $session_type == 'short-break' ]; then
+    echo "🚻(Short Break) ${timer_status}"
+  elif [ $session_type == 'long-break' ]; then
+    echo "🍵(Long Break) ${timer_status}"
+  fi
+else
+  echo "🐢 Stop Procrastinating!"
+fi
+

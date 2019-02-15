@@ -1758,6 +1758,9 @@
 
      [weather]
      interval=7200
+     
+     [pomodoro]
+     interval=1
 
      [clock]
      label=📅
