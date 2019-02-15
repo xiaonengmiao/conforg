@@ -1666,7 +1666,7 @@
       #+END_SRC
 *** Status bar
     Use =i3blocks= to display a status bar on top of the screen.
-    #+BEGIN_SRC conf :tangle ~/.config/i3/config
+    #+BEGIN_SRC conf :tangle no
       bar {
 	  font pango:Hack 11
 	  colors {
@@ -1683,7 +1683,48 @@
 	  mode           dock
 	  modifier       None
       }
-      #+END_SRC
+    #+END_SRC
+    
+    An alternative bar setup that is better for smaller screens
+    #+BEGIN_SRC conf :tangle ~/.config/i3/config
+      bar {
+	  font pango:Hack 11
+	    colors {
+	      background $darkblack
+		statusline $darkwhite
+		separator $cyan
+		focused_workspace  $blue $darkblue $darkblack
+		active_workspace   $blue $blue $darkwhite
+		inactive_workspace $darkblack $darkblack $white
+		urgent_workspace   $darkblack $darkblack $white
+	    }
+	  workspace_buttons no
+	  status_command i3blocks
+	  position       bottom
+	  mode           dock
+	  modifier       None
+      }
+
+      bar {
+	  font pango:Hack 11
+	  colors {
+	    background $darkblack
+	      statusline $darkwhite
+	      separator $cyan
+	      focused_workspace  $blue $darkblue $darkblack
+	      active_workspace   $blue $blue $darkwhite
+	      inactive_workspace $darkblack $darkblack $white
+	      urgent_workspace   $darkblack $darkblack $white
+	  }
+	  tray_output    none
+	  position       top
+	  mode           dock
+	  modifier       None
+      }
+    #+END_SRC
+    
+    
+
 *** Multi-head
     =autorandr= is used to handle different setups.
     On startup, detect and set the output profile.
