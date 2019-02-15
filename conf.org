@@ -1227,7 +1227,7 @@
       [global]
 	  monitor = 0
 	  follow = keyboard
-	  geometry = "1000x0-0-0"
+	  geometry = "1000x0-0+0"
 	  indicate_hidden = yes
 	  shrink = no
 	  transparency = 0
@@ -1313,7 +1313,7 @@
       [urgency_normal]
 	  background = "#4f5b66"
 	  foreground = "#f2f2f2"
-	  timeout = 15
+	  timeout = 5
 
       [urgency_critical]
 	  background = "#cc2421"
