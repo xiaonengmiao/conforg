@@ -20,3 +20,6 @@ if [ ! "${FIND}" = "" ]; then
     echo "No reboot required"
   fi
 fi
+
+# NOTE: if gpg is updated, restart gpg-agent
+# gpgconf --kill gpg-agent
