@@ -202,6 +202,11 @@ cd ../..
 # Ranger scope.sh
 # chmod +x ~/.config/ranger/scope.sh
 
+# find-cursor
+cd contrib/find-cursor && make \
+  >> /tmp/conforg.log 2>&1
+cd ../..
+
 # Vim-plug
 cp contrib/vim-plug/plug.vim $HOME/.config/nvim/autoload/plug.vim
 

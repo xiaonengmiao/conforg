@@ -1405,6 +1405,12 @@
       exec_always --no-startup-id flashfocus
       bindsym $mod+n exec --no-startup-id flash_window
     #+END_SRC
+*** Find Cursor
+    =find-cursor= uses animations to help finding your mouse cursor.
+    NOTE: it only works with =xorg=.
+    #+BEGIN_SRC conf :tangle "~/.config/i3/config"
+      bindsym $mod+c exec --no-startup-id "~/cli-utils/find-cursor"
+    #+END_SRC
 *** Fcitx
     =fcitx=, short for /Flexible Context-aware Input Tool with eXtension/, is
     used for Chinese input.

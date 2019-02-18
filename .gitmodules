@@ -28,3 +28,6 @@
 [submodule "contrib/vim-anywhere"]
 	path = contrib/vim-anywhere
 	url = git@github.com:xywei/vim-anywhere.git
+[submodule "contrib/find-cursor"]
+	path = contrib/find-cursor
+	url = https://github.com/Carpetsmoker/find-cursor.git

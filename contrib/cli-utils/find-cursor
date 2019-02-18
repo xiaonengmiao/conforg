@@ -1,0 +1,7 @@
+#!/bin/sh
+
+fcbin=$HOME/.conforg/contrib/find-cursor/find-cursor
+
+$fcbin --size 500 --distance 50 \
+       --wait 1000 --line-width 10 \
+       --color black
