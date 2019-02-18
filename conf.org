@@ -653,7 +653,7 @@
 	    (if (org-is-habit-p)
 		next-headline
 	      nil))))
-      (setq org-agenda-skip-function 'my-org-skip-function)
+      (setq org-agenda-skip-function 'my-org-agenda-skip-habits)
     #+END_SRC
 
 **** References
