@@ -645,6 +645,7 @@
     
     Show only =TODO=, =NEXT=, and =WAITING= types of entries.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (require 'org-habit)
       (defun my-org-agenda-skip-habits ()
 	"Skip habits"
 	(save-restriction

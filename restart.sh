@@ -36,4 +36,7 @@ notify-send -t $NOTI_TIMEOUT -a "Conforg" "Reloading Compton.. ⛳"
 i3-msg killall compton
 i3-msg "exec --no-startup-id compton -b"
 
+# Reset wallpaper
+feh --randomize --bg-scale /usr/share/backgrounds/*
+
 notify-send -t $NOTI_TIMEOUT -a "Conforg" "Reload finished. 😎" "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀"
