@@ -10,6 +10,7 @@ DEFAULT_CONFORG_DIR=$HOME/.conforg
 GITIGNORE_IN=./contrib/gitignore
 GITIGNORE_OUT=$HOME/.gitignore_global
 PASSWORD_STORE=true
+ALARM_SOUND=clock-chimes-daniel_simon.wav
 
 INSTALL_ARGS="$*"
 
@@ -21,10 +22,11 @@ function show_help() {
   echo "-f <file> Set log file"
   echo "-c <path> Set conforg path"
   echo "-g <file> Set global gitignore file"
+  echo "-a <file> Set which alarm sound to use under contrib/sounds"
   echo "-p Plain install (do not set up credentials with pass)"
 }
 
-while getopts "h?vd:f:qc:g:p" opt; do
+while getopts "h?vd:a:f:qc:g:p" opt; do
   case "$opt" in
     h|\?)
       show_help
@@ -32,6 +34,8 @@ while getopts "h?vd:f:qc:g:p" opt; do
       ;;
     v)
       VERBOSE=1;;
+    a)
+      ALARM_SOUND=$OPTARG;;
     d)
       DPI=$OPTARG;;
     f)
@@ -181,6 +185,9 @@ else
   fi
   xrdb ~/.Xresources
 fi
+
+# Alarm sound
+cp -f contrib/sounds/$(ALARM_SOUND).wav $HOME/.alarm.wav
 
 # Ranger file glyphs
 cd contrib/ranger_devicons && make install \

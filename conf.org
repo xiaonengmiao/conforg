@@ -626,7 +626,7 @@
          (lambda () (local-set-key (kbd "C-c l") 'org-store-link)))
     #+END_SRC
 
-    Agenda view (global) =C-c a=, capture (global) =C-c c=
+    Agenda view (global) =C-c a=, capture (global) =C-c c=.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (setq org-agenda-files (directory-files-recursively "~/Agenda/" "\.org$"))
       (setq org-agenda-sorting-strategy
@@ -641,6 +641,19 @@
 		     (global-set-key (kbd "C-c c") 'org-capture)
 		     )
 		   ))
+    #+END_SRC
+    
+    Show only =TODO=, =NEXT=, and =WAITING= types of entries.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (defun my-org-agenda-skip-habits ()
+	"Skip habits"
+	(save-restriction
+	  (widen)
+	  (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+	    (if (org-is-habit-p)
+		next-headline
+	      nil))))
+      (setq org-agenda-skip-function 'my-org-skip-function)
     #+END_SRC
 
 **** References
@@ -770,6 +783,63 @@
      4. If you call =org-pomodoro= outside org-mode, you'll be presented with list
         of recent tasks, as C-u org-clock-in would.
 
+*** Alarm Clock (appt)
+    Emacs's built-in appointment management module.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (require 'appt)
+      (appt-activate t)
+
+      (setq appt-message-warning-time 5) ; Show notification 5 minutes before event
+      (setq appt-display-interval appt-message-warning-time) ; Disable multiple reminders
+      (setq appt-display-mode-line nil)
+    #+END_SRC
+    
+    Use appointment data from =org-mode=.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (defun my-org-agenda-to-appt ()
+	(interactive)
+	(setq appt-time-msg-list nil)
+	(org-agenda-to-appt))
+    #+END_SRC
+    
+    Update alarms when starting =Emacs=.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (my-org-agenda-to-appt)
+    #+END_SRC
+    
+    Update alarms everyday at 12:05am.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (run-at-time "12:05am" (* 24 3600) 'my-org-agenda-to-appt)
+    #+END_SRC
+    
+    Update alarms when =mylife.org= is saved.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (add-hook 'after-save-hook
+		'(lambda ()
+		   (if (string= (buffer-file-name) (concat (getenv "HOME") "/Agenda/mylife.org"))
+		       (my-org-agenda-to-appt))))
+    #+END_SRC
+    
+    Update alarms each time agenda opened.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (add-hook 'org-finalize-agenda-hook 'my-org-agenda-to-appt)
+    #+END_SRC
+    
+    Display appointments as a window manager notification.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (setq appt-disp-window-function 'my-appt-display)
+      (setq appt-delete-window-function (lambda () t))
+
+      (setq my-appt-notification-app (concat (getenv "HOME") "/cli-utils/appt-notification"))
+
+      (defun my-appt-display (min-to-app new-time msg)
+	(if (atom min-to-app)
+	  (start-process "my-appt-notification-app" nil my-appt-notification-app min-to-app msg)
+	(dolist (i (number-sequence 0 (1- (length min-to-app))))
+	  (start-process "my-appt-notification-app" nil my-appt-notification-app (nth i min-to-app) (nth i msg)))))
+    #+END_SRC
+
+    
 *** Color Theme
     When starting for the first time Emacs will ask if you want to trust this
     theme. Answer yes to have it auto-loaded on future startups.

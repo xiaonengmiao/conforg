@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Display notifications from appt.el
+# Dependson: play from sox, espeak
+
+TIME="$1"
+MSG="$2"
+
+notify-send --icon=appointment-soon -a "Appointment" -t 0 "(in $TIME minutes)<br>$MSG<br>"
+play "~/.alarm.wav"
+espeak "Appointment in $TIME minutes: $MSG"
