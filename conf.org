@@ -1701,14 +1701,14 @@
     
     (Protonmail Desktop Bridge can be installed from =AUR=.)
     
-    #+BEGIN_SRC conf :tangle (if (file-exists-p "/usr/bin/Desktop-Bridge") "~/.config/i3/config" "no")
+    #+BEGIN_SRC conf :tangle (if (file-exists-p "/usr/bin/protonmail-bridge") "~/.config/i3/config" "no")
       exec_always --no-startup-id "pgrep protonmail || PASSWORD_STORE_DIR=$HOME/.config/protonmail-pass protonmail-bridge --no-window"
     #+END_SRC
     
     Use a different password store to remedy 2FA issue & keep main password
     store tidy.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
-      alias Desktop-Bridge='PASSWORD_STORE_DIR=$HOME/.config/protonmail-pass protonmail-bridge'
+      alias protonmail-bridge='PASSWORD_STORE_DIR=$HOME/.config/protonmail-pass protonmail-bridge'
     #+END_SRC
 
 *** Resize mode
