@@ -21,6 +21,7 @@ if [ $has_timer == 't' ]; then
     echo "🍵(Long Break) ${timer_status}"
   fi
 else
-  echo "🐢 Stop Procrastinating!"
+  # echo "🐢 Stop Procrastinating!"
+  echo ""
 fi
 
