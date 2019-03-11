@@ -11,6 +11,7 @@ GITIGNORE_IN=./contrib/gitignore
 GITIGNORE_OUT=$HOME/.gitignore_global
 PASSWORD_STORE=true
 ALARM_SOUND=clock-chimes-daniel_simon.wav
+MINIMAL_INSTALL=false
 
 INSTALL_ARGS="$*"
 
@@ -24,9 +25,10 @@ function show_help() {
   echo "-g <file> Set global gitignore file"
   echo "-a <file> Set which alarm sound to use under contrib/sounds"
   echo "-p Plain install (do not set up credentials with pass)"
+  echo "-m Minimal install (for servers, without additional bells and whistles)"
 }
 
-while getopts "h?vd:a:f:qc:g:p" opt; do
+while getopts "h?vd:a:f:qc:g:pm" opt; do
   case "$opt" in
     h|\?)
       show_help
@@ -48,6 +50,8 @@ while getopts "h?vd:a:f:qc:g:p" opt; do
       GITIGNORE_OUT=$OPTARG;;
     p)
       PASSWORD_STORE=false;;
+    m)
+      MINIMAL_INSTALL=true;;
     : )
       echo "Option -"$OPTARG" requires an argument." >&2
       exit 1;;
@@ -88,6 +92,24 @@ function box_warn()
   done
   echo "  **${b//?/*}**"
   tput sgr 0
+}
+
+function finish_up()
+{
+  # Save the command only if the installer proceeds this far
+  echo $INSTALL_ARGS > $HOME/.config/conforgrc
+
+  # Lastly, do an inital setup of color scheme
+  $HOME/cli-utils/set_dynamic_colors
+
+  box_out "Almost done: manual setup required."
+  if [[ $QUIET != 0 ]]; then
+    exit 0
+  else
+    echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
+    echo "- To finish setting up Neovim plugins, open up neovim and run ':PlugInstall'."
+    echo "- To finish setting up, open up zsh and do the zkbd setup (preferably in a true terminal)."
+  fi
 }
 
 box_out "Greetings. Please make sure you cloned the repo under $DEFAULT_CONFORG_DIR."
@@ -172,40 +194,6 @@ if [[ $VERBOSE != 0 ]]; then
 fi
 
 box_out "Adding final touches.."
-# update X server database
-$SED_BIN -i "/Xft.dpi/c\Xft.dpi:\ $DPI" $HOME/.Xresources  
-if ! [ -x "$(command -v xrdb)" ]; then
-  echo 'Warning: .Xresources is not activated.' >&2
-  if [[ $VERBOSE != 0 ]]; then
-    set -o xtrace
-  fi
-else
-  if [[ $VERBOSE != 0 ]]; then
-    set -o xtrace
-  fi
-  xrdb ~/.Xresources
-fi
-
-# Alarm sound
-cp -f contrib/sounds/$(ALARM_SOUND).wav $HOME/.alarm.wav
-
-# Ranger file glyphs
-cd contrib/ranger_devicons && make install \
-  >> /tmp/conforg.log 2>&1
-cd ../..
-
-# Ranger color theme
-cd contrib/ranger_colortheme && cat ranger_colortheme_custom.py \
-  > $HOME/.config/ranger/colorschemes/custom.py
-cd ../..
-
-# Ranger scope.sh
-# chmod +x ~/.config/ranger/scope.sh
-
-# find-cursor
-cd contrib/find-cursor && make \
-  >> /tmp/conforg.log 2>&1
-cd ../..
 
 # Vim-plug
 cp contrib/vim-plug/plug.vim $HOME/.config/nvim/autoload/plug.vim
@@ -239,6 +227,50 @@ cat $GITIGNORE_IN/*.gitignore >> $GITIGNORE_OUT
 
 # Python files are not to be ignored (e.g. __init__.py)
 echo "!*.py" >> $GITIGNORE_OUT
+
+# Ranger file glyphs
+cd contrib/ranger_devicons && make install \
+  >> /tmp/conforg.log 2>&1
+cd ../..
+
+# Ranger color theme
+cd contrib/ranger_colortheme && cat ranger_colortheme_custom.py \
+  > $HOME/.config/ranger/colorschemes/custom.py
+cd ../..
+
+# Ranger scope.sh
+# chmod +x ~/.config/ranger/scope.sh
+
+##################################################################
+# minimal install ends here
+##################################################################
+if [[ $MINIMAL_INSTALL ]]; then
+  box_warn "Warning: This is a minimal install, skipping extra setups."
+  echo "+ Finishing up"
+  finish_up
+fi
+
+# update X server database
+$SED_BIN -i "/Xft.dpi/c\Xft.dpi:\ $DPI" $HOME/.Xresources  
+if ! [ -x "$(command -v xrdb)" ]; then
+  echo 'Warning: .Xresources is not activated.' >&2
+  if [[ $VERBOSE != 0 ]]; then
+    set -o xtrace
+  fi
+else
+  if [[ $VERBOSE != 0 ]]; then
+    set -o xtrace
+  fi
+  xrdb ~/.Xresources
+fi
+
+# Alarm sound
+cp -f contrib/sounds/$(ALARM_SOUND).wav $HOME/.alarm.wav
+
+# find-cursor
+cd contrib/find-cursor && make \
+  >> /tmp/conforg.log 2>&1
+cd ../..
 
 if $PASSWORD_STORE; then
   # isync
@@ -338,17 +370,4 @@ if $HAS_TASKD_SERVER; then
   task sync >> $LOGFILE 2>&1
 fi
 
-# Save the command only if the installer proceeds this far
-echo $INSTALL_ARGS > $HOME/.config/conforgrc
-
-# Lastly, do an inital setup of color scheme
-$HOME/cli-utils/set_dynamic_colors
-
-box_out "Almost done: manual setup required."
-if [[ $QUIET != 0 ]]; then
-  exit 0
-else
-  echo "- To finish setting up Tmux plugins, open up tmux and hit 'prefix + I'."
-  echo "- To finish setting up Neovim plugins, open up neovim and run ':PlugInstall'."
-  echo "- To finish setting up, open up zsh and do the zkbd setup (preferably in a true terminal)."
-fi
+finish_up
