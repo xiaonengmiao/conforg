@@ -99,9 +99,6 @@ function finish_up()
   # Save the command only if the installer proceeds this far
   echo $INSTALL_ARGS > $HOME/.config/conforgrc
 
-  # Lastly, do an inital setup of color scheme
-  $HOME/cli-utils/set_dynamic_colors
-
   box_out "Almost done: manual setup required."
   if [[ $QUIET != 0 ]]; then
     exit 0
@@ -110,6 +107,8 @@ function finish_up()
     echo "- To finish setting up Neovim plugins, open up neovim and run ':PlugInstall'."
     echo "- To finish setting up, open up zsh and do the zkbd setup (preferably in a true terminal)."
   fi
+
+  exit 0
 }
 
 box_out "Greetings. Please make sure you cloned the repo under $DEFAULT_CONFORG_DIR."
@@ -369,5 +368,8 @@ if $HAS_TASKD_SERVER; then
   box_out "Syncing Tasks"
   task sync >> $LOGFILE 2>&1
 fi
+
+# Lastly, do an inital setup of color scheme
+$HOME/cli-utils/set_dynamic_colors
 
 finish_up
