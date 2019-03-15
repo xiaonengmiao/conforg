@@ -2344,9 +2344,11 @@
       Plug 'sbdchd/neoformat'
     #+END_SRC
     
-    Fugitive
+    Fugitive, with GitHub/GitLab support of =:Gbrowse=.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'tpope/vim-fugitive'
+      Plug 'tpope/vim-rhubarb'
+      Plug 'shumphrey/fugitive-gitlab.vim'
     #+END_SRC
 
     Help visually display indent levels
@@ -2452,7 +2454,6 @@
 	    \ 'sort'    : 0
 	    \ }
     #+END_SRC
-
 **** CtrlP
      *I am no longer using =CtrlP=. Instead I will bind it to =fzf.vim=.*
      (Install `ag` from `community/the_silver_searcher`.)
@@ -2529,6 +2530,11 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       imap <c-x><c-f> <plug>(fzf-complete-path)
       imap <c-x><c-l> <plug>(fzf-complete-line)
+    #+END_SRC
+
+**** Fugitive
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:fugitive_gitlab_domains = ['https://git.wxyzg.com', 'https://gitlab.tiker.net']
     #+END_SRC
 
 **** Neoformat
