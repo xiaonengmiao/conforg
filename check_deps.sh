@@ -4,8 +4,10 @@
 dependencies="
 aplay
 aspell
+awk
 cat
 cc
+convert
 dunst
 dmenu
 flash_window

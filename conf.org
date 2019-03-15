@@ -2470,6 +2470,62 @@
       endif
     #+END_SRC
 
+**** FZF.vim
+     A bundled version of =fzf= is used for =fzf.vim=.
+     
+     Configure it to be =CtrlP= replacement.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:fzf_action = {
+	    \ 'ctrl-s': 'split',
+	    \ 'ctrl-v': 'vsplit'
+	    \ }
+      nnoremap <c-p> :FZF<cr>
+      augroup fzf
+	autocmd!
+	autocmd! FileType fzf
+	autocmd  FileType fzf set laststatus=0 noshowmode noruler
+	  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+      augroup END
+    #+END_SRC
+
+    Then some additional features (switch buffers, most recently used etc.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      nnoremap <silent> <leader>f :Files<CR>
+      nnoremap <silent> <leader>b :Buffers<CR>
+      nnoremap <silent> <leader>w :Windows<CR>
+      nnoremap <silent> <leader>t :Tags<CR>
+      nnoremap <silent> <leader>r :History<CR>
+      nnoremap <silent> <leader>/ :Rg
+    #+END_SRC
+    
+    Use the =:Rg= integration
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      nnoremap <silent> <leader>s :call SearchWordWithRg()<CR>
+      vnoremap <silent> <leader>s :call SearchVisualSelectionWithRg()<CR>
+
+      function! SearchWordWithRg()
+	  execute 'Rg' expand('<cword>')
+      endfunction
+
+      function! SearchVisualSelectionWithRg() range
+	  let old_reg = getreg('"')
+	  let old_regtype = getregtype('"')
+	  let old_clipboard = &clipboard
+	  set clipboard&
+	  normal! ""gvy
+	  let selection = getreg('"')
+	  call setreg('"', old_reg, old_regtype)
+	  let &clipboard = old_clipboard
+	  execute 'Rg' selection
+      endfunction
+    #+END_SRC
+    
+    Also, enhance built-in =c-x c-f= completion in the insert mode.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      imap <c-x><c-f> <plug>(fzf-complete-path)
+      imap <c-x><c-l> <plug>(fzf-complete-line)
+    #+END_SRC
+
 **** Neoformat
      If using other formatting plugin, define noNeoformat for
      that file type (for example, yapf for Python).
@@ -2640,6 +2696,16 @@
     Must be used after loading Neomake.
    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
      call neomake#configure#automake('nrwi', 500)
+   #+END_SRC
+   
+    Additional makers for a =python= project, use =:Neomake tag= to make tags
+    for the project.
+   #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+     let g:neomake_python_tag_maker = {
+     \ 'exe': 'ctags',
+     \ 'args': ['-R', '--fields=+l', '--languages=python', '--python-kinds=-iv', '-f', 'tags', '.'],
+     \ 'errorformat': '%f:%l:%c: %m',
+     \ }
    #+END_SRC
 
 *** Find Cursor
@@ -3596,7 +3662,7 @@
 	    alias grep='grep --color=auto'
 	    alias fgrep='fgrep --color=auto'
 	    alias egrep='egrep --color=auto'
-      alias ctags='/usr/local/bin/ctags'
+	    alias ctags='/usr/local/bin/ctags'
 	;;
 	Linux)
 	  # commands for Linux go here
@@ -3630,6 +3696,11 @@
       alias ll='ls -alhF'
       alias la='ls -A'
       alias l='ls -CF'
+    #+END_SRC
+    
+    Display images in =kitty=
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      alias icat='kitty +kitten icat'
     #+END_SRC
 
     Use =nvim= for everything
