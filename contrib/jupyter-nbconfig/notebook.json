@@ -1,0 +1,91 @@
+{
+  "Cell": {
+    "cm_config": {
+      "lineNumbers": true
+    }
+  },
+  "keys": {
+    "command": {
+      "bind": {
+        ":": "jupyter-notebook:show-command-palette",
+        "ctrl-c": "jupyter-notebook:interrupt-kernel",
+        "i": "jupyter-notebook:enter-edit-mode",
+        "c": "jupyter-notebook:enter-edit-mode",
+        "x": "jupyter-notebook:cut-cell",
+        "d,d": "jupyter-notebook:cut-cell",
+        "y,y": "jupyter-notebook:copy-cell",
+        "p": "jupyter-notebook:paste-cell-below",
+        "ctrl-enter": "jupyter-notebook:run-cell-and-select-next",
+        "alt-enter": "jupyter-notebook:run-cell-and-select-next",
+        "shift-o": "jupyter-notebook:insert-cell-above",
+        "o": "jupyter-notebook:insert-cell-below",
+        "r,c": "jupyter-notebook:change-cell-to-code",
+        "r,m": "jupyter-notebook:change-cell-to-markdown",
+        "r,r": "jupyter-notebook:change-cell-to-raw",
+        "u": "jupyter-notebook:undo-cell-deletion",
+        "shift-p": "jupyter-notebook:paste-cell-above",
+        "space": "jupyter-notebook:toggle-cell-output-collapsed",
+        "shift-space": "jupyter-notebook:toggle-cell-output-scrolled",
+        "alt-j": "jupyter-notebook:move-cell-down",
+        "alt-down": "jupyter-notebook:move-cell-down",
+        "alt-up": "jupyter-notebook:move-cell-up",
+        "alt-k": "jupyter-notebook:move-cell-up",
+        "shift-:": "jupyter-notebook:show-command-palette",
+        "=": "jupyter-notebook:auto-indent",
+        "/": "jupyter-notebook:find-and-replace",
+        "t,h": "jupyter-notebook:toggle-header",
+        "t,m": "jupyter-notebook:toggle-menubar",
+        "t,t": "jupyter-notebook:toggle-toolbar",
+        "t,l": "jupyter-notebook:toggle-all-line-numbers",
+        "t,s": "jupyter-notebook:toggle-cell-output-scrolled",
+        "t,c": "jupyter-notebook:toggle-cell-output-collapsed",
+        "h,1": "jupyter-notebook:change-cell-to-heading-1",
+        "h,2": "jupyter-notebook:change-cell-to-heading-2",
+        "h,3": "jupyter-notebook:change-cell-to-heading-3",
+        "h,4": "jupyter-notebook:change-cell-to-heading-4",
+        "h,5": "jupyter-notebook:change-cell-to-heading-5",
+        "h,6": "jupyter-notebook:change-cell-to-heading-6",
+        "d,o": "jupyter-notebook:clear-cell-output",
+        "a,p": "jupyter-notebook:paste-cell-attachments",
+        "a,y": "jupyter-notebook:copy-cell-attachments",
+        "y,a": "jupyter-notebook:copy-cell-attachments",
+        "ctrl-shift--": "jupyter-notebook:split-cell-at-cursor",
+        "a,d": "jupyter-notebook:cut-cell-attachments",
+        "d,a": "jupyter-notebook:cut-cell-attachments",
+        "ctrl-shift-p": "jupyter-notebook:show-command-palette"
+      },
+      "unbind": [
+        "ctrl-enter",
+        "alt-enter",
+        "v",
+        "shift-v",
+        "b",
+        "y",
+        "shift-o",
+        "o",
+        "r",
+        "m",
+        "z",
+        "space",
+        "shift-space",
+        "shift-m",
+        "s",
+        "shift",
+        "l",
+        "shift-l",
+        "h",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "a"
+      ]
+    }
+  },
+  "Notebook": {
+    "Header": true,
+    "Toolbar": true
+  }
+}

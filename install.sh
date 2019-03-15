@@ -237,6 +237,10 @@ cd contrib/ranger_colortheme && cat ranger_colortheme_custom.py \
   > $HOME/.config/ranger/colorschemes/custom.py
 cd ../..
 
+# Jupyter notebook config
+cd contrib/jupyter-nbconfig && sh ./setup.sh
+cd ../..
+
 # Ranger scope.sh
 # chmod +x ~/.config/ranger/scope.sh
 
