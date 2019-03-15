@@ -2343,6 +2343,11 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'sbdchd/neoformat'
     #+END_SRC
+    
+    Fugitive
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'tpope/vim-fugitive'
+    #+END_SRC
 
     Help visually display indent levels
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
