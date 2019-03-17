@@ -247,7 +247,7 @@ cd ../..
 ##################################################################
 # minimal install ends here
 ##################################################################
-if [[ $MINIMAL_INSTALL ]]; then
+if $MINIMAL_INSTALL; then
   box_warn "Warning: This is a minimal install, skipping extra setups."
   echo "+ Finishing up"
   finish_up
