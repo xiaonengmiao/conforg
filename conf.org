@@ -3785,6 +3785,15 @@
 
     To update cache, run =tldr -u=.
 
+*** FZF
+    =fzf= fuzzy completion and keybindings.
+    #+BEGIN_SRC sh :tangle (if (file-exists-p "/usr/share/fzf/completion.zsh") "~/.zshrc" "no")
+      source  /usr/share/fzf/completion.zsh
+    #+END_SRC
+    
+    #+BEGIN_SRC sh :tangle (if (file-exists-p "/usr/share/fzf/key-bindings.zsh") "~/.zshrc" "no")
+      source  /usr/share/fzf/key-bindings.zsh
+    #+END_SRC
 *** End of zshrc
     Speed up zsh compinit by only checking cache once a day.
     On slow systems, checking the cached =.zcompdump= file to see if it must be
