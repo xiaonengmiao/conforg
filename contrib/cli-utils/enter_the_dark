@@ -18,6 +18,7 @@ sed -i "s/solarized-light/solarized-dark/" $HOME/.emacs.d/init.el
 # TODO: xresources (mpd, ranger)
 
 emacsclient --eval "(load-theme 'solarized-dark t)"
+emacsclient --eval "(powerline-reset)"
 
 kitty @ --to unix:/tmp/mykitty set-colors --all --configured $HOME/.config/kitty/solarized-dark.conf
 
