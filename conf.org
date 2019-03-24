@@ -768,7 +768,7 @@
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
        (setq org-agenda-sorting-strategy
 	 (quote
-	  ((agenda deadline-up priority-down)
+	  ((agenda time-up deadline-up priority-down)
 	   (todo priority-down category-keep)
 	   (tags priority-down category-keep)
 	   (search category-keep))))
