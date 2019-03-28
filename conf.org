@@ -2166,6 +2166,8 @@
        dynamic_background_opacity no
 
        dim_opacity 0.75
+
+       hide_window_decorations yes
      #+END_SRC
 *** Advanced
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
@@ -2175,7 +2177,6 @@
 *** OS specific tweaks
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
       macos_titlebar_color system
-      macos_hide_titlebar yes
       macos_option_as_alt yes
       macos_hide_from_tasks no
       macos_quit_when_last_window_closed yes
@@ -2183,10 +2184,8 @@
       macos_thicken_font 0
       macos_traditional_fullscreen no
       macos_custom_beam_cursor no
-
-      x11_hide_window_decorations yes
     #+END_SRC
-*** OS specific tweaks
+*** Keybindings
     For a list of key names, see: GLFW keys
     <http://www.glfw.org/docs/latest/group__keys.html>. The name to use
     is the part after the GLFW_KEY_ prefix. For a list of modifier
