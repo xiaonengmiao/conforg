@@ -3445,7 +3445,10 @@
       !! Set a default font and font size as below:
       !! *.font: Monospace-11;
     #+END_SRC
-
+*** XTerm
+    #+BEGIN_SRC conf :tangle "~/.Xresources"
+    XTerm*faceName: DejaVu Sans Mono for Powerline 
+    #+END_SRC
 *** URXVT
     Scrolling control
     #+BEGIN_SRC conf :tangle "~/.Xresources"
