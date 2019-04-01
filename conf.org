@@ -1487,9 +1487,10 @@
       bindsym $mod+a exec emacsclient -n -c --eval '(find-file "~/Agenda/mylife.org")'
     #+END_SRC
 
-    Start emacsclient
+    Start emacsclient/capture tasks
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+Escape exec --no-startup-id emacsclient -c -n
+      bindsym $mod+Shift+Escape exec emacsclient -c -n --eval '(org-capture nil "t")'
     #+END_SRC
 
     Start chromium. TIP: install =background process= plugin
