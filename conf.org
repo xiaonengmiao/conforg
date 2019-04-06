@@ -633,6 +633,17 @@
        (add-hook 'org-mode-hook
          (lambda () (local-set-key (kbd "C-c p") 'org-toggle-latex-fragment)))
     #+END_SRC
+    
+    Enable previewing =tikz= images, which requires =imagemagick=.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+      (add-to-list 'org-latex-packages-alist '("" "tikz" t))
+
+      (eval-after-load "preview"
+	'(add-to-list 'preview-default-preamble
+		      "\\PreviewEnvironment{tikzpicture}" t))
+
+      (setq org-latex-create-formula-image-program 'imagemagick)
+    #+END_SRC
 
     Save link with =C-c l=, (insert link with =C-c C-l=, follow link with =C-c C-o=)
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
@@ -687,7 +698,7 @@
            ))
      #+END_SRC
 
-**** Writing layout
+**** Writing Layout
      A layout for writing long articles (inspired by Scrivener).
 
      First define a function that helps with the layout. It enlarges current
