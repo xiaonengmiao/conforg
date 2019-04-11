@@ -1505,11 +1505,12 @@
       bindsym $mod+Shift+Escape exec emacsclient -n -c --eval '(progn (org-capture nil "t") (delete-other-windows))'
     #+END_SRC
 
-    Start chromium. TIP: install =background process= plugin
+    Start browsers. TIP: install =background process= plugin
     (https://chrome.google.com/webstore/detail/background-process/)
     so that chromium process is kept alive after closing the last tab.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym $mod+BackSpace exec chromium
+      bindsym $mod+BackSpace exec firefox
+      bindsym $mod+Shift+BackSpace exec chromium
     #+END_SRC
 
     Kill focused window
