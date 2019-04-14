@@ -1293,6 +1293,10 @@
 	"0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
       ];
 
+      # use the old X Render backend
+      # (the OpenGL backend has been buggy)
+      # and the performance hit can be minimized by not using blur
+      backend = "xrender"
     #+END_SRC
 
 *** Dockd
