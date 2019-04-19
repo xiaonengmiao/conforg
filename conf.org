@@ -1696,10 +1696,12 @@
     #+END_SRC
 
     Brightness control via =xbacklight=. Also set the brightness level on startup.
+    NOTE: brightness control is now handled by =acpid= on a system-specific basis,
+    since modesetting driver does not work with =xbacklight=.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
-      bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
-      exec --no-startup-id xbacklight -set 50
+      # bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+      # bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+      # exec --no-startup-id xbacklight -set 50
     #+END_SRC
 
     Note: =XF86WLAN=, =XF86Bluetooth= work without extra setting
