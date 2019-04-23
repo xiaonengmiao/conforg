@@ -318,6 +318,12 @@ if $PASSWORD_STORE; then
     echo "+ Setting up mu4e"
   fi
   pass show WXYZG/Email-mu4erc > $HOME/.emacs.d/mu4e-config.el 2>>$LOGFILE
+
+  # org-caldav
+  if [[ $VERBOSE != 0 ]]; then
+    echo "+ Setting up org-caldav"
+  fi
+  pass show WXYZG/GTD-org-caldav > $HOME/.emacs.d/org-caldav-config.el 2>>$LOGFILE
 fi
 
 # emojisel

@@ -683,6 +683,11 @@
       (setq org-agenda-skip-function 'my-org-agenda-skip-habits)
     #+END_SRC
 
+**** CalDAV Integration
+    Load =org-caldav= configs.
+    #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
+     (load-file "~/.emacs.d/org-caldav-config.el")
+    #+END_SRC
 **** References
      For org-ref. Load the module and set keybindings or inserting citations and
      cross-references.
