@@ -1294,6 +1294,10 @@
 	"0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
       ];
 
+      # use the old X Render backend
+      # (the OpenGL backend has been buggy)
+      # and the performance hit can be minimized by not using blur
+      backend = "xrender"
     #+END_SRC
 
 *** Dockd
@@ -1506,11 +1510,12 @@
       bindsym $mod+Shift+Escape exec emacsclient -n -c --eval '(progn (org-capture nil "t") (delete-other-windows))'
     #+END_SRC
 
-    Start chromium. TIP: install =background process= plugin
+    Start browsers. TIP: install =background process= plugin
     (https://chrome.google.com/webstore/detail/background-process/)
     so that chromium process is kept alive after closing the last tab.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym $mod+BackSpace exec chromium
+      bindsym $mod+BackSpace exec firefox
+      bindsym $mod+Shift+BackSpace exec chromium
     #+END_SRC
 
     Kill focused window
@@ -1692,10 +1697,12 @@
     #+END_SRC
 
     Brightness control via =xbacklight=. Also set the brightness level on startup.
+    NOTE: brightness control is now handled by =acpid= on a system-specific basis,
+    since modesetting driver does not work with =xbacklight=.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
-      bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
-      exec --no-startup-id xbacklight -set 50
+      # bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+      # bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+      # exec --no-startup-id xbacklight -set 50
     #+END_SRC
 
     Note: =XF86WLAN=, =XF86Bluetooth= work without extra setting
