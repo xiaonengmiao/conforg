@@ -380,8 +380,9 @@
           nlinum
           nlinum-relative
           org-bullets
+          org-caldav
           org-plus-contrib
-	  org-pomodoro
+          org-pomodoro
           org-ref
           org2blog
           powerline
