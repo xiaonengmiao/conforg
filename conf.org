@@ -1227,6 +1227,11 @@
    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
      exec_always --no-startup-id exec <<conforg-dir>>/contrib/i3-renameworkspaces/i3-renameworkspaces.pl
    #+END_SRC
+   
+   Syncthing
+   #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
+     exec_always --no-startup-id "XDG_CURRENT_DESKTOP=GNOME syncthing-gtk -m"
+   #+END_SRC
 
    Turn off X screen saver.
    Power saver (Energy Star): turn off screen after 20min idle
@@ -3796,6 +3801,16 @@
     Force tmux to accept UTF-8
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias tmux='tmux -u'
+    #+END_SRC
+    
+    Other tmux aliases
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      alias ta='tmux attach -t'
+      alias tad='tmux attach -d -t'
+      alias ts='tmux new-session -s'
+      alias tl='tmux list-sessions'
+      alias tksv='tmux kill-server'
+      alias tkss='tmux kill-session -t'
     #+END_SRC
 
     A simple calculator. Alias =equal sign= disabled due to incompatibility with
