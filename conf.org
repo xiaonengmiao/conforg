@@ -3207,7 +3207,7 @@
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
      set-option -g status on
      set -g status-position bottom
-     set -g status-attr dim
+     set -g status-style "dim"
      set -g status-interval 2
      set -g status-justify left
    #+END_SRC
@@ -3234,8 +3234,8 @@
 
    Bold messages
    #+BEGIN_SRC conf :tangle ~/.tmux.conf
-     set -g message-attr bold
-     setw -g mode-attr bold
+     set -g message-style "bold"
+     setw -g mode-style "bold"
    #+END_SRC
 
 *** Key Bindings
