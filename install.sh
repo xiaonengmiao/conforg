@@ -177,7 +177,6 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.tmux/plugins;
 
   mkdir -p $HOME/.task;
-  mkdir -p $HOME/Contacts;
 )
 
 box_out "Parsing conf.org.."
@@ -252,6 +251,8 @@ if $MINIMAL_INSTALL; then
   echo "+ Finishing up"
   finish_up
 fi
+
+mkdir -p $HOME/Contacts;
 
 # update X server database
 $SED_BIN -i "/Xft.dpi/c\Xft.dpi:\ $DPI" $HOME/.Xresources  
