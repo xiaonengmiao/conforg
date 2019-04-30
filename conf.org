@@ -3787,15 +3787,12 @@
       alias vim='nvim'
     #+END_SRC
 
-    Fcitx input method (IME) for emacs
-    #+BEGIN_SRC sh :tangle "~/.zshrc"
-      alias emacs='LC_CTYPE=zh_CN.UTF-8 emacs'
-    #+END_SRC
-
     Use Bash as the default shell for Emacs, due to compatibility issues for certain
     plugins.
+    Also, use =Fcitx= input method (IME) for emacs
     #+BEGIN_SRC sh :tangle "~/.zshrc"
-      alias emacs='SHELL=/bin/bash emacs'
+      alias emacs='SHELL=/bin/bash LC_CTYPE=zh_CN.UTF-8 emacs'
+      alias ec='emacsclient -n -c'
     #+END_SRC
 
     Force tmux to accept UTF-8
