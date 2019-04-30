@@ -1243,7 +1243,7 @@
    "Dropdown" terminal for =i3=.
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      # "dropdown" terminal
-     exec_always --no-startup-id kitty -1 --name dropdown &
+     exec_always --no-startup-id kitty --name dropdown &
      bindsym $mod+grave [instance="dropdown"] scratchpad show, move position center
      for_window [instance="dropdown"] floating enable, resize set 60 ppt 60 ppt, \
 	 move scratchpad
