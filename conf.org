@@ -730,11 +730,11 @@
            (rename-buffer (org-get-heading) t)))
      #+END_SRC
 
-     Bind this to Ctrl+Shift+Enter
+     Bind this to Shift+Enter
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
        (with-eval-after-load 'org
          (define-key org-mode-map
-           [C-S-return] 'org-tree-open-in-new-window))
+           [S-return] 'org-tree-open-in-new-window))
      #+END_SRC
 
      This function opens content under the current header but does not move the
@@ -751,11 +751,11 @@
            (other-window 1)))
      #+END_SRC
 
-     Bind this to Shift+Enter
+     Not bound. 
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
-       (with-eval-after-load 'org
-         (define-key org-mode-map
-           [S-return] 'org-tree-open-in-new-window-cursor-stays))
+       ;; (with-eval-after-load 'org
+       ;;   (define-key org-mode-map
+       ;;     [S-return] 'org-tree-open-in-new-window-cursor-stays))
      #+END_SRC
 
 **** Export
