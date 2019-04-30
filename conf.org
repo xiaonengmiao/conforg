@@ -1239,6 +1239,15 @@
      exec_always --no-startup-id xset s off
      exec_always --no-startup-id xset dpms 0 0 1200
    #+END_SRC
+   
+   "Dropdown" terminal for =i3=.
+   #+BEGIN_SRC conf :tangle ~/.config/i3/config
+     # "dropdown" terminal
+     exec_always --no-startup-id kitty -1 --name dropdown &
+     bindsym $mod+grave [instance="dropdown"] scratchpad show, move position center
+     for_window [instance="dropdown"] floating enable, resize set 60 ppt 60 ppt, \
+	 move scratchpad
+   #+END_SRC
 
    Float some windows for better compatibility
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
