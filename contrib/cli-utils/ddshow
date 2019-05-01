@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ddcount=$(ps aux | grep dropdown | wc -l)
+echo $ddcount
+
+if (( $ddcount > 1 )); then
+  echo "Yay"
+else
+  echo "Nah"
+  i3 "exec --no-startup-id kitty --name dropdown &"
+fi
+
+i3 "[instance="dropdown"] scratchpad show, move position center"
