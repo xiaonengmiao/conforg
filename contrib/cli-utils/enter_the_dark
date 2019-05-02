@@ -21,6 +21,7 @@ emacsclient --eval "(load-theme 'solarized-dark t)"
 emacsclient --eval "(powerline-reset)"
 
 kitty @ --to unix:/tmp/mykitty set-colors --all --configured $HOME/.config/kitty/solarized-dark.conf
+kitty @ --to unix:/tmp/ddkitty set-colors --all --configured $HOME/.config/kitty/solarized-dark.conf
 
 # if running interactively, switch running shell to dark mode
 if [[ $- == *i* ]]; then

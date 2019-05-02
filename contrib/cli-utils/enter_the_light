@@ -18,6 +18,7 @@ emacsclient --eval "(load-theme 'solarized-light t)"
 emacsclient --eval "(powerline-reset)"
 
 kitty @ --to unix:/tmp/mykitty set-colors --all --configured $HOME/.config/kitty/solarized-light.conf
+kitty @ --to unix:/tmp/ddkitty set-colors --all --configured $HOME/.config/kitty/solarized-light.conf
 
 # if running interactively, switch running shell to light mode
 if [[ $- == *i* ]]; then

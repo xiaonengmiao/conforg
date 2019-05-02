@@ -7,5 +7,5 @@ if (( $ddcount > 1 )); then
   echo "Yay"
 else
   echo "Nah"
-  i3 "exec --no-startup-id kitty --name dropdown &"
+  i3 "exec --no-startup-id kitty --listen-on unix:/tmp/ddkitty --name dropdown &"
 fi
