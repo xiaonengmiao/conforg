@@ -1243,7 +1243,7 @@
    "Dropdown" terminal for =i3=.
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      # "dropdown" terminal
-     exec_always --no-startup-id kitty --name dropdown &
+     exec_always --no-startup-id ~/cli-utils/ddstart &
      bindsym $mod+grave exec ~/cli-utils/ddshow
      for_window [instance="dropdown"] floating enable, resize set 60 ppt 60 ppt, \
 	 move scratchpad
@@ -1875,6 +1875,7 @@
     Wallpapers set from =archlinux-wallpaper=.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       exec_always --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
+      bindsym $mod+Shift+w exec ~/cli-utils/refresh_wallpaper
     #+END_SRC
 ** i3blocks
    =i3blocks= is scripted with block-wise callback controls.
