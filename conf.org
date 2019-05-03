@@ -1937,6 +1937,11 @@
      label=📅
      interval=30
 
+     [record]
+     command=cat /tmp/recordingicon
+     interval=once
+     signal=9
+
      [volume]
      interval=30
      signal=10

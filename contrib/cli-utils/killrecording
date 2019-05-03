@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Credit: https://github.com/LukeSmithxyz/voidrice
+# GPL-3.0
+
+kill -9 "$(cat /tmp/recordingpid)"
+
+# Update i3bar.
+echo "" > /tmp/recordingicon
+pkill -RTMIN+9 i3blocks
