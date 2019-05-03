@@ -1254,6 +1254,11 @@
      for_window [class="Xfce4-notifyd"] floating enable
      for_window [class="Lazarus"] floating enable
    #+END_SRC
+   
+   Disable screen saver (which is buggy on my laptop)
+   #+BEGIN_SRC conf :tangle ~/.config/i3/config
+     exec_always "xset s off"
+   #+END_SRC
 *** Bluetooth Manager
     Start Bluetooth manager if installed
     #+BEGIN_SRC conf :tangle (if (file-exists-p "/usr/bin/blueman-applet") "~/.config/i3/config" "no")
