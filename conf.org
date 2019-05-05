@@ -1244,7 +1244,7 @@
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      # "dropdown" terminal
      exec_always --no-startup-id ~/cli-utils/ddstart &
-     bindsym $mod+grave exec ~/cli-utils/ddshow
+     bindsym $mod+grave exec --no-startup-id ~/cli-utils/ddshow
      for_window [instance="dropdown"] floating enable, resize set 60 ppt 60 ppt, \
 	 move scratchpad
    #+END_SRC
@@ -1508,25 +1508,25 @@
 
     Start vim-anywhere
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym $mod+Shift+Return exec /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
-      bindcode $mod+Shift+$KP_Return exec /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
+      bindsym $mod+Shift+Return exec --no-startup-id /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
+      bindcode $mod+Shift+$KP_Return exec --no-startup-id /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
     #+END_SRC
     
     Check email
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym $mod+m exec "emacsclient -n -c --eval '(mu4e)'"
+      bindsym $mod+m exec --no-startup-id "emacsclient -n -c --eval '(mu4e)'"
     #+END_SRC
     
     Check agenda/todo list
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      bindsym $mod+t exec "emacsclient -n -c --eval '(org-agenda-list)'"
-      bindsym $mod+a exec emacsclient -n -c --eval '(find-file "~/Agenda/mylife.org")'
+      bindsym $mod+t exec --no-startup-id "emacsclient -n -c --eval '(org-agenda-list)'"
+      bindsym $mod+a exec --no-startup-id emacsclient -n -c --eval '(find-file "~/Agenda/mylife.org")'
     #+END_SRC
 
     Start emacsclient/capture tasks
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+Escape exec --no-startup-id emacsclient -c -n
-      bindsym $mod+Shift+Escape exec emacsclient -n -c --eval '(progn (org-capture nil "t") (delete-other-windows))'
+      bindsym $mod+Shift+Escape exec --no-startup-id emacsclient -n -c --eval '(progn (org-capture nil "t") (delete-other-windows))'
     #+END_SRC
 
     Start browsers. TIP: install =background process= plugin
@@ -1875,7 +1875,7 @@
     Wallpapers set from =archlinux-wallpaper=.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       exec_always --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
-      bindsym $mod+Shift+w exec ~/cli-utils/refresh_wallpaper
+      bindsym $mod+Shift+w exec --no-startup-id ~/cli-utils/refresh_wallpaper
     #+END_SRC
 ** i3blocks
    =i3blocks= is scripted with block-wise callback controls.
