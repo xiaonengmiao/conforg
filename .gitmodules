@@ -31,3 +31,6 @@
 [submodule "contrib/find-cursor"]
 	path = contrib/find-cursor
 	url = https://github.com/Carpetsmoker/find-cursor.git
+[submodule "contrib/i3-wpd"]
+	path = contrib/i3-wpd
+	url = https://github.com/jomiq/i3-wpd.git
