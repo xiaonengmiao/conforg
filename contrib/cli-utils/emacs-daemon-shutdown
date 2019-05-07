@@ -8,4 +8,4 @@ emacsclient -e '(save-buffers-kill-emacs)' &
 # kill it forcefully after 1s
 # cf. https://emacs.stackexchange.com/questions/36000/how-to-gracefully-kill-clientless-daemon-from-commandline
 sleep 1
-killall emacs
+killall -9 emacs
