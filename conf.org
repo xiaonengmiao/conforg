@@ -1535,6 +1535,9 @@
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+BackSpace exec firefox
       bindsym $mod+Shift+BackSpace exec chromium
+
+      bindsym $mod+Delete exec firefox
+      bindsym $mod+Shift+Delete exec chromium
     #+END_SRC
 
     Kill focused window
