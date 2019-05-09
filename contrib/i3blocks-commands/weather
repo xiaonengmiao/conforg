@@ -11,4 +11,4 @@ esac
 printf "%s" "$(sed '16q;d' $HOME/.weatherreport | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/☔ /g" | tr -d '\n')"
 
 # Min/max temps of tomorrow
-sed '13q;d' $HOME/.weatherreport | grep -o "\\([^0-9]-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " ❄️",$1 "°C","🌞",$2 "°C"}'
+sed '13q;d' $HOME/.weatherreport_plain | grep -o "\\([^0-9]-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " ❄️",$1 "°C","🌞",$2 "°C"}'
