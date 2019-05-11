@@ -80,89 +80,89 @@
    I use =solarized= light/dark color schemes system-wide. Setting color values
    in one place ensures consistency.
    Read more at https://ethanschoonover.com/solarized/.
-   
+
    NOTE: by change those base colors, any color scheme can be implemented easily
    while preserving a consistent universal look.
-   
+
    Content/background monotones:
 
    #+NAME: conforg-colorhex-base03
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #002b36
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-base02
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #073642
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-base01
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #586e75
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-base00
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #657b83
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-base0
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #839496
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-base1
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #93a1a1
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-base2
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #eee8d5
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-base3
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #fdf6e3
    #+END_SRC
-   
+
    Accent colors:
-   
+
    #+NAME: conforg-colorhex-yellow
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #b58900
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-orange
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #cb4b16
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-red
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #dc322f
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-magenta
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #d33682
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-violet
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #6c71c4
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-blue
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #268bd2
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-cyan
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #2aa198
    #+END_SRC
-   
+
    #+NAME: conforg-colorhex-green
    #+BEGIN_SRC conf :results output :exports none :tangle no
      #859900
@@ -636,7 +636,7 @@
        (add-hook 'org-mode-hook
          (lambda () (local-set-key (kbd "C-c p") 'org-toggle-latex-fragment)))
     #+END_SRC
-    
+
     Enable previewing =tikz= images, which requires =imagemagick=.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (add-to-list 'org-latex-packages-alist '("" "tikz" t))
@@ -670,7 +670,7 @@
 		     )
 		   ))
     #+END_SRC
-    
+
     Show only =TODO=, =NEXT=, and =WAITING= types of entries.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (require 'org-habit)
@@ -753,7 +753,7 @@
            (other-window 1)))
      #+END_SRC
 
-     Not bound. 
+     Not bound.
      #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
        ;; (with-eval-after-load 'org
        ;;   (define-key org-mode-map
@@ -827,7 +827,7 @@
       (setq appt-display-interval appt-message-warning-time) ; Disable multiple reminders
       (setq appt-display-mode-line nil)
     #+END_SRC
-    
+
     Use appointment data from =org-mode=.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (defun my-org-agenda-to-appt ()
@@ -835,17 +835,17 @@
 	(setq appt-time-msg-list nil)
 	(org-agenda-to-appt))
     #+END_SRC
-    
+
     Update alarms when starting =Emacs=.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (my-org-agenda-to-appt)
     #+END_SRC
-    
+
     Update alarms everyday at 12:05am.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (run-at-time "12:05am" (* 24 3600) 'my-org-agenda-to-appt)
     #+END_SRC
-    
+
     Update alarms when =mylife.org= is saved.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (add-hook 'after-save-hook
@@ -853,12 +853,12 @@
 		   (if (string= (buffer-file-name) (concat (getenv "HOME") "/Agenda/mylife.org"))
 		       (my-org-agenda-to-appt))))
     #+END_SRC
-    
+
     Update alarms each time agenda opened.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (add-hook 'org-finalize-agenda-hook 'my-org-agenda-to-appt)
     #+END_SRC
-    
+
     Display appointments as a window manager notification.
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (setq appt-disp-window-function 'my-appt-display)
@@ -1229,7 +1229,12 @@
    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
      exec_always --no-startup-id <<conforg-dir>>/contrib/i3-renameworkspaces/i3-renameworkspaces.pl
    #+END_SRC
-   
+
+   Dynamic wallpaper
+   #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
+     exec_always --no-startup-id <<conforg-dir>>/contrib/i3-wpd/i3wpd.py "--bg-fill --bg black" <<conforg-dir>>/contrib/i3-wpd/solar .jpg
+   #+END_SRC
+
    Syncthing
    #+BEGIN_SRC conf :noweb yes :tangle ~/.config/i3/config
      exec_always --no-startup-id "XDG_CURRENT_DESKTOP=GNOME syncthing-gtk -m"
@@ -1241,7 +1246,7 @@
      exec_always --no-startup-id xset s off
      exec_always --no-startup-id xset dpms 0 0 1200
    #+END_SRC
-   
+
    "Dropdown" terminal for =i3=.
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      # "dropdown" terminal
@@ -1513,12 +1518,12 @@
       bindsym $mod+Shift+Return exec --no-startup-id /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
       bindcode $mod+Shift+$KP_Return exec --no-startup-id /home/xywei/.conforg/contrib/vim-anywhere/vim-anywhere nvim kitty
     #+END_SRC
-    
+
     Check email
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+m exec --no-startup-id "emacsclient -n -c --eval '(mu4e)'"
     #+END_SRC
-    
+
     Check agenda/todo list
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bindsym $mod+t exec --no-startup-id "emacsclient -n -c --eval '(org-agenda-list)'"
@@ -1755,13 +1760,13 @@
     Start the =protonmail-bridge= at login. NOTE: It uses =pass= to store login
     session information; as a result, 2FA becomes useless if your password store
     (not just the password itself) is compromised.
-    
+
     (Protonmail Desktop Bridge can be installed from =AUR=.)
-    
+
     #+BEGIN_SRC conf :tangle (if (file-exists-p "/usr/bin/protonmail-bridge") "~/.config/i3/config" "no")
       exec_always --no-startup-id "pgrep protonmail || PASSWORD_STORE_DIR=$HOME/.config/protonmail-pass protonmail-bridge --no-window"
     #+END_SRC
-    
+
     Use a different password store to remedy 2FA issue & keep main password
     store tidy.
     #+BEGIN_SRC sh :tangle "~/.zshrc"
@@ -1818,7 +1823,7 @@
 	  modifier       None
       }
     #+END_SRC
-    
+
     An alternative bar setup that is better for smaller screens
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
       bar {
@@ -1856,8 +1861,8 @@
 	  modifier       None
       }
     #+END_SRC
-    
-    
+
+
 
 *** Multi-head
     =autorandr= is used to handle different setups.
@@ -1879,7 +1884,7 @@
 *** Wallpaper
     Wallpapers set from =archlinux-wallpaper=.
     #+BEGIN_SRC conf :tangle ~/.config/i3/config
-      exec_always --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
+      # exec_always --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
       bindsym $mod+Shift+w exec --no-startup-id ~/cli-utils/refresh_wallpaper
     #+END_SRC
 ** i3blocks
@@ -1934,7 +1939,7 @@
 
      [weather]
      interval=7200
-     
+
      [pomodoro]
      interval=1
 
@@ -1996,7 +2001,7 @@
 *** Remote Control
     Allow remote control.
     #+BEGIN_SRC conf :tangle ~/.config/kitty/kitty.conf
-      allow_remote_control yes 
+      allow_remote_control yes
     #+END_SRC
 *** Scrollback
     To reverse scroll direction, set a negative multiplier.
@@ -2158,7 +2163,7 @@
        color7                  <<conforg-colorhex-base2>>
        color15                 <<conforg-colorhex-base3>>
      #+END_SRC
-     
+
      #+BEGIN_SRC conf :noweb yes :tangle ~/.config/kitty/solarized-dark.conf
        <<conforg-kitty-colors-dark>>
      #+END_SRC
@@ -2204,7 +2209,7 @@
        color7                  <<conforg-colorhex-base2>>
        color15                 <<conforg-colorhex-base3>>
      #+END_SRC
-     
+
      #+BEGIN_SRC conf :noweb yes :tangle ~/.config/kitty/solarized-light.conf
        <<conforg-kitty-colors-light>>
      #+END_SRC
@@ -2212,7 +2217,7 @@
      Write the default colors to =kitty.conf=, together some related parameters.
      #+BEGIN_SRC conf :noweb yes :tangle ~/.config/kitty/kitty.conf
        <<conforg-kitty-colors-light>>
-       
+
        background_opacity         1.0
        dynamic_background_opacity no
 
@@ -2404,7 +2409,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'sbdchd/neoformat'
     #+END_SRC
-    
+
     Fugitive, with GitHub/GitLab support of =:Gbrowse=.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'tpope/vim-fugitive'
@@ -2434,7 +2439,7 @@
       endfunction
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     #+END_SRC
-    
+
     =vim-slime=.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'jpalardy/vim-slime'
@@ -2450,7 +2455,7 @@
     #+BEGIN_SRC conf :tangle no
       Plug 'ctrlpvim/ctrlp.vim'
     #+END_SRC
-    
+
     FZF.vim: use a specific version of =fzf=.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -2544,7 +2549,7 @@
 
 **** FZF.vim
      A bundled version of =fzf= is used for =fzf.vim=.
-     
+
      Configure it to be =CtrlP= replacement.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let g:fzf_action = {
@@ -2569,7 +2574,7 @@
       nnoremap <silent> <leader>r :History<CR>
       nnoremap <silent> <leader>/ :Rg
     #+END_SRC
-    
+
     Use the =:Rg= integration
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       nnoremap <silent> <leader>s :call SearchWordWithRg()<CR>
@@ -2591,7 +2596,7 @@
 	  execute 'Rg' selection
       endfunction
     #+END_SRC
-    
+
     Also, enhance built-in =c-x c-f= completion in the insert mode.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -2774,7 +2779,7 @@
    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
      call neomake#configure#automake('nrwi', 500)
    #+END_SRC
-   
+
     Additional makers for a =python= project, use =:Neomake tag= to make tags
     for the project.
    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
@@ -2872,7 +2877,7 @@
     A plugin to have =Emacs SLIME= in vim.
     Note that all the executions go through the paste file. Be cautious if it is
     a shared server (in that case maybe use a file that only you can read).
-    
+
     The default setup is to run an =ipython= console on the right pane.
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       let g:slime_target = "tmux"
@@ -2902,7 +2907,7 @@
 	set undofile
       endif
     #+END_SRC
-    
+
 *** Color Scheme
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       " For true colors in tmux https://github.com/tmux/tmux/issues/1246
@@ -2999,7 +3004,7 @@
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
       set gcr=n:blinkon0
     #+END_SRC
-    
+
 ** NewsBoat
 *** Front-matter
     #+BEGIN_SRC conf :tangle ~/.newsboat/config
@@ -3419,12 +3424,12 @@
 *** Time-based Color Schemes
     The following =systemd= timer switches color scheme twice everyday based on
     machine time.
-    
+
     #+BEGIN_SRC conf :tangle ~/.config/systemd/user/night-and-day.service
       # DO NOT EDIT
       # This file is generated by conf.org from xywei/conforg,
       # all changes will be overwritten.
-      
+
       [Unit]
       Description=Set the color scheme based on system time
 
@@ -3432,7 +3437,7 @@
       Type=simple
       ExecStart=%h/cli-utils/set_dynamic_colors
     #+END_SRC
-    
+
     #+BEGIN_SRC conf :tangle ~/.config/systemd/user/night-and-day.timer
       # DO NOT EDIT
       # This file is generated by conf.org from xywei/conforg,
@@ -3449,12 +3454,12 @@
       [Install]
       WantedBy=timers.target
     #+END_SRC
-    
+
     To use this timer, first refresh =systemd= daemon by running
     #+BEGIN_SRC sh
     systemctl --user daemon-reload
     #+END_SRC sh
-    
+
     Then enable/start the timer
     #+BEGIN_SRC sh
     systemctl --user enable night-and-day.timer
@@ -3498,7 +3503,7 @@
     #+END_SRC
 *** XTerm
     #+BEGIN_SRC conf :tangle "~/.Xresources"
-    XTerm*faceName: DejaVu Sans Mono for Powerline 
+    XTerm*faceName: DejaVu Sans Mono for Powerline
     #+END_SRC
 *** URXVT
     Scrolling control
@@ -3795,7 +3800,7 @@
       alias la='ls -A'
       alias l='ls -CF'
     #+END_SRC
-    
+
     Display images in =kitty=
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias icat='kitty +kitten icat'
@@ -3819,7 +3824,7 @@
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias tmux='tmux -u'
     #+END_SRC
-    
+
     Other tmux aliases
     #+BEGIN_SRC sh :tangle "~/.zshrc"
       alias ta='tmux attach -t'
@@ -3884,7 +3889,7 @@
     #+BEGIN_SRC sh :tangle (if (file-exists-p "/usr/share/fzf/completion.zsh") "~/.zshrc" "no")
       source  /usr/share/fzf/completion.zsh
     #+END_SRC
-    
+
     #+BEGIN_SRC sh :tangle (if (file-exists-p "/usr/share/fzf/key-bindings.zsh") "~/.zshrc" "no")
       source  /usr/share/fzf/key-bindings.zsh
     #+END_SRC
