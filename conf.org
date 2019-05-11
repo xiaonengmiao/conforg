@@ -390,6 +390,7 @@
           powerline
           solarized-theme
           use-package
+          visual-fill-column
           yasnippet
          ) "a list of packages to ensure are installed at launch.")
     #+END_SRC
