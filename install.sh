@@ -237,6 +237,7 @@ cd contrib/ranger_colortheme && cat ranger_colortheme_custom.py \
 cd ../..
 
 # Jupyter notebook config
+# requires: jupyterlab, jupytext
 cd contrib/jupyter-nbconfig && sh ./setup.sh
 cd ../..
 
