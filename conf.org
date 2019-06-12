@@ -3621,6 +3621,12 @@
       export GPG_TTY=$(tty)
     #+END_SRC
 
+*** Better font in Java applications
+    Make Java apps follw the Gtk look and feel.
+    #+BEGIN_SRC sh :tangle "~/.zshrc"
+      export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+    #+END_SRC
+
 *** Bash insulter
     Just to add some fun..
     #+BEGIN_SRC sh :tangle "~/.zshrc"
