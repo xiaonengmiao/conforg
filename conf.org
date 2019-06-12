@@ -3627,6 +3627,11 @@
       export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
     #+END_SRC
 
+    Let =lightdm= pick up the settings as well.
+    #+BEGIN_SRC sh :tangle "~/.xprofile"
+      export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+    #+END_SRC
+
 *** Bash insulter
     Just to add some fun..
     #+BEGIN_SRC sh :tangle "~/.zshrc"
