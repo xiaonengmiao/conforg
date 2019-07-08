@@ -10,4 +10,4 @@ else
   i3 "exec --no-startup-id kitty --listen-on unix:/tmp/ddkitty --name dropdown &"
 fi
 
-i3 "[instance="dropdown"] scratchpad show, move position center"
+i3 "[instance="dropdown"] scratchpad show, resize set 60 ppt 60 ppt, move position center"
