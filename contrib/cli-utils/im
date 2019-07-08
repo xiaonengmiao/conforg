@@ -10,3 +10,7 @@ tmux send-keys "signal-desktop --start-in-tray" C-m
 tmux new-window -t $SESSION:2 -n 'Riot'
 tmux select-window -t $SESSION:2
 tmux send-keys "riot-desktop --hidden" C-m
+
+tmux new-window -t $SESSION:3 -n 'Telegram'
+tmux select-window -t $SESSION:3
+tmux send-keys "telegram-desktop -startintray" C-m

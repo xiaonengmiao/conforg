@@ -1864,7 +1864,6 @@
     #+END_SRC
 
 
-
 *** Multi-head
     =autorandr= is used to handle different setups.
     On startup, detect and set the output profile.
