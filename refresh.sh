@@ -20,8 +20,8 @@ i3-msg restart
 sleep 1
 
 # Reload dunst
-# Assuming i3 config has: exec_always --no-startup-id dunst
 killall dunst
+i3-msg "exec --no-startup-id dunst"
 notify-send -t 1500 -a "Conforg" "Configs refreshed, reloading stuff.. 😎" "Things that may need manual setup: TPM, vim-plug, zkbd."
 
 # Reload nextcloud

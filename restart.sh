@@ -11,8 +11,8 @@ sleep 1
 NOTI_TIMEOUT=1000
 
 # Reload dunst
-# Assuming i3 config has: exec_always --no-startup-id dunst
 killall dunst
+i3-msg "exec --no-startup-id dunst"
 notify-send -t $NOTI_TIMEOUT -a "Conforg" "i3 restarted, reloading stuff.. 😎"
 
 # Reload nextcloud
