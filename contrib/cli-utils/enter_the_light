@@ -12,6 +12,8 @@ sed -i "s/^POWERLEVEL9K_COLOR_SCHEME='dark'$/POWERLEVEL9K_COLOR_SCHEME='light'/"
 
 sed -i "s/solarized-dark/solarized-light/" $HOME/.emacs.d/init.el
 
+sed -i "s/solarized-dark/solarized-light/" $HOME/.taskrc
+
 # TODO: xresources (kitty, mpd, ranger)
 
 emacsclient --eval "(load-theme 'solarized-light t)"
