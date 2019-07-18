@@ -2805,6 +2805,17 @@
       let g:deoplete#sources#jedi#show_docstring = 1
     #+END_SRC
 
+**** Markdown
+     Install the built package (no need for =yarn=).
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+    #+END_SRC
+
+    Options.
+    #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim
+      let g:mkdp_browser = 'qutebrowser'
+    #+END_SRC
+
 *** Key Maps
 **** Toggle outline using VOom
     #+BEGIN_SRC conf :tangle ~/.config/nvim/init.vim

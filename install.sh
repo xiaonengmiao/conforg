@@ -162,6 +162,9 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/kitty;
   mkdir -p $HOME/.config/zathura;
 
+  mkdir -p $HOME/.config/khard;
+  mkdir -p $HOME/.config/vdirsyncer;
+
   mkdir -p $HOME/.config/ranger;
   mkdir -p $HOME/.config/ranger/colorschemes/;
 
