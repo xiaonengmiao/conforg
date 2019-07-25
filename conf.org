@@ -1248,6 +1248,16 @@
      exec_always --no-startup-id xset dpms 0 0 1200
    #+END_SRC
 
+   Mark a window as the "master" window that can be easily
+   swapped around (even across workspace).
+   #+BEGIN_SRC conf :tangle ~/.config/i3/config
+     # Mod1 is usually Alt
+     bindsym --whole-window $mod+Mod1+button1 mark --add quickswap
+     bindsym --whole-window $mod+button1 swap container with mark quickswap; [con_mark="quickswap"] focus
+     bindsym $mod+Mod1+x mark --add quickswap
+     bindsym $mod+x swap container with mark quickswap; [con_mark="quickswap"] focus
+   #+END_SRC
+
    "Dropdown" terminal for =i3=.
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
      # "dropdown" terminal
