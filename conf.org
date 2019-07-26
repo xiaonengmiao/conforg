@@ -1251,10 +1251,10 @@
    Mark a window as the "master" window that can be easily
    swapped around (even across workspace).
    #+BEGIN_SRC conf :tangle ~/.config/i3/config
-     # Mod1 is usually Alt
-     bindsym --whole-window $mod+Mod1+button1 mark --add quickswap
-     bindsym --whole-window $mod+button1 swap container with mark quickswap; [con_mark="quickswap"] focus
-     bindsym $mod+Mod1+x mark --add quickswap
+     # Mod1 is usually Alt, and button2 is the middle button.
+     bindsym --whole-window $mod+Mod1+button2 mark --add quickswap; exec "notify-send 'QuickSwap' 'Window marked.'"
+     bindsym --whole-window $mod+button2 swap container with mark quickswap; [con_mark="quickswap"] focus
+     bindsym $mod+Mod1+x mark --add quickswap; exec "notify-send 'QuickSwap' 'Window marked.'"
      bindsym $mod+x swap container with mark quickswap; [con_mark="quickswap"] focus
    #+END_SRC
 
