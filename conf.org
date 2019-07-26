@@ -362,6 +362,19 @@
     #+END_SRC
 
 *** Package management
+    Scripts for package management.
+
+    *NOTE IF EMACS IS UPGRADED*:
+    The packages need to be re-compiled,
+    because Emacs Lisp byte code is generally not compatible
+    across major versions.
+
+    To re-compile all packages, run (by pressing =M-:=)
+    #+BEGIN_SRC lisp
+      (byte-recompile-directory package-user-dir nil 'force)
+    #+END_SRC
+    After restarting Emacs, packages should work fine.
+
 **** Package list
     Define a list of required packages. For ease of use, keep the list
     in alphabetical order.
@@ -580,7 +593,10 @@
     #+END_SRC
 *** Org-mode
 **** Display
-    Fontify code in code blocks
+    Fontify code in code blocks. (This does can cause lagging for
+    complex files like this one. A local variable list is
+    usually helpful for such use cases. See the end of this file
+    for example.)
     #+BEGIN_SRC emacs-lisp :tangle "~/.emacs.d/init.el"
       (with-eval-after-load 'org
         (setq org-src-fontify-natively t))
@@ -4122,3 +4138,6 @@
     simple script for a global, uniform looking system.
     (Further, time-dependent colorschemes).
 
+# Local Variables:
+# org-src-fontify-natively: nil
+# End:
