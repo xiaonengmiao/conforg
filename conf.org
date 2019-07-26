@@ -370,7 +370,7 @@
     across major versions.
 
     To re-compile all packages, run (by pressing =M-:=)
-    #+BEGIN_SRC lisp
+    #+BEGIN_SRC lisp :tangle no
       (byte-recompile-directory package-user-dir nil 'force)
     #+END_SRC
     After restarting Emacs, packages should work fine.
