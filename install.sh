@@ -354,10 +354,16 @@ else
 fi
 $SED_BIN -i "s@TASKWARRIOR_COLOR_THEME@$TASK_THEME@g" $HOME/.taskrc
 
-# Enable time-based color switching
+# Reload systemd user units
 systemctl --user daemon-reload
+
+# Enable time-based color switching
 systemctl --user enable night-and-day.timer
 systemctl --user start night-and-day.timer
+
+# Enable auto updates of RSS feeds
+systemctl --user enable newsboat-update.timer
+systemctl --user start newsboat-update.timer
 
 HAS_TASKD_SERVER=false
 if $PASSWORD_STORE; then
