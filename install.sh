@@ -174,7 +174,7 @@ box_out "Setting up directory structure.."
   mkdir -p $HOME/.config/systemd;
   mkdir -p $HOME/.config/systemd/user;
 
-  mkdir -p $HOME/.newsboat;
+  mkdir -p $HOME/.config/newsboat;
 
   mkdir -p $HOME/.tmux;
   mkdir -p $HOME/.tmux/plugins;
@@ -344,7 +344,7 @@ fi
 if [[ $VERBOSE != 0 ]]; then
   echo "+ Setting up newsboat"
 fi
-pass show WXYZG/RSS-newsboat-feeds >> $HOME/.newsboat/config
+pass show WXYZG/RSS-newsboat-feeds >> $HOME/.config/newsboat/config
 
 # Taskwarrior Theme
 if [[ $PLATFORM == 'mac' ]]; then
