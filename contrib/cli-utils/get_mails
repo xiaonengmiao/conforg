@@ -5,19 +5,23 @@ maildir="$HOME/Mail/"
 
 ~/cli-utils/protonmail-bridge-certupdate
 
+# Fetch emails
 pkill mbsync
 (mbsync -aV) &
 pkill -SIGRTMIN+11 i3blocks
 wait
+
+# Index maildir
+pkill -2 -u $UID mu
+sleep 1
 mu index --maildir=$maildir
 pkill -SIGRTMIN+11 i3blocks
 
-
+# Display number of unread emails
 n_unread_mails=0
 for addr in "$maildir"*"@"*
 do
   n_dir_innew_mails=$(ls $addr/Inbox/new | wc -l)
   n_unread_mails=$(($n_unread_mails+$n_dir_innew_mails))
 done
-
 notify-send "mbsync" "Maildir updated. $n_unread_mails unread emails."

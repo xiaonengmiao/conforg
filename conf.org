@@ -1932,8 +1932,8 @@
 	  }
 	  tray_output    none
 	  position       top
-	  mode           dock
-	  modifier       None
+	  mode           hide
+	  modifier       $mod
       }
     #+END_SRC
 
