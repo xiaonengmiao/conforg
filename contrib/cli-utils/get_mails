@@ -1,10 +1,23 @@
 #!/bin/sh
 
+# Maildir. Email accounts are under folers named with email addresses
+maildir="$HOME/Mail/"
+
 ~/cli-utils/protonmail-bridge-certupdate
 
 pkill mbsync
 (mbsync -aV) &
 pkill -SIGRTMIN+11 i3blocks
 wait
-mu index --maildir=$HOME/Mail
+mu index --maildir=$maildir
 pkill -SIGRTMIN+11 i3blocks
+
+
+n_unread_mails=0
+for addr in "$maildir"*"@"*
+do
+  n_dir_innew_mails=$(ls $addr/Inbox/new | wc -l)
+  n_unread_mails=$(($n_unread_mails+$n_dir_innew_mails))
+done
+
+notify-send "mbsync" "Maildir updated. $n_unread_mails unread emails."
