@@ -369,6 +369,10 @@ systemctl --user start night-and-day.timer
 systemctl --user enable newsboat-update.timer
 systemctl --user start newsboat-update.timer
 
+# Enable auto updates of RSS feeds
+systemctl --user enable sync-email.timer
+systemctl --user start sync-email.timer
+
 HAS_TASKD_SERVER=false
 if $PASSWORD_STORE; then
   # Taskwarrior sync

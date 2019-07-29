@@ -6,4 +6,5 @@ pkill mbsync
 (mbsync -aV) &
 pkill -SIGRTMIN+11 i3blocks
 wait
+mu index --maildir=$HOME/Mail
 pkill -SIGRTMIN+11 i3blocks
