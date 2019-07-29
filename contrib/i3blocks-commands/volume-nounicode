@@ -1,0 +1,16 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) setsid kitty -1 -e pulsemixer & ;;
+	2) pulsemixer --toggle-mute ;;
+	4) pulsemixer --change-volume +1 ;;
+	5) pulsemixer --change-volume -1 ;;
+	3) pgrep -x dunst >/dev/null && notify-send -a "Volume" "Instructions" "🔊 Shows volume level.<br>🔇 Muted.<br>📢 Left click to open pulsemixer.<br>🖱️ Middle click to mute.<br>🧻 Scroll to change volume level."
+esac
+
+[ "$(pulsemixer --get-mute)" = "1" ] && printf "%s %s%%\\n" "🔇" "0" && exit
+
+vol=$(pulsemixer --get-volume | awk '{print $1}')
+icon=Volume
+
+printf "%s %s%%\\n" "$icon" "$vol"

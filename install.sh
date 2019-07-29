@@ -346,6 +346,10 @@ if [[ $VERBOSE != 0 ]]; then
 fi
 pass show WXYZG/RSS-newsboat-feeds >> $HOME/.config/newsboat/config
 
+# Basic i3blocks config
+cat $HOME/.config/i3blocks/config-header > $HOME/.config/i3blocks/config
+cat $HOME/.config/i3blocks/config-nounicode >> $HOME/.config/i3blocks/config
+
 # Taskwarrior Theme
 if [[ $PLATFORM == 'mac' ]]; then
   TASK_THEME=/usr/local/share/doc/task/rc/solarized-light-256.theme

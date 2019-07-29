@@ -1,0 +1,12 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) kitty -1 -e nmtui ;;
+	3) pgrep -x dunst >/dev/null && notify-send -a "Internet" "Instructions" "🖥️ Click to open \`nmtui\`.<br>📡: WIFI -- no connection.<br>📶: WIFI -- connected, with quality value.<br>❎: Ethernet -- no ethernet.<br>🌐: Ethernet -- connected." ;;
+esac
+
+[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="WIFI disconnected "
+
+[ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "WIFI", int($3 * 100 / 70) "%" }')
+
+printf "%s %s" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down/LAN disconnected/;s/up/LAN connected/")"

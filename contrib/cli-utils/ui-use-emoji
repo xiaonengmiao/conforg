@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# An on/off switch to decide whether to use emoji in UI
+# (i3blocks, dunst etc.)
+# Useful for the days when unicode character rendering is broken.
+
+echo $CONFORG_DIR
+
+if [ "$1" = 'on' ];
+then 
+    echo "Enabling emoji" 
+    cat $HOME/.config/i3blocks/config-header > $HOME/.config/i3blocks/config
+    cat $HOME/.config/i3blocks/config-unicode >> $HOME/.config/i3blocks/config
+else 
+  if [ "$1" = 'off' ];
+  then
+    echo "Disabling emoji"
+    cat $HOME/.config/i3blocks/config-header > $HOME/.config/i3blocks/config
+    cat $HOME/.config/i3blocks/config-nounicode >> $HOME/.config/i3blocks/config
+  else
+    echo "Illegal argument: $1 (use on/off instead)"
+  fi
+fi
